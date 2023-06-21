@@ -20,9 +20,7 @@ while IFS= read -r line; do
     DESTINATIONFILES="${FILESPATH}/${MODEL}/${BUILD}"
 
     PAT_MODEL=`echo "${MODEL}" | sed 's/ /%20/'`
-    echo "${PAT_MODEL}"
-    echo "${VERSION}"
-    echo "${BUILD}"
+    echo "${PAT_MODEL} ${VERSION} ${BUILD}"
     
     PAT_LINK="${VERSION}/${BUILD}/DSM_${MODEL}_${PAT_BUILD}.pat"
     PAT_URL="https://global.synologydownload.com/download/DSM/release/${PAT_LINK}"
