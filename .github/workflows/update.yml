@@ -39,6 +39,7 @@ jobs:
       - name: Check and Push
         if: inputs.push == true
         run: |
+          git pull
           git add .
-          git commit -m "arc: update $(date +%Y-%m-%d" "%H:%M:%S)"
+          git commit -m "dsm: update $(date +%Y-%m-%d" "%H:%M:%S)"
           git push -f
