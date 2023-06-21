@@ -29,15 +29,15 @@ jobs:
           sudo timedatectl set-timezone "Europe/Berlin"
           
           sudo apt update
-          sudo apt install -y jq gettext libelf-dev qemu-utils
+          sudo apt install -y jq libelf-dev qemu-utils
           sudo snap install yq
 
       - name: Update
         run: |
-          sh update.sh
+          sudo ./update.sh
 
       - name: Check and Push
-        if: success() && inputs.push == true
+        if: inputs.push == true
         run: |
           git add .
           git commit -m "arc: update $(date +%Y-%m-%d" "%H:%M:%S)"
