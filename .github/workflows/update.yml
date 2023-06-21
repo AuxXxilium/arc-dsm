@@ -1,0 +1,44 @@
+#
+# Copyright (C) 2023 AuxXxilium <https://github.com/AuxXxilium> and Ing <https://github.com/wjz304>
+# 
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+
+name: Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      push: 
+        description: 'push'
+        default: false
+        type: boolean
+
+jobs:
+  dsm-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Initialization environment
+        run : |
+          git config --global user.email "info@auxxxilium.tech"
+          git config --global user.name "AuxXxilium"
+          sudo timedatectl set-timezone "Europe/Berlin"
+          
+          sudo apt update
+          sudo apt install -y jq gettext libelf-dev qemu-utils
+          sudo snap install yq
+
+      - name: Update
+        run: |
+          sh update.sh
+
+      - name: Check and Push
+        if: success() && inputs.push == true
+        run: |
+          git add .
+          git commit -m "arc: update $(date +%Y-%m-%d" "%H:%M:%S)"
+          git push -f
