@@ -12,10 +12,10 @@ fi
 curl -k -w "%{http_code}" -L "${MODELSURL}" -o "${MODELSFILE}"
 
 while IFS= read -r line; do
-    PAT_VERSION=$(echo "${line}" | cut -f 1 -d ' ')
-    PAT_BUILD=$(echo "${line}" | cut -f 2 -d ' ')
-    MODEL=$(echo "${line}" | cut -f 3 -d ' ')
-    BUILD=$(echo "${line}" | cut -f 4 -d ' ')
+    PAT_VERSION="$(echo "${line}" | cut -f 1 -d ' ')"
+    PAT_BUILD="$(echo "${line}" | cut -f 2 -d ' ')"
+    MODEL="$(echo "${line}" | cut -f 3 -d ' ')"
+    BUILD="$(echo "${line}" | cut -f 4 -d ' ')"
     CACHE_PATH="${HOME}/cache"
     RAMDISK_PATH="${CACHE_PATH}/ramdisk"
     PAT_FILE="${MODEL}_${BUILD}.pat"
@@ -28,7 +28,7 @@ while IFS= read -r line; do
     FILESPATH="${HOME}/files"
     DESTINATIONFILES="${FILESPATH}/${MODEL}/${BUILD}"
     if [ ! -f "${DESTINATIONFILES}/dsm.tar" ] || [ ! -f "${DESTINATION}" ]; then
-        PAT_MODEL=`echo "${MODEL}" | sed 's/ /%20/'`
+        PAT_MODEL="$(echo "${MODEL}" | sed 's/ /%20/')"
         echo "${PAT_MODEL} ${VERSION} ${BUILD}"
         
         PAT_LINK="${PAT_VERSION}/${PAT_BUILD}/DSM_${PAT_MODEL}_${BUILD}.pat"
