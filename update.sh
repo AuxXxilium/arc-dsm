@@ -4,10 +4,10 @@ HOME=$(pwd)
 MODELSFILE="models.yml"
 
 while IFS= read -r line; do
-    PAT_VERSION=`echo "${line}" | cut -f 1 -d ' '`
-    PAT_BUILD=`echo "${line}" | cut -f 2 -d ' '`
-    PAT_MODEL=`echo "${line}" | cut -f 3 -d ' '`
-    BUILD=`echo "${line}" | cut -f 4 -d ' '`
+    PAT_VERSION=$(echo "${line}" | cut -f 1 -d ' ')
+    PAT_BUILD=$(echo "${line}" | cut -f 2 -d ' ')
+    PAT_MODEL=$(echo "${line}" | cut -f 3 -d ' ')
+    BUILD=$(echo "${line}" | cut -f 4 -d ' ')
     CACHE_PATH="${HOME}/cache"
     RAMDISK_PATH="${CACHE_PATH}/ramdisk"
     PAT_FILE="${MODEL}_${BUILD}.pat"
@@ -25,22 +25,21 @@ while IFS= read -r line; do
         
         PAT_LINK="${PAT_VERSION}/${PAT_BUILD}/DSM_${PAT_MODEL}_${BUILD}.pat"
         PAT_URL="https://global.synologydownload.com/download/DSM/release/${PAT_LINK}"
-        echo "${PAT_URL}"
 
-        speed_a=`ping -c 1 -W 5 global.synologydownload.com | awk '/time=/ {print $7}' | cut -d '=' -f 2`
-        speed_b=`ping -c 1 -W 5 global.download.synology.com | awk '/time=/ {print $7}' | cut -d '=' -f 2`
-        fastest="`echo -e "global.synologydownload.com ${speed_a:-999}\nglobal.download.synology.com ${speed_b:-999}" | sort -k2rn | head -1 | awk '{print $1}'`"
+        speed_a=$(ping -c 1 -W 5 global.synologydownload.com | awk '/time=/ {print $7}' | cut -d '=' -f 2)
+        speed_b=$(ping -c 1 -W 5 global.download.synology.com | awk '/time=/ {print $7}' | cut -d '=' -f 2)
+        fastest="$(echo -e "global.synologydownload.com ${speed_a:-999}\nglobal.download.synology.com ${speed_b:-999}" | sort -k2rn | head -1 | awk '{print $1}')"
         
-        mirror="`echo ${PAT_URL} | sed 's|^http[s]*://\([^/]*\).*|\1|'`"
-        echo "`printf "Based on the current network situation, switch to %s mirror for download." "${fastest}"`"
-        PAT_URL="`echo ${PAT_URL} | sed "s/${mirror}/${fastest}/"`"
+        mirror="$(echo ${PAT_URL} | sed 's|^http[s]*://\([^/]*\).*|\1|')"
+        echo "$(printf "Based on the current network situation, switch to %s mirror for download." "${fastest}")"
+        PAT_URL="$(echo ${PAT_URL} | sed "s/${mirror}/${fastest}/")"
         
         mkdir -p "${CACHE_PATH}/dl"
 
         if [ ! -f "${PAT_PATH}" ]; then
             echo "Downloading ${PAT_FILE}"
             # Discover remote file size
-            STATUS=`curl -k -w "%{http_code}" -L "${PAT_URL}" -o "${PAT_PATH}" --progress-bar`
+            STATUS=$(curl -k -w "%{http_code}" -L "${PAT_URL}" -o "${PAT_PATH}" --progress-bar)
             if [ $? -ne 0 -o ${STATUS} -ne 200 ]; then
                 rm "${PAT_PATH}"
                 echo "Error downloading"
@@ -51,15 +50,16 @@ while IFS= read -r line; do
                 mkdir -p "${DESTINATIONFILES}"
 
                 echo -n "Checking hash of pat: "
-                HASH="`md5sum ${PAT_PATH} | awk '{print$1}'`"
+                HASH="$(md5sum ${PAT_PATH} | awk '{print$1}')"
                 echo "OK"
                 echo "${HASH}" >"${DESTINATION}/pat_hash"
+                echo "${PAT_URL}" >"${DESTINATION}/pat_url"
 
                 rm -rf "${UNTAR_PAT_PATH}"
                 mkdir -p "${UNTAR_PAT_PATH}"
                 echo -n "Disassembling ${PAT_FILE}: "
 
-                header=`od -bcN2 ${PAT_PATH} | head -1 | awk '{print $3}'`
+                header=$(od -bcN2 ${PAT_PATH} | head -1 | awk '{print $3}')
                 case ${header} in
                     105)
                     echo "Uncompressed tar"
@@ -95,12 +95,12 @@ while IFS= read -r line; do
                 fi
 
                 echo -n "Checking hash of zImage: "
-                HASH="`sha256sum ${UNTAR_PAT_PATH}/zImage | awk '{print$1}'`"
+                HASH="$(sha256sum ${UNTAR_PAT_PATH}/zImage | awk '{print$1}')"
                 echo "OK"
                 echo "${HASH}" >"${DESTINATION}/zImage_hash"
 
                 echo -n "Checking hash of ramdisk: "
-                HASH="`sha256sum ${UNTAR_PAT_PATH}/rd.gz | awk '{print$1}'`"
+                HASH="$(sha256sum ${UNTAR_PAT_PATH}/rd.gz | awk '{print$1}')"
                 echo "OK"
                 echo "${HASH}" >"${DESTINATION}/ramdisk_hash"
 
