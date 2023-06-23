@@ -12,10 +12,10 @@ fi
 curl -k -w "%{http_code}" -L "${MODELSURL}" -o "${MODELSFILE}"
 
 while IFS= read -r line; do
-    PAT_VERSION="$(echo "${line}" | cut -f 1 -d ' ')"
-    PAT_BUILD="$(echo "${line}" | cut -f 2 -d ' ')"
-    MODEL="$(echo "${line}" | cut -f 3 -d ' ')"
-    BUILD="$(echo "${line}" | cut -f 4 -d ' ')"
+    PAT_VERSION=$(echo "${line}" | cut -f 1 -d ' ')
+    PAT_BUILD=$(echo "${line}" | cut -f 2 -d ' ')
+    MODEL=$(echo "${line}" | cut -f 3 -d ' ')
+    BUILD=$(echo "${line}" | cut -f 4 -d ' ')
     CACHE_PATH="${HOME}/cache"
     RAMDISK_PATH="${CACHE_PATH}/ramdisk"
     PAT_FILE="${MODEL}_${BUILD}.pat"
@@ -36,11 +36,11 @@ while IFS= read -r line; do
 
         speed_a=$(ping -c 1 -W 5 global.synologydownload.com | awk '/time=/ {print $7}' | cut -d '=' -f 2)
         speed_b=$(ping -c 1 -W 5 global.download.synology.com | awk '/time=/ {print $7}' | cut -d '=' -f 2)
-        fastest="$(echo -e "global.synologydownload.com ${speed_a:-999}\nglobal.download.synology.com ${speed_b:-999}" | sort -k2rn | head -1 | awk '{print $1}')"
+        fastest=$(echo -e "global.synologydownload.com ${speed_a:-999}\nglobal.download.synology.com ${speed_b:-999}" | sort -k2rn | head -1 | awk '{print $1}')
         
-        mirror="$(echo ${PAT_URL} | sed 's|^http[s]*://\([^/]*\).*|\1|')"
+        mirror=$(echo ${PAT_URL} | sed 's|^http[s]*://\([^/]*\).*|\1|')
         echo "$(printf "Based on the current network situation, switch to %s mirror for download." "${fastest}")"
-        PAT_URL="$(echo ${PAT_URL} | sed "s/${mirror}/${fastest}/")"
+        PAT_URL=$(echo ${PAT_URL} | sed "s/${mirror}/${fastest}/")
         
         mkdir -p "${CACHE_PATH}/dl"
 
@@ -58,7 +58,7 @@ while IFS= read -r line; do
                 mkdir -p "${DESTINATIONFILES}"
 
                 echo -n "Checking hash of pat: "
-                HASH="$(md5sum ${PAT_PATH} | awk '{print$1}')"
+                HASH=$(md5sum ${PAT_PATH} | awk '{print$1}')
                 echo "OK"
                 echo "${HASH}" >"${DESTINATION}/pat_hash"
                 echo "${PAT_URL}" >"${DESTINATION}/pat_url"
@@ -103,12 +103,12 @@ while IFS= read -r line; do
                 fi
 
                 echo -n "Checking hash of zImage: "
-                HASH="$(sha256sum ${UNTAR_PAT_PATH}/zImage | awk '{print$1}')"
+                HASH=$(sha256sum ${UNTAR_PAT_PATH}/zImage | awk '{print$1}')
                 echo "OK"
                 echo "${HASH}" >"${DESTINATION}/zImage_hash"
 
                 echo -n "Checking hash of ramdisk: "
-                HASH="$(sha256sum ${UNTAR_PAT_PATH}/rd.gz | awk '{print$1}')"
+                HASH=$(sha256sum ${UNTAR_PAT_PATH}/rd.gz | awk '{print$1}')
                 echo "OK"
                 echo "${HASH}" >"${DESTINATION}/ramdisk_hash"
 

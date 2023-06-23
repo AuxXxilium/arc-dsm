@@ -12,6 +12,10 @@ on:
     inputs:
       push: 
         description: 'push'
+        default: true
+        type: boolean
+      clean: 
+        description: 'clean'
         default: false
         type: boolean
 
@@ -31,6 +35,12 @@ jobs:
           sudo apt update
           sudo apt install -y jq libelf-dev qemu-utils
           sudo snap install yq
+
+      - name: Clean
+        if: inputs.clean == true
+        run: |
+          sudo rm -rf ./files
+          sudo rm -rf ./dsm
 
       - name: Update
         run: |
