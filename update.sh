@@ -46,6 +46,15 @@ while IFS= read -r line; do
                 echo "Error downloading"
             fi
             if [ -f "${PAT_PATH}" ]; then
+                
+                mkdir -p "${DESTINATION}"
+                mkdir -p "${DESTINATIONFILES}"
+
+                echo -n "Checking hash of pat: "
+                HASH="`sha256sum ${PAT_PATH} | awk '{print$1}'`"
+                echo "OK"
+                echo "${HASH}" >"${DESTINATION}/pat_hash"
+
                 rm -rf "${UNTAR_PAT_PATH}"
                 mkdir -p "${UNTAR_PAT_PATH}"
                 echo -n "Disassembling ${PAT_FILE}: "
@@ -85,18 +94,15 @@ while IFS= read -r line; do
                     fi
                 fi
 
-                mkdir -p "${DESTINATION}"
-                mkdir -p "${DESTINATIONFILES}"
-
                 echo -n "Checking hash of zImage: "
                 HASH="`sha256sum ${UNTAR_PAT_PATH}/zImage | awk '{print$1}'`"
                 echo "OK"
-                echo "${HASH}" > "${DESTINATION}/zImage_hash"
+                echo "${HASH}" >"${DESTINATION}/zImage_hash"
 
                 echo -n "Checking hash of ramdisk: "
                 HASH="`sha256sum ${UNTAR_PAT_PATH}/rd.gz | awk '{print$1}'`"
                 echo "OK"
-                echo "${HASH}" > "${DESTINATION}/ramdisk_hash"
+                echo "${HASH}" >"${DESTINATION}/ramdisk_hash"
 
                 echo -n "Copying files: "
                 cp "${UNTAR_PAT_PATH}/grub_cksum.syno" "${DESTINATION}"
