@@ -2,6 +2,14 @@
 
 HOME=$(pwd)
 MODELSFILE="models.yml"
+MODELURL="https://raw.githubusercontent.com/AuxXxilium/arc-rss/main/models.yml"
+
+# Clean old modelsfile
+if [ -f "${MODELSFILE}" ]; then
+    rm -f "${MODELSFILE}"
+fi
+# Download new modelsfile
+curl -k -w "%{http_code}" -L "${MODELSURL}" -o "${MODELSFILE}"
 
 while IFS= read -r line; do
     PAT_VERSION=$(echo "${line}" | cut -f 1 -d ' ')
