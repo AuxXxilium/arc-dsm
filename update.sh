@@ -51,7 +51,7 @@ while IFS= read -r line; do
                 mkdir -p "${DESTINATIONFILES}"
 
                 echo -n "Checking hash of pat: "
-                HASH="`sha256sum ${PAT_PATH} | awk '{print$1}'`"
+                HASH="`md5sum ${PAT_PATH} | awk '{print$1}'`"
                 echo "OK"
                 echo "${HASH}" >"${DESTINATION}/pat_hash"
 
