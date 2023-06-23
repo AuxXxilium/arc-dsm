@@ -4,10 +4,10 @@ HOME=$(pwd)
 MODELSFILE="models.yml"
 
 while IFS= read -r line; do
-    VERSION=`echo "${line}" | cut -f 1 -d ' '`
-    BUILD=`echo "${line}" | cut -f 2 -d ' '`
-    MODEL=`echo "${line}" | cut -f 3 -d ' '`
-    PAT_BUILD=`echo "${line}" | cut -f 4 -d ' '`
+    PAT_VERSION=`echo "${line}" | cut -f 1 -d ' '`
+    PAT_BUILD=`echo "${line}" | cut -f 2 -d ' '`
+    PAT_MODEL=`echo "${line}" | cut -f 3 -d ' '`
+    BUILD=`echo "${line}" | cut -f 4 -d ' '`
     CACHE_PATH="${HOME}/cache"
     RAMDISK_PATH="${CACHE_PATH}/ramdisk"
     PAT_FILE="${MODEL}_${BUILD}.pat"
@@ -23,7 +23,7 @@ while IFS= read -r line; do
         PAT_MODEL=`echo "${MODEL}" | sed 's/ /%20/'`
         echo "${PAT_MODEL} ${VERSION} ${BUILD}"
         
-        PAT_LINK="${VERSION}/${BUILD}/DSM_${MODEL}_${PAT_BUILD}.pat"
+        PAT_LINK="${PAT_VERSION}/${PAT_BUILD}/DSM_${PAT_MODEL}_${BUILD}.pat"
         PAT_URL="https://global.synologydownload.com/download/DSM/release/${PAT_LINK}"
         echo "${PAT_URL}"
 
