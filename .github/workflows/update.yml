@@ -22,17 +22,21 @@ on:
         description: 'clean models'
         default: false
         type: boolean
+      newbuild:
+        description: 'add new build'
+        default: false
+        type: boolean
       build:
         description: '64570'
-        required: true
+        required: false
         type: string
       buildupdated:
         description: '64570-1'
-        required: true
+        required: false
         type: string
       version:
         description: '7.2'
-        required: true
+        required: false
         type: string
 
 jobs:
@@ -65,6 +69,7 @@ jobs:
           sudo rm -f ./models.yml
 
       - name: Models
+        if: inputs.newbuild == true
         run: |
           touch "./models.yml"
           input_file="model.yml"
