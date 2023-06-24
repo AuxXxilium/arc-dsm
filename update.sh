@@ -21,7 +21,7 @@ while IFS= read -r line; do
     DESTINATIONFILES="${FILESPATH}/${MODEL}/${BUILD}"
     if [ ! -f "${DESTINATIONFILES}/dsm.tar" ] || [ ! -f "${DESTINATION}" ]; then
         PAT_MODEL="$(echo "${MODEL}" | sed 's/ /%20/')"
-        echo "${PAT_MODEL} ${VERSION} ${BUILD}"
+        echo "${PAT_MODEL} ${PAT_VERSION} ${BUILD}"
         
         PAT_LINK="${PAT_VERSION}/${PAT_BUILD}/DSM_${PAT_MODEL}_${BUILD}.pat"
         PAT_URL="https://global.synologydownload.com/download/DSM/release/${PAT_LINK}"
