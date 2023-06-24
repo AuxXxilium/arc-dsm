@@ -26,16 +26,16 @@ on:
         description: 'add new build'
         default: false
         type: boolean
-      build:
-        description: '64570'
+      version:
+        description: '7.2'
         required: false
         type: string
       buildupdated:
         description: '64570-1'
         required: false
         type: string
-      version:
-        description: '7.2'
+      build:
+        description: '64570'
         required: false
         type: string
 
