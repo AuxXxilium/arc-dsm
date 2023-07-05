@@ -19,7 +19,7 @@ on:
         default: false
         type: boolean
       cleanmodels: 
-        description: 'clean models'
+        description: 'update models'
         default: true
         type: boolean
 
