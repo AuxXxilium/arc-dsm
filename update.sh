@@ -14,19 +14,22 @@ function getDSM() {
         UNTAR_PAT_PATH="${CACHE_PATH}/${MODEL}/${VERSION}"
         DESTINATION="${DSMPATH}/${MODEL}/${VERSION}"
         DESTINATIONFILES="${FILESPATH}/${MODEL}/${VERSION}"
+        SYNOINFO="${DESTINATION}/synoinfo.yml"
 
-        PAT_MODEL=$(echo "${MODEL}" | sed -e 's/\./%2E/g' -e 's/+/%2B/g')
-        PAT_MAJOR=$(echo "${VERSION}" | cut -b 1)
-        PAT_MINOR=$(echo "${VERSION}"  | cut -b 3)
+        PAT_MODEL="$(echo "${MODEL}" | sed -e 's/\./%2E/g' -e 's/+/%2B/g')"
+        PAT_MAJOR="$(echo "${VERSION}" | cut -b 1)"
+        PAT_MINOR="$(echo "${VERSION}"  | cut -b 3)"
         
         echo "${MODEL} ${VERSION}"
 
-        PAT_URL=$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${PAT_MODEL}&major=${PAT_MAJOR}&minor=${PAT_MINOR}" | jq -r '.info.system.detail[0].items[0].files[0].url')
-        HASH=$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${PAT_MODEL}&major=${PAT_MAJOR}&minor=${PAT_MINOR}" | jq -r '.info.system.detail[0].items[0].files[0].checksum')
+        curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${PAT_MODEL}&major=${PAT_MAJOR}&minor=${PAT_MINOR}" >"${SYNOINFO}"
+        PAT_URL=$(cat "${SYNOINFO}" | jq -r '.info.system.detail[0].items[0].files[0].url')
+        HASH=$(cat "${SYNOINFO}" | jq -r '.info.system.detail[0].items[0].files[0].checksum')
+        echo "${PAT_URL} ${HASH}"
         PAT_URL=${PAT_URL%%\?*}
         
-        OLDURL=$(cat "${DESTINATION}/pat_url")
-        OLDHASH=$(cat "${DESTINATION}/pat_hash")
+        OLDURL="$(cat "${DESTINATION}/pat_url")"
+        OLDHASH="$(cat "${DESTINATION}/pat_hash")"
 
         if [ "${HASH}" != "${OLDHASH}" ] || [ "${PAT_URL}" != "${OLDURL}" ]; then
 
@@ -98,7 +101,7 @@ function getDSM() {
             echo "DSM extract Error: ${MODEL}_${BUILD}"
         fi
         cd ${HOME}
-    done  < ${VERSIONSFILE}
+    done <"${VERSIONSFILE}"
     rm -f "${VERSIONSFILE}"
 }
 
