@@ -18,10 +18,6 @@ on:
         description: 'clean files'
         default: false
         type: boolean
-      cleanmodels: 
-        description: 'update models'
-        default: true
-        type: boolean
 
 jobs:
   dsm-files:
