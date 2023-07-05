@@ -20,7 +20,7 @@ on:
         type: boolean
       cleanmodels: 
         description: 'clean models'
-        default: false
+        default: true
         type: boolean
 
 jobs:
@@ -46,10 +46,11 @@ jobs:
           sudo rm -rf ./files
           sudo rm -rf ./dsm
 
-      - name: Clean Models
+      - name: Update Models
         if: inputs.cleanmodels == true
         run: |
           sudo rm -f ./configs
+          sudo mkdir -p ./configs
           git clone https://github.com/AuxXxilium/arc-configs -b main configs
 
       - name: Update
