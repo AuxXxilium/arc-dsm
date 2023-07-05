@@ -22,20 +22,8 @@ on:
         description: 'clean models'
         default: false
         type: boolean
-      newbuild:
-        description: 'add new build'
-        default: false
-        type: boolean
       version:
         description: '7.2'
-        required: false
-        type: string
-      buildupdated:
-        description: '64570-1'
-        required: false
-        type: string
-      build:
-        description: '64570'
         required: false
         type: string
 
@@ -61,22 +49,12 @@ jobs:
         run: |
           sudo rm -rf ./files
           sudo rm -rf ./dsm
-          sudo rm -f ./models.yml
 
       - name: Clean Models
         if: inputs.cleanmodels == true
         run: |
-          sudo rm -f ./models.yml
-
-      - name: Models
-        if: inputs.newbuild == true
-        run: |
-          touch "./models.yml"
-          input_file="model.yml"
-          while read line
-          do
-            echo "${{ inputs.version }} ${{ inputs.buildupdated }} ${line} ${{ inputs.build }}" >>"./models.yml"
-          done < "$input_file"
+          sudo rm -f ./configs
+          git clone https://github.com/AuxXxilium/arc-configs -b main configs
 
       - name: Update
         run: |
