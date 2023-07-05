@@ -51,7 +51,7 @@ jobs:
         run: |
           sudo rm -f ./configs
           sudo mkdir -p ./configs
-          git clone https://github.com/AuxXxilium/arc-configs -b main configs
+          sudo git clone https://github.com/AuxXxilium/arc-configs -b main configs
 
       - name: Update
         run: |
