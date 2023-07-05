@@ -14,90 +14,109 @@ function getDSM() {
         UNTAR_PAT_PATH="${CACHE_PATH}/${MODEL}/${VERSION}"
         DESTINATION="${DSMPATH}/${MODEL}/${VERSION}"
         DESTINATIONFILES="${FILESPATH}/${MODEL}/${VERSION}"
+        
+        mkdir -p "${DESTINATION}"
+        mkdir -p "${DESTINATIONFILES}"
 
-        PAT_MODEL=$(echo "${MODEL}" | sed -e 's/\./%2E/g' -e 's/+/%2B/g')
-        PAT_MAJOR=$(echo "${VERSION}" | cut -b 1)
-        PAT_MINOR=$(echo "${VERSION}"  | cut -b 3)
+        PAT_MODEL="$(echo "${MODEL}" | sed -e 's/\./%2E/g' -e 's/+/%2B/g')"
+        PAT_MAJOR="$(echo "${VERSION}" | cut -b 1)"
+        PAT_MINOR="$(echo "${VERSION}"  | cut -b 3)"
         
         echo "${MODEL} ${VERSION}"
 
         PAT_URL=$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${PAT_MODEL}&major=${PAT_MAJOR}&minor=${PAT_MINOR}" | jq -r '.info.system.detail[0].items[0].files[0].url')
         HASH=$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${PAT_MODEL}&major=${PAT_MAJOR}&minor=${PAT_MINOR}" | jq -r '.info.system.detail[0].items[0].files[0].checksum')
+        PAT_URL="${PAT_URL%%\?*}"
         echo "${PAT_URL}"
         echo "${HASH}"
-        PAT_URL=${PAT_URL%%\?*}
         
         OLDURL="$(cat "${DESTINATION}/pat_url")"
         OLDHASH="$(cat "${DESTINATION}/pat_hash")"
 
         if [ "${HASH}" != "${OLDHASH}" ] || [ "${PAT_URL}" != "${OLDURL}" ]; then
+            
+            mkdir -p "${CACHE_PATH}/dl"
+            
+            echo "Downloading ${PAT_FILE}"
+            # Discover remote file size
+            STATUS=$(curl -k -w "%{http_code}" -L "${PAT_URL}" -o "${PAT_PATH}" --progress-bar)
+            if [ $? -ne 0 -o ${STATUS} -ne 200 ]; then
+                rm "${PAT_PATH}"
+                echo "Error downloading"
+            fi
+            if [ -f "${PAT_PATH}" ]; then
 
-            echo "${HASH}" >"${DESTINATION}/pat_hash"
-            echo "${PAT_URL}" >"${DESTINATION}/pat_url"
+                echo "${HASH}" >"${DESTINATION}/pat_hash"
+                echo "${PAT_URL}" >"${DESTINATION}/pat_url"
 
-            rm -rf "${UNTAR_PAT_PATH}"
-            mkdir -p "${UNTAR_PAT_PATH}"
-            echo -n "Disassembling ${PAT_FILE}: "
+                rm -rf "${UNTAR_PAT_PATH}"
+                mkdir -p "${UNTAR_PAT_PATH}"
+                echo -n "Disassembling ${PAT_FILE}: "
 
-            header=$(od -bcN2 ${PAT_PATH} | head -1 | awk '{print $3}')
-            case ${header} in
-                105)
-                echo "Uncompressed tar"
-                isencrypted="no"
-                ;;
-                213)
-                echo "Compressed tar"
-                isencrypted="no"
-                ;;
-                255)
-                echo "Encrypted"
-                isencrypted="yes"
-                ;;
-                *)
-                echo -e "Could not determine if pat file is encrypted or not, maybe corrupted, try again!"
-                ;;
-            esac
+                header=$(od -bcN2 ${PAT_PATH} | head -1 | awk '{print $3}')
+                case ${header} in
+                    105)
+                    echo "Uncompressed tar"
+                    isencrypted="no"
+                    ;;
+                    213)
+                    echo "Compressed tar"
+                    isencrypted="no"
+                    ;;
+                    255)
+                    echo "Encrypted"
+                    isencrypted="yes"
+                    ;;
+                    *)
+                    echo -e "Could not determine if pat file is encrypted or not, maybe corrupted, try again!"
+                    ;;
+                esac
 
-            if [ "${isencrypted}" = "yes" ]; then
-                # Check existance of extractor
-                if [ -f "${EXTRACTOR_PATH}/${EXTRACTOR_BIN}" ]; then
-                    echo "Extractor cached."
+                if [ "${isencrypted}" = "yes" ]; then
+                    # Check existance of extractor
+                    if [ -f "${EXTRACTOR_PATH}/${EXTRACTOR_BIN}" ]; then
+                        echo "Extractor cached."
+                    fi
+                    # Uses the extractor to untar pat file
+                    echo "Extracting..."
+                    LD_LIBRARY_PATH="${EXTRACTOR_PATH}" "${EXTRACTOR_PATH}/${EXTRACTOR_BIN}" "${PAT_PATH}" "${UNTAR_PAT_PATH}"
+                else
+                    echo "Extracting..."
+                    tar -xf "${PAT_PATH}" -C "${UNTAR_PAT_PATH}"
+                    if [ $? -ne 0 ]; then
+                        echo "Error extracting"
+                    fi
                 fi
-                # Uses the extractor to untar pat file
-                echo "Extracting..."
-                LD_LIBRARY_PATH="${EXTRACTOR_PATH}" "${EXTRACTOR_PATH}/${EXTRACTOR_BIN}" "${PAT_PATH}" "${UNTAR_PAT_PATH}"
-            else
-                echo "Extracting..."
-                tar -xf "${PAT_PATH}" -C "${UNTAR_PAT_PATH}"
-                if [ $? -ne 0 ]; then
-                    echo "Error extracting"
-                fi
+
+                echo -n "Checking hash of zImage: "
+                HASH=$(sha256sum ${UNTAR_PAT_PATH}/zImage | awk '{print$1}')
+                echo "OK"
+                echo "${HASH}" >"${DESTINATION}/zImage_hash"
+
+                echo -n "Checking hash of ramdisk: "
+                HASH=$(sha256sum ${UNTAR_PAT_PATH}/rd.gz | awk '{print$1}')
+                echo "OK"
+                echo "${HASH}" >"${DESTINATION}/ramdisk_hash"
+
+                echo -n "Copying files: "
+                cp "${UNTAR_PAT_PATH}/grub_cksum.syno" "${DESTINATION}"
+                cp "${UNTAR_PAT_PATH}/GRUB_VER"        "${DESTINATION}"
+                cp "${UNTAR_PAT_PATH}/grub_cksum.syno" "${DESTINATION}"
+                cp "${UNTAR_PAT_PATH}/GRUB_VER"        "${DESTINATION}"
+                cp "${UNTAR_PAT_PATH}/zImage"          "${DESTINATION}"
+                cp "${UNTAR_PAT_PATH}/rd.gz"           "${DESTINATION}"
+                cd "${DESTINATION}"
+                tar -cf "${DESTINATIONFILES}/dsm.tar" .
+                rm -f "${PAT_PATH}"
+                rm -rf "${UNTAR_PAT_PATH}"
             fi
 
-            echo -n "Checking hash of zImage: "
-            HASH=$(sha256sum ${UNTAR_PAT_PATH}/zImage | awk '{print$1}')
-            echo "OK"
-            echo "${HASH}" >"${DESTINATION}/zImage_hash"
-
-            echo -n "Checking hash of ramdisk: "
-            HASH=$(sha256sum ${UNTAR_PAT_PATH}/rd.gz | awk '{print$1}')
-            echo "OK"
-            echo "${HASH}" >"${DESTINATION}/ramdisk_hash"
-
-            echo -n "Copying files: "
-            cp "${UNTAR_PAT_PATH}/grub_cksum.syno" "${DESTINATION}"
-            cp "${UNTAR_PAT_PATH}/GRUB_VER"        "${DESTINATION}"
-            cp "${UNTAR_PAT_PATH}/grub_cksum.syno" "${DESTINATION}"
-            cp "${UNTAR_PAT_PATH}/GRUB_VER"        "${DESTINATION}"
-            cp "${UNTAR_PAT_PATH}/zImage"          "${DESTINATION}"
-            cp "${UNTAR_PAT_PATH}/rd.gz"           "${DESTINATION}"
-            cd "${DESTINATION}"
-            tar -cf "${DESTINATIONFILES}/dsm.tar" .
-            rm -f "${PAT_PATH}"
-            rm -rf "${UNTAR_PAT_PATH}"
             echo "DSM extract complete: ${MODEL}_${VERSION}"
+
         else
+
             echo "DSM extract Error: ${MODEL}_${VERSION}"
+
         fi
         cd ${HOME}
     done <"${VERSIONSFILE}"
