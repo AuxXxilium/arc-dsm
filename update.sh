@@ -7,36 +7,33 @@ function readConfigEntriesArray() {
 function getDSM() {
     VERSIONS="$(readConfigEntriesArray "productvers" "${CONFIGS}/${MODEL}.yml" | sort -r)"
     echo "${VERSIONS}" >"${VERSIONSFILE}"
-    echo "Versions: ${VERSIONS}"
     while IFS= read -r line; do
         VERSION="${line}"
-        echo "Version: ${VERSION}"
         PAT_FILE="${MODEL}_${VERSION}.pat"
         PAT_PATH="${CACHE_PATH}/dl/${PAT_FILE}"
         UNTAR_PAT_PATH="${CACHE_PATH}/${MODEL}/${VERSION}"
         DESTINATION="${DSMPATH}/${MODEL}/${VERSION}"
         DESTINATIONFILES="${FILESPATH}/${MODEL}/${VERSION}"
-        SYNOINFO="${DESTINATION}synoinfo.yml"
 
-        PAT_MODEL="$(echo "${MODEL}" | sed -e 's/\./%2E/g' -e 's/+/%2B/g')"
-        PAT_MAJOR="$(echo "${VERSION}" | cut -b 1)"
-        PAT_MINOR="$(echo "${VERSION}"  | cut -b 3)"
+        PAT_MODEL=$(echo "${MODEL}" | sed -e 's/\./%2E/g' -e 's/+/%2B/g')
+        PAT_MAJOR=$(echo "${VERSION}" | cut -b 1)
+        PAT_MINOR=$(echo "${VERSION}"  | cut -b 3)
         
         echo "${MODEL} ${VERSION}"
 
-        curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${PAT_MODEL}&major=${PAT_MAJOR}&minor=${PAT_MINOR}" >"${SYNOINFO}"
-        PAT_URL=$(cat "${SYNOINFO}" | jq -r '.info.system.detail[0].items[0].files[0].url')
-        HASH=$(cat "${SYNOINFO}" | jq -r '.info.system.detail[0].items[0].files[0].checksum')
-        echo "${PAT_URL} ${HASH}"
+        PAT_URL=$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${PAT_MODEL}&major=${PAT_MAJOR}&minor=${PAT_MINOR}" | jq -r '.info.system.detail[0].items[0].files[0].url')
+        HASH=$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${PAT_MODEL}&major=${PAT_MAJOR}&minor=${PAT_MINOR}" | jq -r '.info.system.detail[0].items[0].files[0].checksum')
+        echo "${PAT_URL}"
+        echo "${HASH}"
         PAT_URL=${PAT_URL%%\?*}
         
-        OLDURL="$(cat "${DESTINATION}pat_url")"
-        OLDHASH="$(cat "${DESTINATION}pat_hash")"
+        OLDURL="$(cat "${DESTINATION}/pat_url")"
+        OLDHASH="$(cat "${DESTINATION}/pat_hash")"
 
         if [ "${HASH}" != "${OLDHASH}" ] || [ "${PAT_URL}" != "${OLDURL}" ]; then
 
-            echo "${HASH}" >"${DESTINATION}pat_hash"
-            echo "${PAT_URL}" >"${DESTINATION}pat_url"
+            echo "${HASH}" >"${DESTINATION}/pat_hash"
+            echo "${PAT_URL}" >"${DESTINATION}/pat_url"
 
             rm -rf "${UNTAR_PAT_PATH}"
             mkdir -p "${UNTAR_PAT_PATH}"
@@ -80,12 +77,12 @@ function getDSM() {
             echo -n "Checking hash of zImage: "
             HASH=$(sha256sum ${UNTAR_PAT_PATH}/zImage | awk '{print$1}')
             echo "OK"
-            echo "${HASH}" >"${DESTINATION}zImage_hash"
+            echo "${HASH}" >"${DESTINATION}/zImage_hash"
 
             echo -n "Checking hash of ramdisk: "
             HASH=$(sha256sum ${UNTAR_PAT_PATH}/rd.gz | awk '{print$1}')
             echo "OK"
-            echo "${HASH}" >"${DESTINATION}ramdisk_hash"
+            echo "${HASH}" >"${DESTINATION}/ramdisk_hash"
 
             echo -n "Copying files: "
             cp "${UNTAR_PAT_PATH}/grub_cksum.syno" "${DESTINATION}"
