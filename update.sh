@@ -7,8 +7,10 @@ function readConfigEntriesArray() {
 function getDSM() {
     VERSIONS="$(readConfigEntriesArray "productvers" "${CONFIGS}/${MODEL}.yml" | sort -r)"
     echo "${VERSIONS}" >"${VERSIONSFILE}"
+    echo "Versions: ${VERSIONS}"
     while IFS= read -r line; do
         VERSION="${line}"
+        echo "Version: ${VERSION}"
         PAT_FILE="${MODEL}_${VERSION}.pat"
         PAT_PATH="${CACHE_PATH}/dl/${PAT_FILE}"
         UNTAR_PAT_PATH="${CACHE_PATH}/${MODEL}/${VERSION}"
@@ -96,9 +98,9 @@ function getDSM() {
             tar -cf "${DESTINATIONFILES}/dsm.tar" .
             rm -f "${PAT_PATH}"
             rm -rf "${UNTAR_PAT_PATH}"
-            echo "DSM extract complete: ${MODEL}_${BUILD}"
+            echo "DSM extract complete: ${MODEL}_${VERSION}"
         else
-            echo "DSM extract Error: ${MODEL}_${BUILD}"
+            echo "DSM extract Error: ${MODEL}_${VERSION}"
         fi
         cd ${HOME}
     done <"${VERSIONSFILE}"
@@ -107,6 +109,9 @@ function getDSM() {
 
 HOME=$(pwd)
 CONFIGS="./configs"
+rm -f "${CONFIGS}"
+mkdir -p "${CONFIGS}"
+git clone https://github.com/AuxXxilium/arc-configs -b main "${CONFIGS}"
 while read MODEL; do
     MODEL="$(basename ${MODEL})"
     MODEL="${MODEL::-4}"

@@ -46,13 +46,6 @@ jobs:
           sudo rm -rf ./files
           sudo rm -rf ./dsm
 
-      - name: Update Models
-        if: inputs.cleanmodels == true
-        run: |
-          sudo rm -f ./configs
-          sudo mkdir -p ./configs
-          sudo git clone https://github.com/AuxXxilium/arc-configs -b main configs
-
       - name: Update
         run: |
           sudo ./update.sh
