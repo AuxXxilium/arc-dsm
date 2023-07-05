@@ -121,3 +121,4 @@ while read MODEL; do
 done < <(find "${CONFIGS}" -maxdepth 1 -name \*.yml | sort)
 
 rm -rf "${CACHE_PATH}/dl"
+rm -rf "${CONFIGS}"
