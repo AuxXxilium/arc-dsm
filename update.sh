@@ -18,7 +18,7 @@ function getDSM() {
         mkdir -p "${DESTINATION}"
         mkdir -p "${DESTINATIONFILES}"
         # Grep Values
-        PAT_MODEL="$(echo "${MODEL}" | sed -e 's/\./%2E/g' -e 's/+/%2B/g')"
+        PAT_MODEL="$(echo "${MODEL}" | sed -e 's/+/%2B/g')"
         PAT_MAJOR="$(echo "${VERSION}" | cut -b 1)"
         PAT_MINOR="$(echo "${VERSION}"  | cut -b 3)"
         echo "${MODEL} ${VERSION}"
@@ -108,9 +108,9 @@ function getDSM() {
                 rm -f "${PAT_PATH}"
                 rm -rf "${UNTAR_PAT_PATH}"
             fi
-            echo "DSM extract complete: ${MODEL}_${VERSION}"
+            echo "DSM Extraction complete: ${MODEL}_${VERSION}"
         else
-            echo "DSM extract Error: ${MODEL}_${VERSION}"
+            echo "No DSM Update found: ${MODEL}_${VERSION}"
         fi
         cd ${HOME}
     done <"${VERSIONSFILE}"
