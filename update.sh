@@ -24,10 +24,10 @@ function getDSM() {
         echo "${MODEL} ${VERSION}"
         # Grep PAT_URL
         PAT_URL=$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${PAT_MODEL}&major=${PAT_MAJOR}&minor=${PAT_MINOR}" | jq -r '.info.system.detail[0].items[0].files[0].url')
-        HASH=$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${PAT_MODEL}&major=${PAT_MAJOR}&minor=${PAT_MINOR}" | jq -r '.info.system.detail[0].items[0].files[0].checksum')
+        PAT_HASH=$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${PAT_MODEL}&major=${PAT_MAJOR}&minor=${PAT_MINOR}" | jq -r '.info.system.detail[0].items[0].files[0].checksum')
         PAT_URL="${PAT_URL%%\?*}"
         echo "${PAT_URL}"
-        echo "${HASH}"
+        echo "${PAT_HASH}"
         if [ -f "${DESTINATION}/pat_url" ] && [ -f "${DESTINATION}/pat_hash" ]; then
             OLDURL="$(cat "${DESTINATION}/pat_url")"
             OLDHASH="$(cat "${DESTINATION}/pat_hash")"
@@ -36,7 +36,7 @@ function getDSM() {
             OLDHASH="0"
         fi
         # Check for Update
-        if [ "${HASH}" != "${OLDHASH}" ] || [ "${PAT_URL}" != "${OLDURL}" ]; then
+        if [ "${PAT_HASH}" != "${OLDHASH}" ] || [ "${PAT_URL}" != "${OLDURL}" ]; then
             mkdir -p "${CACHE_PATH}/dl"
             echo "Downloading ${PAT_FILE}"
             # Discover remote file size
@@ -47,7 +47,7 @@ function getDSM() {
             fi
             if [ -f "${PAT_PATH}" ]; then
                 # Export Values
-                echo "${HASH}" >"${DESTINATION}/pat_hash"
+                echo "${PAT_HASH}" >"${DESTINATION}/pat_hash"
                 echo "${PAT_URL}" >"${DESTINATION}/pat_url"
                 # Extract Files
                 rm -rf "${UNTAR_PAT_PATH}"
