@@ -17,14 +17,10 @@ function getDSM() {
         # Make Destinations
         mkdir -p "${DESTINATION}"
         mkdir -p "${DESTINATIONFILES}"
-        # Grep Values
-        PAT_MODEL="$(echo "${MODEL}" | sed -e 's/+/%2B/g')"
-        PAT_MAJOR="$(echo "${VERSION}" | cut -b 1)"
-        PAT_MINOR="$(echo "${VERSION}"  | cut -b 3)"
         echo "${MODEL} ${VERSION}"
         # Grep PAT_URL
-        PAT_URL=$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${PAT_MODEL}&major=${PAT_MAJOR}&minor=${PAT_MINOR}" | jq -r '.info.system.detail[0].items[0].files[0].url')
-        PAT_HASH=$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${PAT_MODEL}&major=${PAT_MAJOR}&minor=${PAT_MINOR}" | jq -r '.info.system.detail[0].items[0].files[0].checksum')
+        PAT_URL="$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${MODEL/+/%2B}&major=${VERSION%%.*}&minor=${VERSION##*.}" | jq -r '.info.system.detail[0].items[0].files[0].url')"
+        PAT_HASH="$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${MODEL/+/%2B}&major=${VERSION%%.*}&minor=${VERSION##*.}" | jq -r '.info.system.detail[0].items[0].files[0].checksum')"
         PAT_URL="${PAT_URL%%\?*}"
         echo "${PAT_URL}"
         echo "${PAT_HASH}"
@@ -104,7 +100,7 @@ function getDSM() {
                 cp "${UNTAR_PAT_PATH}/zImage"          "${DESTINATION}"
                 cp "${UNTAR_PAT_PATH}/rd.gz"           "${DESTINATION}"
                 cd "${DESTINATION}"
-                tar -cf "${DESTINATIONFILES}/dsm.tar" .
+                tar -cf "${DESTINATIONFILES}/${PAT_HASH}.tar" .
                 rm -f "${PAT_PATH}"
                 rm -rf "${UNTAR_PAT_PATH}"
             fi
