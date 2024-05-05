@@ -118,8 +118,10 @@ HOME=$(pwd)
 CONFIGS="./configs"
 rm -f "${CONFIGS}"
 mkdir -p "${CONFIGS}"
-git clone https://github.com/AuxXxilium/arc-configs -b dev "${CONFIGS}"
-while read MODEL; do
+TAG="$(curl --insecure -m 5 -s https://api.github.com/repos/AuxXxilium/arc-configs/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')"
+curl --insecure -s -w "%{http_code}" -L "https://github.com/AuxXxilium/arc-configs/releases/download/${TAG}/configs.zip" -o "./configs.zip"
+unzip -oq "./configs.zip" -d "${CONFIGS}" >/dev/null 2>&1
+while read -r MODEL; do
     MODEL="$(basename ${MODEL})"
     MODEL="${MODEL::-4}"
     CACHE_PATH="${HOME}/cache"
