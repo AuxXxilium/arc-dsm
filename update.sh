@@ -5,9 +5,10 @@ function readConfigEntriesArray() {
 }
 
 function getDSM() {
-    VERSIONS="$(readConfigEntriesArray "productvers" "${CONFIGS}/${MODEL}.yml" | sort -r)"
+    VERSIONS="$(readConfigEntriesArray "platforms.${PLATFORM}.productvers" "${P_FILE}" | sort -r)"
     echo "${VERSIONS}" >"${VERSIONSFILE}"
     while IFS= read -r line; do
+        MODEL="${1}"
         VERSION="${line}"
         PAT_FILE="${MODEL}_${VERSION}.pat"
         PAT_PATH="${CACHE_PATH}/dl/${PAT_FILE}"
@@ -116,14 +117,28 @@ function getDSM() {
 # Init DSM Files
 HOME=$(pwd)
 CONFIGS="./configs"
+TMP_PATH="${HOME}/tmp"
+mkdir -p "${TMP_PATH}"
 rm -f "${CONFIGS}"
 mkdir -p "${CONFIGS}"
 TAG="$(curl --insecure -m 5 -s https://api.github.com/repos/AuxXxilium/arc-configs/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')"
 curl --insecure -s -w "%{http_code}" -L "https://github.com/AuxXxilium/arc-configs/releases/download/${TAG}/configs.zip" -o "./configs.zip"
 unzip -oq "./configs.zip" -d "${CONFIGS}" >/dev/null 2>&1
-while read -r MODEL; do
-    MODEL="$(basename ${MODEL})"
-    MODEL="${MODEL::-4}"
+P_FILE="${CONFIGS}/platforms.yml"
+PS="$(readConfigEntriesArray "platforms" "${P_FILE}" | sort)"
+MJ="$(python include/functions.py getmodels -p "${PS[*]}")"
+if [[ -z "${MJ}" || "${MJ}" = "[]" ]]; then
+    dialog --backtitle "$(backtitle)" --title "Model" --title "Model" \
+        --msgbox "Failed to get models, please try again!" 0 0
+    return 1
+fi
+echo -n "" >"${TMP_PATH}/modellist"
+echo "${MJ}" | jq -c '.[]' | while read -r item; do
+    name=$(echo "$item" | jq -r '.name')
+    arch=$(echo "$item" | jq -r '.arch')
+    echo "${name} ${arch}" >>"${TMP_PATH}/modellist"
+done
+while read -r M A; do
     CACHE_PATH="${HOME}/cache"
     RAMDISK_PATH="${CACHE_PATH}/ramdisk"
     EXTRACTOR_PATH="${CACHE_PATH}/extractor"
@@ -131,8 +146,8 @@ while read -r MODEL; do
     DSMPATH="${HOME}/dsm"
     FILESPATH="${HOME}/files"
     VERSIONSFILE="${CACHE_PATCH}/versions.yml"
-    getDSM
-done < <(find "${CONFIGS}" -maxdepth 1 -name \*.yml | sort)
+    getDSM "${M}"
+done <<<$(cat "${TMP_PATH}/modellist")
 # Cleanup DSM Files
 rm -rf "${CACHE_PATH}/dl"
 rm -rf "${CONFIGS}"
