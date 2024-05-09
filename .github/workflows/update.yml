@@ -33,7 +33,7 @@ jobs:
           sudo timedatectl set-timezone "Europe/Berlin"
           
           sudo apt update
-          sudo apt install -y jq gawk cpio gettext libelf-dev qemu-utils busybox dialog curl sed zip unzip
+          sudo apt install -y jq gawk cpio gettext libelf-dev qemu-utils busybox dialog curl sed zip unzip python3
           sudo snap install yq
 
       - name: Clean Files
