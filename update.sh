@@ -5,10 +5,11 @@ function readConfigEntriesArray() {
 }
 
 function getDSM() {
+    MODEL="${1}"
+    PLATFORM="${2}"
     VERSIONS="$(readConfigEntriesArray "platforms.${PLATFORM}.productvers" "${P_FILE}" | sort -r)"
-    echo "${VERSIONS}" >"${VERSIONSFILE}"
+    echo "${VERSIONS}" >"${TMP_PATH}/versions"
     while IFS= read -r line; do
-        MODEL="${1}"
         VERSION="${line}"
         PAT_FILE="${MODEL}_${VERSION}.pat"
         PAT_PATH="${CACHE_PATH}/dl/${PAT_FILE}"
@@ -110,8 +111,8 @@ function getDSM() {
             echo "No DSM Update found: ${MODEL}_${VERSION}"
         fi
         cd ${HOME}
-    done <"${VERSIONSFILE}"
-    rm -f "${VERSIONSFILE}"
+    done <<<$(cat "${TMP_PATH}/versions")
+    rm -f "${TMP_PATH}/versions"
 }
 
 # Init DSM Files
@@ -145,9 +146,9 @@ while read -r M A; do
     EXTRACTOR_BIN="syno_extract_system_patch"
     DSMPATH="${HOME}/dsm"
     FILESPATH="${HOME}/files"
-    VERSIONSFILE="${CACHE_PATCH}/versions.yml"
-    getDSM "${M}"
+    getDSM "${M}" "${A}"
 done <<<$(cat "${TMP_PATH}/modellist")
 # Cleanup DSM Files
 rm -rf "${CACHE_PATH}/dl"
 rm -rf "${CONFIGS}"
+rm -rf "${TMP_PATH}"
