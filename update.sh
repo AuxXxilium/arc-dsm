@@ -9,6 +9,8 @@ function getDSM() {
     PLATFORM="${2}"
     VERSIONS="$(readConfigEntriesArray "platforms.${PLATFORM}.productvers" "${P_FILE}" | sort -r)"
     echo "${VERSIONS}" >"${TMP_PATH}/versions"
+    [ -f "${TMP_PATH}/dsmdata.yml" ] && rm -f "${TMP_PATH}/dsmdata.yml"
+    touch "${TMP_PATH}/dsmdata.yml"
     while IFS= read -r line; do
         VERSION="${line}"
         PAT_FILE="${MODEL}_${VERSION}.pat"
@@ -20,12 +22,16 @@ function getDSM() {
         mkdir -p "${DESTINATION}"
         mkdir -p "${DESTINATIONFILES}"
         echo "${MODEL} ${VERSION}"
+        echo "" >>"${TMP_PATH}/dsmdata.yml"
+        echo "${MODEL} ${VERSION}" >>"${TMP_PATH}/dsmdata.yml"
         # Grep PAT_URL
         PAT_URL="$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${MODEL/+/%2B}&major=${VERSION%%.*}&minor=${VERSION##*.}" | jq -r '.info.system.detail[0].items[0].files[0].url')"
         PAT_HASH="$(curl -skL "https://www.synology.com/api/support/findDownloadInfo?lang=en-us&product=${MODEL/+/%2B}&major=${VERSION%%.*}&minor=${VERSION##*.}" | jq -r '.info.system.detail[0].items[0].files[0].checksum')"
         PAT_URL="${PAT_URL%%\?*}"
         echo "${PAT_URL}"
+        echo "URL: ${PAT_URL}" >>"${TMP_PATH}/dsmdata.yml"
         echo "${PAT_HASH}"
+        echo "HASH: ${PAT_HASH}" >>"${TMP_PATH}/dsmdata.yml"
         if [ -f "${DESTINATION}/pat_url" ] && [ -f "${DESTINATION}/pat_hash" ]; then
             OLDURL="$(cat "${DESTINATION}/pat_url")"
             OLDHASH="$(cat "${DESTINATION}/pat_hash")"
@@ -146,8 +152,10 @@ while read -r M A; do
     EXTRACTOR_BIN="syno_extract_system_patch"
     DSMPATH="${HOME}/dsm"
     FILESPATH="${HOME}/files"
-    getDSM "${M}" "${A}"
+    MODEL=$(echo ${M} | sed 's/d$/D/; s/rp$/RP/; s/rp+/RP+/')
+    getDSM "${MODEL}" "${A}"
 done <<<$(cat "${TMP_PATH}/modellist")
+cp -f "${TMP_PATH}/dsmdata.yml" "${HOME}/dsmdata.yml"
 # Cleanup DSM Files
 rm -rf "${CACHE_PATH}/dl"
 rm -rf "${CONFIGS}"
