@@ -1,4 +1,824 @@
 
+DS1019+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1019%2B_69057.pat
+HASH: 7609e7c977d9d44baed886e846d7cf50
+
+DS1019+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1019%2B_42962.pat
+HASH: b590bc9f0df784be4d6bae13d551f76b
+
+DS1019+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1019%2B_42218.pat
+HASH: a7c5ac7a5963aac8bf9a599a8a6f6b86
+
+DS218+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS218%2B_69057.pat
+HASH: 67f05845194e8066380b40b6998615fc
+
+DS218+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS218%2B_42962.pat
+HASH: 594de8b190f950ca66bcfc13121bc8d8
+
+DS218+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS218%2B_42218.pat
+HASH: 7bbbd4113f997288935340a631399686
+
+DS418play 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS418play_69057.pat
+HASH: 8fdfa2d630da44e5766a5c91da6360c1
+
+DS418play 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS418play_42962.pat
+HASH: d817c27fd56f79bf1a329780097bd54b
+
+DS418play 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS418play_42218.pat
+HASH: 720417d493fe763f5e7ba81d1cf6e126
+
+DS620slim 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS620slim_69057.pat
+HASH: dae0f9157b4abe294e5272b819a62ede
+
+DS620slim 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS620slim_42962.pat
+HASH: 1f2d07cae47692f36ef04651184d86a0
+
+DS620slim 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS620slim_42218.pat
+HASH: d627699bdcee9943a53fdfb0a62e0bb8
+
+DS718+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS718%2B_69057.pat
+HASH: a6901170e8b2a9956d2883216465a6f5
+
+DS718+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS718%2B_42962.pat
+HASH: 61b56754bd643b5d45ab13c4083f7980
+
+DS718+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS718%2B_42218.pat
+HASH: 3dac0f41036e712d4278f140035ecaa9
+
+DS918+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS918%2B_69057.pat
+HASH: f42d7da7fcaa24bc9409e857bdefff30
+
+DS918+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS918%2B_42962.pat
+HASH: d5b62813ebc2d78bdbdf08b2c42e1280
+
+DS918+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS918%2B_42218.pat
+HASH: 0c8a0d2dc6f1d7e37ee63d74760808b8
+
+DS3617xs 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS3617xs_69057.pat
+HASH: 97c06b5d99a708b9c9eff62077b8a6bc
+
+DS3617xs 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS3617xs_42962.pat
+HASH: b46e3d7933c7f77c78d536d33f9b5c4a
+
+DS3617xs 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS3617xs_42218.pat
+HASH: b7d85926561ff125928b68e7fffa646b
+
+DS3617xsII 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS3617xsII_69057.pat
+HASH: 31a3e2fdf2da08dceee4636c8fb87588
+
+DS3617xsII 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS3617xsII_42962.pat
+HASH: 188c85421a6d02003be3bae8b4e2e074
+
+DS3617xsII 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS3617xsII_42218.pat
+HASH: aa762422e005c4a157d202fff8e8dd00
+
+FS2017 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_FS2017_69057.pat
+HASH: 776ad030354617d05f4d4ce8ff0481ae
+
+FS2017 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS2017_42962.pat
+HASH: 45eeec29b35688e4e0416cb6c00a0e58
+
+FS2017 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS2017_42218.pat
+HASH: 45394e7dbb73997e62d298ef62ecd8d7
+
+FS3400 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_FS3400_69057.pat
+HASH: 6f79dba48c5c57c1aa7ca57cc56a1b89
+
+FS3400 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS3400_42962.pat
+HASH: 4fe7d22917dc2497fbe66884ec3ea3b5
+
+FS3400 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS3400_42218.pat
+HASH: e55ec9e91ec7e4db5854ea6978f126e3
+
+RS18017xs+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS18017xs%2B_69057.pat
+HASH: 0e7173198b5c4efee2d2d373e3766bdb
+
+RS18017xs+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS18017xs%2B_42962.pat
+HASH: 7fc30e7930edb4d0f0dc921e5e70a3f6
+
+RS18017xs+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS18017xs%2B_42218.pat
+HASH: 9e4168fc0c7808bebd35c485396ea56c
+
+RS3617RPxs 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS3617RPxs_69057.pat
+HASH: da66dd2a759ee30147a320f3206623cd
+
+RS3617RPxs 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS3617RPxs_42962.pat
+HASH: 243f3490787b5a7417546b88a0f0b047
+
+RS3617RPxs 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS3617RPxs_42218.pat
+HASH: 7cdb7e52d29859c4e340fb6c84014749
+
+RS3617xs+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS3617xs%2B_69057.pat
+HASH: 67f33c491bd136346b5e83b7339c7076
+
+RS3617xs+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS3617xs%2B_42962.pat
+HASH: cb211e965855d849974f08963d96c40a
+
+RS3617xs+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS3617xs%2B_42218.pat
+HASH: dd4ac96e4b78cf36f35d08bd03f0ee3e
+
+RS3618xs 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS3618xs_69057.pat
+HASH: 448f7685611e0190c9224d23715a8577
+
+RS3618xs 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS3618xs_42962.pat
+HASH: e543eac89077e981d3fa7f0ee8c421de
+
+RS3618xs 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS3618xs_42218.pat
+HASH: e91236e37fdbbb3a4f368dffa5a63013
+
+RS4017xs+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS4017xs%2B_69057.pat
+HASH: ae6b1c6363420cc54dbbf0aef654b182
+
+RS4017xs+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS4017xs%2B_42962.pat
+HASH: cf8ee4e0654b4c91dd2fb44ec697fe04
+
+RS4017xs+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS4017xs%2B_42218.pat
+HASH: 31785a02d8b2f6145d077877668cc362
+
+DS1621xs+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1621xs%2B_69057.pat
+HASH: 8af12dfa839057343d4b0d7f57efad16
+
+DS1621xs+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1621xs%2B_42962.pat
+HASH: fffec3510c954fc718a1aecba2f98fc6
+
+DS1621xs+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1621xs%2B_42218.pat
+HASH: 302fdefb00c8d4f8bf95ac25dca1e864
+
+DS3018xs 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS3018xs_69057.pat
+HASH: 92feef4c0c74655e7328a95c1a0310c5
+
+DS3018xs 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS3018xs_42962.pat
+HASH: c796157608dcc7efde22511a4b440335
+
+DS3018xs 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS3018xs_42218.pat
+HASH: 05246f474115e163f50d0462df9182e8
+
+DS3622xs+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS3622xs%2B_69057.pat
+HASH: ce86c68e6e93fe7cdcc63b165a70a878
+
+DS3622xs+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS3622xs%2B_42962.pat
+HASH: d3b223e1e973fcf5c67c64e72775a576
+
+DS3622xs+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS3622xs%2B_42218.pat
+HASH: b9b452577b38adc82aca42e031be267b
+
+FS1018 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_FS1018_69057.pat
+HASH: 4be3e3c2a271217ab2f6788cb3dc7fd6
+
+FS1018 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS1018_42962.pat
+HASH: 7a0fcb142fb19b892ab8e38d06494fb1
+
+FS1018 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS1018_42218.pat
+HASH: 09ec9d58839bef77654226d82336a32d
+
+FS3600 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_FS3600_69057.pat
+HASH: 05cbcf3b75043968d6dd8a48e4677098
+
+FS3600 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS3600_42962.pat
+HASH: b521eab70dc9836235f21a5cffd96d34
+
+FS3600 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS3600_42218.pat
+HASH: d9a68ec3e8c921641a3b51af68e57411
+
+RS1619xs+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS1619xs%2B_69057.pat
+HASH: e2ab155d5a03d61eb2c146c2e2972861
+
+RS1619xs+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS1619xs%2B_42962.pat
+HASH: 7e0747b8808941d51c35de503473b62e
+
+RS1619xs+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS1619xs%2B_42218.pat
+HASH: 1ef98087cb11be286a8eac26f55dbe52
+
+RS3621RPxs 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS3621RPxs_69057.pat
+HASH: c3f385559425e886e928d1addc3241a6
+
+RS3621RPxs 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS3621RPxs_42962.pat
+HASH: b5866fc58081412e5367df643ca6a4d1
+
+RS3621RPxs 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS3621RPxs_42218.pat
+HASH: 890b61e7f6b048b821ba4ab8690184fa
+
+RS3621xs+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS3621xs%2B_69057.pat
+HASH: 4f2190517ec5a9eceec9e0ab6060ce3e
+
+RS3621xs+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS3621xs%2B_42962.pat
+HASH: 6007b81c39a9671d51cfae2ad1e37a24
+
+RS3621xs+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS3621xs%2B_42218.pat
+HASH: f2b6896f7ea7237bd52501f80e502396
+
+RS4021xs+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS4021xs%2B_69057.pat
+HASH: 339a5bd6bdcb65b32a57c344fef41dff
+
+RS4021xs+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS4021xs%2B_42962.pat
+HASH: fc15f132649a8c8626190dc864bbdf8c
+
+RS4021xs+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS4021xs%2B_42218.pat
+HASH: cbcb77548de26b6843ab31d7a7258b62
+
+SA3400 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_SA3400_69057.pat
+HASH: 1d740651ca0623939589150c7a572502
+
+SA3400 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_SA3400_42962.pat
+HASH: cc0a219656db7ef26587ed59bbf1643f
+
+SA3400 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_SA3400_42218.pat
+HASH: 236dbf3601ffec5259a3c9d42bb640ba
+
+SA3600 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_SA3600_69057.pat
+HASH: 0cebda065505c2792d4c1f4a90a7876e
+
+SA3600 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_SA3600_42962.pat
+HASH: 7c21732ca4f4cb4cf43538a3d9497cf8
+
+SA3600 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_SA3600_42218.pat
+HASH: 64c75bdf8d28761cb294e41bf3aee2e9
+
+FS3410 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_FS3410_69057.pat
+HASH: 12de74a0fdd92ea8ceb150b7de750b6a
+
+FS3410 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS3410_42962.pat
+HASH: 1bade8eb7eadd514699d4beb714531ad
+
+FS3410 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_FS3410_69057.pat
+HASH: 12de74a0fdd92ea8ceb150b7de750b6a
+
+SA3410 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057/DSM_SA3410_69057.pat
+HASH: 35e549de6071e76e023673d7769c2e78
+
+SA3410 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_SA3410_42962.pat
+HASH: e915219272385f93ad8ef32b3423b1fe
+
+SA3410 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057/DSM_SA3410_69057.pat
+HASH: 35e549de6071e76e023673d7769c2e78
+
+SA3610 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057/DSM_SA3610_69057.pat
+HASH: b35118ff409b5edf589447f9ec75aba3
+
+SA3610 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_SA3610_42962.pat
+HASH: cf53d42f5a98b9f6af6dcc57c56fa09b
+
+SA3610 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057/DSM_SA3610_69057.pat
+HASH: b35118ff409b5edf589447f9ec75aba3
+
+SA3200D 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_SA3200D_69057.pat
+HASH: 3b8a56642dd24e5b42bc56a5783855a1
+
+SA3200D 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_SA3200D_42962.pat
+HASH: 14d4a437a999e6e0f036516091a7557e
+
+SA3200D 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_SA3200D_42218.pat
+HASH: cc80d9b3b2c53eee527f1fc49d34fec4
+
+SA3400D 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_SA3400D_69057.pat
+HASH: 482e8d9b4647d9820af3125511fc98cd
+
+SA3400D 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_SA3400D_42962.pat
+HASH: 07fdf9e297ca66fa0821341e3be1933b
+
+SA3400D 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_SA3400D_69057.pat
+HASH: 482e8d9b4647d9820af3125511fc98cd
+
+DS1618+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1618%2B_69057.pat
+HASH: 2e3cfb30b7cbf6043eb3e9d5bacf0b18
+
+DS1618+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1618%2B_42962.pat
+HASH: f465cb6202ec5ddbd1ed72b8c78f29c4
+
+DS1618+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1618%2B_42218.pat
+HASH: ed156bf787405393f94f5b08b6dfa1d5
+
+DS1819+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1819%2B_69057.pat
+HASH: bd5ed66d4f74e97416c0724737f88315
+
+DS1819+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1819%2B_42962.pat
+HASH: 5dac92403628186c629d2ab5aedbcc57
+
+DS1819+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1819%2B_42218.pat
+HASH: 82dc294d7f99545d9d7e2ff9bcae114b
+
+DS2419+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS2419%2B_69057.pat
+HASH: 8513269cb1ee01030e8d7cd3d57fc8d6
+
+DS2419+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS2419%2B_42962.pat
+HASH: 7b53fbb5c813af9db29b39382b5e5d68
+
+DS2419+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS2419%2B_42218.pat
+HASH: 59d48e64ad4d0e5bc35f9eec8869d9c5
+
+DS2419+II 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS2419%2BII_69057.pat
+HASH: 948e1799bcd25fbafd5eca2cfd11b338
+
+DS2419+II 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS2419%2BII_42962.pat
+HASH: 50d27c3c6ba5571f4de5c1f787e804a5
+
+DS2419+II 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS2419%2BII_42218.pat
+HASH: 939109f7fcdcce5e20a3cec9d6ced85a
+
+DVA3219 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DVA3219_69057.pat
+HASH: fddf1a9eb447b15b1031f58199ead0b7
+
+DVA3219 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DVA3219_42962.pat
+HASH: 6aa37856c3bf2a390f99420b2e7dffa4
+
+DVA3219 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DVA3219_42218.pat
+HASH: 4345e7cff9ba4fe97793c254c87b3ed5
+
+DVA3221 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DVA3221_69057.pat
+HASH: fd448e5391b33575fcf8c25f11c09f23
+
+DVA3221 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DVA3221_42962.pat
+HASH: 23a98723cacf1e1bd248cf8ab07bd788
+
+DVA3221 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DVA3221_42218.pat
+HASH: e3455afd4644cb882cb2c9bede08c7bf
+
+RS2418+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS2418%2B_69057.pat
+HASH: 40567cfb40f22da1aa2b08377edd2a15
+
+RS2418+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS2418%2B_42962.pat
+HASH: 840a5db84c548c58a6d3bb36d0b758d0
+
+RS2418+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2418%2B_42218.pat
+HASH: f76279d2edfbfbaefc15b6ea12a2a83e
+
+RS2418RP+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS2418RP%2B_69057.pat
+HASH: 03228534673ac90d808023b466908e39
+
+RS2418RP+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS2418RP%2B_42962.pat
+HASH: db3cb61e0d74f28a1f26dd190407bde1
+
+RS2418RP+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2418RP%2B_42218.pat
+HASH: 5be145510b50bb75e686a5226f9d0d6c
+
+RS2818RP+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS2818RP%2B_69057.pat
+HASH: 8ec7d62c99ae0474aad04a0f58bca61c
+
+RS2818RP+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS2818RP%2B_42962.pat
+HASH: a29d83759366fcfacd31b90bcf76daad
+
+RS2818RP+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2818RP%2B_42218.pat
+HASH: 1a3876d1da179b81a5c7ace54cf3b85c
+
+RS820+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS820%2B_69057.pat
+HASH: 073cc8988b143e26e931784c3ad795a6
+
+RS820+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS820%2B_42962.pat
+HASH: 423ecfdb73c88432232a28d96ebb4e06
+
+RS820+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS820%2B_42218.pat
+HASH: 89901ca8b6f50a2d0b02c854350f5da9
+
+RS820RP+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS820RP%2B_69057.pat
+HASH: ca14c4bea2f77bcc751d16fdd9edbbdc
+
+RS820RP+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS820RP%2B_42962.pat
+HASH: d8ea285232aa6b69eb14c2337ea245ca
+
+RS820RP+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS820RP%2B_42218.pat
+HASH: 530d5de622f46e1960ed5b1c32d168a9
+
+SA6400 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_SA6400_69057.pat
+HASH: b6cecc4a11211306f2cc328e3b6d49d1
+
+SA6400 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_SA6400_42962.pat
+HASH: fdbbea86e280a8f754339a064f9ad2df
+
+DS1520+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1520%2B_69057.pat
+HASH: a028a246334bb45b398a240ecfe194e8
+
+DS1520+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1520%2B_42962.pat
+HASH: d28994a9dcdae9730b4d1370a39d3130
+
+DS1520+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1520%2B_42218.pat
+HASH: d1ebc3c9a2b9e04980a85c4784904f91
+
+DS220+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS220%2B_69057.pat
+HASH: 29111f8860063c4a9a84827a2d9e019a
+
+DS220+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS220%2B_42962.pat
+HASH: dcdae26b1419f67f53a7936e6176cc7c
+
+DS220+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS220%2B_42218.pat
+HASH: b77984bcefef6ddc2e847a336cb2d764
+
+DS224+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS224%2B_69057.pat
+HASH: 462cb5f704faa7a32651be4b4e17746e
+
+DS224+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS224%2B_69057.pat
+HASH: 462cb5f704faa7a32651be4b4e17746e
+
+DS224+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS224%2B_69057.pat
+HASH: 462cb5f704faa7a32651be4b4e17746e
+
+DS420+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS420%2B_69057.pat
+HASH: dbfb5437026b296436f8b7a658a3e981
+
+DS420+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS420%2B_42962.pat
+HASH: 0bd416ce234943719f646a0db895b81f
+
+DS420+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS420%2B_42218.pat
+HASH: 50089a9ccd2b724f24de04c86f8ac2aa
+
+DS423+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS423%2B_69057.pat
+HASH: f39d37dee5a64a3b00c2b5fc03aad432
+
+DS423+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_DS423%2B_42962.pat
+HASH: 4d901cefef7204d44fd4d0cbcbfc5b52
+
+DS423+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS423%2B_69057.pat
+HASH: f39d37dee5a64a3b00c2b5fc03aad432
+
+DS720+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS720%2B_69057.pat
+HASH: 390c2e64a19b894047df903d031abd0e
+
+DS720+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS720%2B_42962.pat
+HASH: 9ecc37490cb6e4de3af666db5766cb21
+
+DS720+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS720%2B_42218.pat
+HASH: 83dd377fa9d66f21e2ab2536bb9a3943
+
+DS920+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS920%2B_69057.pat
+HASH: 3846db325eb44d939730a338719ca9b5
+
+DS920+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS920%2B_42962.pat
+HASH: 69792ae34d9b3c6e707d0e3e6b82816f
+
+DS920+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS920%2B_42218.pat
+HASH: 55a7e4ccbf6fcba9238a11976a4a7381
+
+DVA1622 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DVA1622_69057.pat
+HASH: 768f381ac51a665b16554bace91abe32
+
+DVA1622 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DVA1622_42962.pat
+HASH: 6073f5daa75a0eda84e6a3f3cbae4920
+
+DVA1622 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DVA1622_69057.pat
+HASH: 768f381ac51a665b16554bace91abe32
+
+FS6400 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057/DSM_FS6400_69057.pat
+HASH: 66dc986826177528dc9558195e1ddc89
+
+FS6400 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS6400_42962.pat
+HASH: 651be491d10a47ecc534295d84341c03
+
+FS6400 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS6400_42218.pat
+HASH: e7887381980432a7be5ddf4dec0772ad
+
+HD6500 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_HD6500_69057.pat
+HASH: d2ea6adb3cb9c8aadcf6439a5482cf5b
+
+HD6500 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_HD6500_42962.pat
+HASH: 245c3ccd788a17be79187ff32c074888
+
+HD6500 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_HD6500_69057.pat
+HASH: d2ea6adb3cb9c8aadcf6439a5482cf5b
+
+DS1522+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1522%2B_69057.pat
+HASH: 234e958a0dcf489dae866c14d30ed761
+
+DS1522+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1522%2B_42962.pat
+HASH: a116d65da8908275ea681dd7ac06b831
+
+DS723+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS723%2B_69057.pat
+HASH: 83a24f5a0354c415160b546eadce092b
+
+DS723+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_DS723%2B_42962.pat
+HASH: 1860b260c80de7103d236f2eae0f0dfb
+
+DS923+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS923%2B_69057.pat
+HASH: 74bcec33670a196b08cdf65512f1f4e6
+
+DS923+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_DS923%2B_42962.pat
+HASH: fdff6232dacf9bd3b189506f51577128
+
+RS422+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS422%2B_69057.pat
+HASH: eaf465492d0dd1890de82be665350657
+
+RS422+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS422%2B_42962.pat
+HASH: 5b12e689f7ab0fcfc477d9be1bba84ad
+
+DS1621+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1621%2B_69057.pat
+HASH: 4bc6b4b8cfa7005505a6168a08c92b5f
+
+DS1621+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1621%2B_42962.pat
+HASH: 93a5a2b9515b39e18d0b48df84d5c007
+
+DS1621+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1621%2B_42218.pat
+HASH: 1fd1d6e733bb096f418f68e06f81022e
+
+DS1821+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1821%2B_69057.pat
+HASH: 6a7efda6e842ebee9597120e4a68870a
+
+DS1821+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1821%2B_42962.pat
+HASH: e54b32884cbc1b913324c8cda5b2f978
+
+DS1821+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1821%2B_42218.pat
+HASH: cbe674d818bc06b7eefef2b9c58fc859
+
+DS1823xs+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1823xs%2B_69057.pat
+HASH: 134c17ae983809784f9cbfd133c64ea7
+
+DS1823xs+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_DS1823xs%2B_42962.pat
+HASH: d337b8a44008bb726c28489e30577cee
+
+DS1823xs+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1823xs%2B_69057.pat
+HASH: 134c17ae983809784f9cbfd133c64ea7
+
+DS2422+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS2422%2B_69057.pat
+HASH: 2c443d1fa7b8542c58a203eaf9dbf224
+
+DS2422+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS2422%2B_42962.pat
+HASH: b00d3d1ccf1b1a6982b2b594420e0f3c
+
+DS2422+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS2422%2B_42218.pat
+HASH: 7fe3c9ae80396a2ea9ed9909b8746c4b
+
+FS2500 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_FS2500_69057.pat
+HASH: 57e899896177917e2dfbff88320555d8
+
+FS2500 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS2500_42962.pat
+HASH: 169493af5375eb9da89ff324a3fe129a
+
+FS2500 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS2500_42218.pat
+HASH: 9562d49a07f5481208b672ff777f3cbf
+
+RS1221+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS1221%2B_69057.pat
+HASH: 8706a4ce04bdb3e6fed2b6197b4197ea
+
+RS1221+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS1221%2B_42962.pat
+HASH: 441e25883733556af6fb6cbab74090fd
+
+RS1221+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS1221%2B_42218.pat
+HASH: 9ab734898b1f8af906b65ff91bf2b399
+
+RS1221RP+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS1221RP%2B_69057.pat
+HASH: f6a9c300a8aba8b7971d8ecd67a9a254
+
+RS1221RP+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS1221RP%2B_42962.pat
+HASH: 3da6804567e48789084138326fae4e3a
+
+RS1221RP+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS1221RP%2B_42218.pat
+HASH: cd56441518205ee7063764d0ef94cbbe
+
+RS2421+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS2421%2B_69057.pat
+HASH: d99aceea19f54ac5cfef05e90cc29b04
+
+RS2421+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS2421%2B_42962.pat
+HASH: d19fd46faea20ff55490e8ac507c1ecd
+
+RS2421+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2421%2B_42218.pat
+HASH: ba8245e29676793f24e9d8ceea1a2e20
+
+RS2421RP+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS2421RP%2B_69057.pat
+HASH: 1f55e89932b6d4ac013c8bbb2a530cd6
+
+RS2421RP+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS2421RP%2B_42962.pat
+HASH: e90f3c57fb4322c1a60afdd67a3e0b9c
+
+RS2421RP+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2421RP%2B_42218.pat
+HASH: c0c53783189297b37b2f84ddea0ec457
+
+RS2423+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS2423%2B_69057.pat
+HASH: ce2c6810c902577904df02f0480c8856
+
+RS2423+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_RS2423%2B_42962.pat
+HASH: db45c561e81392e48cb03d8e495a0cbc
+
+RS2423+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS2423%2B_69057.pat
+HASH: ce2c6810c902577904df02f0480c8856
+
+RS2423RP+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS2423RP%2B_69057.pat
+HASH: 5594337e837b9398872733e9802d3eed
+
+RS2423RP+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_RS2423RP%2B_42962.pat
+HASH: 7146a92a3509f39c831492469793d71a
+
+RS2423RP+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS2423RP%2B_69057.pat
+HASH: 5594337e837b9398872733e9802d3eed
+
+RS2821RP+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS2821RP%2B_69057.pat
+HASH: c41091b3d3ac6ab66dfe781c4a5e1272
+
+RS2821RP+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS2821RP%2B_42962.pat
+HASH: fdc9aea6a47208b45c56c733233b773f
+
+RS2821RP+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2821RP%2B_42218.pat
+HASH: 896946ab9bed611f26f5258724af6aef
+
+RS822+ 7.2
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS822%2B_69057.pat
+HASH: 15b1df11e5b3161b2a04ee2547163e99
+
+RS822+ 7.1
+URL: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS822%2B_42962.pat
+HASH: 2673a9d78c32b1daf5b3454478e89077
+
+RS822+ 7.0
+URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS822%2B_69057.pat
+HASH: 15b1df11e5b3161b2a04ee2547163e99
+
 RS822RP+ 7.2
 URL: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS822RP%2B_69057.pat
 HASH: db43c65b125ff4c67e407fa02ca4eabd
