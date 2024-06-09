@@ -9,8 +9,6 @@ function getDSM() {
     PLATFORM="${2}"
     VERSIONS="$(readConfigEntriesArray "platforms.${PLATFORM}.productvers" "${P_FILE}" | sort -r)"
     echo "${VERSIONS}" >"${TMP_PATH}/versions"
-    [ -f "${TMP_PATH}/dsmdata.yml" ] && rm -f "${TMP_PATH}/dsmdata.yml"
-    touch "${TMP_PATH}/dsmdata.yml"
     while IFS= read -r line; do
         VERSION="${line}"
         PAT_FILE="${MODEL}_${VERSION}.pat"
@@ -128,6 +126,7 @@ TMP_PATH="${HOME}/tmp"
 mkdir -p "${TMP_PATH}"
 rm -f "${CONFIGS}"
 mkdir -p "${CONFIGS}"
+touch "${TMP_PATH}/dsmdata.yml"
 TAG="$(curl --insecure -m 5 -s https://api.github.com/repos/AuxXxilium/arc-configs/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')"
 curl --insecure -s -w "%{http_code}" -L "https://github.com/AuxXxilium/arc-configs/releases/download/${TAG}/configs.zip" -o "./configs.zip"
 unzip -oq "./configs.zip" -d "${CONFIGS}" >/dev/null 2>&1
