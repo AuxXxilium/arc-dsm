@@ -64,8 +64,8 @@ jobs:
       - name: Get data
         run: |
           sudo pip install -r scripts/requirements.txt
-          sudo python scripts/func.py getmodels -w "arc-dsm/ws" -j "models.json"
-          sudo python scripts/func.py getpats -w "arc-dsm/ws" -j "pats.json"
+          sudo python scripts/func.py getmodels -w "." -j "models.json"
+          sudo python scripts/func.py getpats -w "." -j "pats.json"
 
       - name: Update
         run: |
