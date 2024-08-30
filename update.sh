@@ -27,7 +27,7 @@ function getDSM() {
                 PAT_PATH="${CACHE_PATH}/dl/${PAT_FILE}"
                 UNTAR_PAT_PATH="${CACHE_PATH}/${MODEL}/${VERSION}"
                 DESTINATION="${DSMPATH}/${MODEL}/${VERSION}"
-                DESTINATIONFILES="${FILESPATH}/${MODEL}/${URLVER}"
+                DESTINATIONFILES="${FILESPATH}/${MODEL}/${VERSION:0:3}"
                 # Make Destinations
                 mkdir -p "${DESTINATION}"
                 mkdir -p "${DESTINATIONFILES}"
@@ -168,3 +168,4 @@ cp -f "${TMP_PATH}/dsmdata.yml" "${HOME}/dsmdata.yml"
 rm -rf "${CACHE_PATH}/dl"
 rm -rf "${CONFIGS}"
 rm -rf "${TMP_PATH}"
+rm -f "configs.zip"
