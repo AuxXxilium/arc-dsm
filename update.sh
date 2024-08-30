@@ -31,9 +31,9 @@ function getDSM() {
             echo "" >>"${TMP_PATH}/dsmdata.yml"
             echo "${MODEL} ${URLVER} (${VERSION})" >>"${TMP_PATH}/dsmdata.yml"
             echo "${PAT_URL}"
-            echo "URL: ${PAT_URL}" >>"${TMP_PATH}/dsmdata.yml"
+            echo "Url: ${PAT_URL}" >>"${TMP_PATH}/dsmdata.yml"
             echo "${PAT_HASH}"
-            echo "HASH: ${PAT_HASH}" >>"${TMP_PATH}/dsmdata.yml"
+            echo "Hash: ${PAT_HASH}" >>"${TMP_PATH}/dsmdata.yml"
             if [ -f "${DESTINATION}/pat_url" ] && [ -f "${DESTINATION}/pat_hash" ]; then
                 OLDURL="$(cat "${DESTINATION}/pat_url")"
                 OLDHASH="$(cat "${DESTINATION}/pat_hash")"
