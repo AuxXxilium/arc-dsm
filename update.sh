@@ -12,7 +12,7 @@ function getDSM() {
     while IFS= read -r line; do
         PRODUCTVER="${line}"
         PJ="$(python scripts/functions.py getpats4mv -m "${MODEL}" -v "${PRODUCTVER}")"
-        PVS="$(echo "${PJ}" | jq -r 'keys | sort | reverse | join(" ")')"
+        PVS="$(echo "${PJ}" | jq -r 'keys | sort | reverse | join("\n")')"
         echo "${PVS}" >"${TMP_PATH}/versions"
         while IFS= read -r line; do
             VERSION="${line}"
