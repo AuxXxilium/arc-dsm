@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2023 AuxXxilium <https://github.com/AuxXxilium> and Ing <https://github.com/wjz304>
+# Copyright (C) 2023 AuxXxilium <https://github.com/AuxXxilium>
 # 
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
@@ -33,7 +33,26 @@ jobs:
           sudo timedatectl set-timezone "Europe/Berlin"
           
           sudo apt update
-          sudo apt install -y jq gawk cpio gettext libelf-dev qemu-utils busybox dialog curl sed zip unzip python3
+          sudo apt install -y \
+            jq \
+            build-essential \
+            libtool \
+            pkgconf \
+            libzstd-dev \
+            liblzma-dev \
+            libssl-dev \
+            gawk \
+            cpio \
+            gettext \
+            libelf-dev \
+            qemu-utils \
+            busybox \
+            dialog \
+            curl \
+            sed \
+            zip \
+            unzip \
+            python3
           sudo snap install yq
 
       - name: Clean Files
@@ -42,6 +61,12 @@ jobs:
           sudo rm -rf ./files
           sudo rm -rf ./dsm
 
+      - name: Get data
+        run: |
+          sudo pip install -r scripts/requirements.txt
+          sudo python scripts/func.py getmodels -w "arc-dsm/ws" -j "models.json"
+          sudo python scripts/func.py getpats -w "arc-dsm/ws" -j "pats.json"
+
       - name: Update
         run: |
           sudo ./update.sh
@@ -49,7 +74,7 @@ jobs:
       - name: Check and Push
         if: inputs.push == true
         run: |
-          git pull
+          git fetch
           git add .
           git commit -m "dsm: update $(date +%Y-%m-%d" "%H:%M:%S)"
           git push -f
