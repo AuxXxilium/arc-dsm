@@ -159,6 +159,9 @@ FILESPATH="${HOME}/files"
 while read -r M A; do
     MODEL=$(echo ${M} | sed 's/d$/D/; s/rp$/RP/; s/rp+/RP+/')
     getDSM "${MODEL}" "${A}"
+    git config --global user.email "info@auxxxilium.tech"
+    git config --global user.name "AuxXxilium"
+    git fetch -b main --single-branch
     git add .
     git commit -m "${MODEL}: update $(date +%Y-%m-%d" "%H:%M:%S)"
     git push -f
