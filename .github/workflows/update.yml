@@ -10,10 +10,6 @@ name: Update
 on:
   workflow_dispatch:
     inputs:
-      push: 
-        description: 'push'
-        default: true
-        type: boolean
       cleanfiles: 
         description: 'clean files'
         default: false
@@ -66,7 +62,6 @@ jobs:
           sudo ./update.sh
 
       - name: Check and Push
-        if: inputs.push == true
         run: |
           git fetch
           git add .
