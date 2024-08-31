@@ -59,6 +59,9 @@ jobs:
 
       - name: Update
         run: |
+          sudo rm -rf ./tmp
+          sudo rm -rf ./configs
+          sudo rm -f ./configs.zip
           sudo ./update.sh
 
       - name: Check and Push
