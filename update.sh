@@ -171,3 +171,4 @@ cp -f "${TMP_PATH}/dsmdata.yml" "${HOME}/dsmdata.yml"
 # Cleanup DSM Files
 rm -rf "${CACHE_PATH}/dl"
 rm -rf "${TMP_PATH}"
+rm -rf "${CONFIGS}"
