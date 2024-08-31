@@ -24,8 +24,8 @@ jobs:
 
       - name: Initialization environment
         run : |
-          git config --global user.email "info@auxxxilium.tech"
-          git config --global user.name "AuxXxilium"
+          sudo git config --global user.email "info@auxxxilium.tech"
+          sudo git config --global user.name "AuxXxilium"
           sudo timedatectl set-timezone "Europe/Berlin"
           
           sudo apt update
@@ -63,7 +63,7 @@ jobs:
 
       - name: Check and Push
         run: |
-          git fetch
-          git add .
-          git commit -m "dsm: update $(date +%Y-%m-%d" "%H:%M:%S)"
-          git push -f
+          sudo git fetch
+          sudo git add .
+          sudo git commit -m "dsm: update $(date +%Y-%m-%d" "%H:%M:%S)"
+          sudo git push -f
