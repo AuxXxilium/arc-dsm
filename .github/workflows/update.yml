@@ -60,3 +60,10 @@ jobs:
       - name: Update
         run: |
           sudo ./update.sh
+
+      - name: Check and Push
+        run: |
+          git fetch
+          git add .
+          git commit -m "dsm: update $(date +%Y-%m-%d" "%H:%M:%S)"
+          git push -f
