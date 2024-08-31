@@ -161,8 +161,8 @@ while read -r M A; do
     getDSM "${MODEL}" "${A}"
     git config --global user.email "info@auxxxilium.tech"
     git config --global user.name "AuxXxilium"
-    git fetch -b main --single-branch
-    git add .
+    git fetch
+    git add ${HOME}/.
     git commit -m "${MODEL}: update $(date +%Y-%m-%d" "%H:%M:%S)"
     git push -f
 done < <(cat "${TMP_PATH}/modellist")
