@@ -133,7 +133,7 @@ function getDSM() {
 # Init DSM Files
 HOME=$(pwd)
 CONFIGS="./configs"
-TMP_PATH="${HOME}/tmp"
+TMP_PATH="${HOME}/data"
 mkdir -p "${TMP_PATH}"
 rm -f "${CONFIGS}"
 mkdir -p "${CONFIGS}"
@@ -156,6 +156,8 @@ EXTRACTOR_PATH="${CACHE_PATH}/extractor"
 EXTRACTOR_BIN="syno_extract_system_patch"
 DSMPATH="${HOME}/dsm"
 FILESPATH="${HOME}/files"
+rm -rf "${CONFIGS}"
+rm -f "configs.zip"
 while read -r M A; do
     MODEL=$(echo ${M} | sed 's/d$/D/; s/rp$/RP/; s/rp+/RP+/')
     getDSM "${MODEL}" "${A}"
@@ -169,6 +171,4 @@ done < <(cat "${TMP_PATH}/modellist")
 cp -f "${TMP_PATH}/dsmdata.yml" "${HOME}/dsmdata.yml"
 # Cleanup DSM Files
 rm -rf "${CACHE_PATH}/dl"
-rm -rf "${CONFIGS}"
 rm -rf "${TMP_PATH}"
-rm -f "configs.zip"
