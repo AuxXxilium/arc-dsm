@@ -22,7 +22,7 @@ function getDSM() {
             else
                 PAT_URL=$(echo "${PJ}" | jq -r ".\"${VERSION}\".url")
                 PAT_HASH=$(echo "${PJ}" | jq -r ".\"${VERSION}\".sum")
-                URLVER="$(echo "${PV}" | cut -d'.' -f1,2)"
+                URLVER="$(echo "${VERSION}" | cut -d'.' -f1,2)"
                 PAT_FILE="${MODEL}_${VERSION}.pat"
                 PAT_PATH="${CACHE_PATH}/dl/${PAT_FILE}"
                 UNTAR_PAT_PATH="${CACHE_PATH}/${MODEL}/${VERSION}"
@@ -31,7 +31,7 @@ function getDSM() {
                 # Make Destinations
                 mkdir -p "${DESTINATION}"
                 mkdir -p "${DESTINATIONFILES}"
-                echo "${MODEL} ${URLVER} (${VERSION})"
+                echo "${MODEL} ${VERSION:0:3} (${VERSION})"
                 echo "" >>"${TMP_PATH}/dsmdata.yml"
                 echo "${MODEL} ${URLVER} (${VERSION})" >>"${TMP_PATH}/dsmdata.yml"
                 echo "${PAT_URL}"
