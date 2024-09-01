@@ -32,12 +32,15 @@ function getDSM() {
                 mkdir -p "${DESTINATION}"
                 mkdir -p "${DESTINATIONFILES}"
                 echo "${MODEL} ${VERSION:0:3} (${VERSION})"
-                echo "" >>"${TMP_PATH}/dsmdata.yml"
-                echo "${MODEL} ${URLVER} (${VERSION})" >>"${TMP_PATH}/dsmdata.yml"
                 echo "${PAT_URL}"
-                echo "Url: ${PAT_URL}" >>"${TMP_PATH}/dsmdata.yml"
                 echo "${PAT_HASH}"
-                echo "Hash: ${PAT_HASH}" >>"${TMP_PATH}/dsmdata.yml"
+                echo "  \"${VERSION}\":" >>"${TMP_PATH}/data.yml"
+                echo "    url: \"${PAT_URL}\"" >>"${TMP_PATH}/data.yml"
+                echo "    hash: \"${PAT_HASH}\"" >>"${TMP_PATH}/data.yml"
+                echo "" >>"${TMP_PATH}/webdata.txt"
+                echo "${MODEL} ${URLVER} (${VERSION})" >>"${TMP_PATH}/webdata.txt"
+                echo "Url: ${PAT_URL}" >>"${TMP_PATH}/webdata.txt"
+                echo "Hash: ${PAT_HASH}" >>"${TMP_PATH}/webdata.txt"
                 if [ -f "${DESTINATION}/pat_url" ] && [ -f "${DESTINATION}/pat_hash" ]; then
                     OLDURL="$(cat "${DESTINATION}/pat_url")"
                     OLDHASH="$(cat "${DESTINATION}/pat_hash")"
@@ -137,7 +140,8 @@ TMP_PATH="${HOME}/data"
 mkdir -p "${TMP_PATH}"
 rm -f "${CONFIGS}"
 mkdir -p "${CONFIGS}"
-touch "${TMP_PATH}/dsmdata.yml"
+touch "${TMP_PATH}/data.yml"
+touch "${TMP_PATH}/webdata.txt"
 TAG="$(curl --insecure -m 5 -s https://api.github.com/repos/AuxXxilium/arc-configs/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')"
 curl --insecure -s -w "%{http_code}" -L "https://github.com/AuxXxilium/arc-configs/releases/download/${TAG}/configs.zip" -o "./configs.zip"
 unzip -oq "./configs.zip" -d "${CONFIGS}" >/dev/null 2>&1
@@ -159,6 +163,7 @@ DSMPATH="${HOME}/dsm"
 FILESPATH="${HOME}/files"
 while read -r M A; do
     MODEL=$(echo ${M} | sed 's/d$/D/; s/rp$/RP/; s/rp+/RP+/')
+    echo "\"${MODEL}\":" >>"${TMP_PATH}/data.yml"
     getDSM "${MODEL}" "${A}"
     git config --global user.email "info@auxxxilium.tech"
     git config --global user.name "AuxXxilium"
@@ -167,7 +172,8 @@ while read -r M A; do
     git commit -m "${MODEL}: update $(date +%Y-%m-%d" "%H:%M:%S)"
     git push -f
 done < <(cat "${TMP_PATH}/modellist")
-cp -f "${TMP_PATH}/dsmdata.yml" "${HOME}/dsmdata.yml"
+cp -f "${TMP_PATH}/webdata.txt" "${HOME}/webdata.txt"
+cp -f "${TMP_PATH}/data.yml" "${HOME}/data.yml"
 # Cleanup DSM Files
 rm -rf "${CACHE_PATH}/dl"
 rm -rf "${TMP_PATH}"
