@@ -508,3 +508,19 @@
   "7.2.2-72803-0":
     url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_FS3410_72803.pat"
     hash: "5238d737f773078adbd03b79b1de3f8a"
+"SA3410":
+  "7.2.2-72803-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_SA3410_72803.pat"
+    hash: "7440de3652733cc2321b47c24ccf2d2e"
+  "7.2.1-69057-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057/DSM_SA3410_69057.pat"
+    hash: "35e549de6071e76e023673d7769c2e78"
+  "7.2.0-64570-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_SA3410_64570.pat"
+    hash: "bdc69bf4f4fd3b0c040c4117f46084fe"
+  "7.1.1-42962-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_SA3410_42962.pat"
+    hash: "e915219272385f93ad8ef32b3423b1fe"
+  "7.2.2-72803-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_SA3410_72803.pat"
+    hash: "7440de3652733cc2321b47c24ccf2d2e"
