@@ -526,3 +526,27 @@ Hash: 1c049c31b9f84f53da889c48e2a21d59
 RS3621RPxs 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS3621RPxs_42218.pat
 Hash: 890b61e7f6b048b821ba4ab8690184fa
+
+RS3621xs+ 7.2 (7.2.2-72803-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_RS3621xs%2B_72803.pat
+Hash: a76774ed60954d162b0127f22ee4281c
+
+RS3621xs+ 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS3621xs%2B_69057.pat
+Hash: 4f2190517ec5a9eceec9e0ab6060ce3e
+
+RS3621xs+ 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_RS3621xs%2B_64570.pat
+Hash: b1517fb23721192de7e666da8cd2ae00
+
+RS3621xs+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS3621xs%2B_42962.pat
+Hash: 6007b81c39a9671d51cfae2ad1e37a24
+
+RS3621xs+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS3621xs%2B_42661.pat
+Hash: 5dd0954d761e8ac81f3e2f50e088fb8e
+
+RS3621xs+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS3621xs%2B_42218.pat
+Hash: f2b6896f7ea7237bd52501f80e502396
