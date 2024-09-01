@@ -378,3 +378,22 @@
   "7.0.1-42218-0":
     url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS3600_42218.pat"
     hash: "d9a68ec3e8c921641a3b51af68e57411"
+"RS1619xs+":
+  "7.2.2-72803-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_RS1619xs%2B_72803.pat"
+    hash: "6257124c3f8b3541cad8a2d91277ac52"
+  "7.2.1-69057-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS1619xs%2B_69057.pat"
+    hash: "e2ab155d5a03d61eb2c146c2e2972861"
+  "7.2.0-64570-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_RS1619xs%2B_64570.pat"
+    hash: "631c7162e33a11d4555121a188540c83"
+  "7.1.1-42962-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS1619xs%2B_42962.pat"
+    hash: "7e0747b8808941d51c35de503473b62e"
+  "7.1.0-42661-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS1619xs%2B_42661.pat"
+    hash: "0c0b793d8ae1f0a1ecba66e280bd81e7"
+  "7.0.1-42218-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS1619xs%2B_42218.pat"
+    hash: "1ef98087cb11be286a8eac26f55dbe52"
