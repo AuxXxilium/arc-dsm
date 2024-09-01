@@ -358,3 +358,27 @@ Hash: 2b16f828ab77fc2ee354c3ee3e55b855
 RS4017xs+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS4017xs%2B_42218.pat
 Hash: 31785a02d8b2f6145d077877668cc362
+
+DS1621xs+ 7.2 (7.2.2-72803-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_DS1621xs%2B_72803.pat
+Hash: db629c8550988dc0dee5a132b469b7c5
+
+DS1621xs+ 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1621xs%2B_69057.pat
+Hash: 8af12dfa839057343d4b0d7f57efad16
+
+DS1621xs+ 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS1621xs%2B_64570.pat
+Hash: ff027f65c9712059a5a54bfbfb5a52b7
+
+DS1621xs+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1621xs%2B_42962.pat
+Hash: fffec3510c954fc718a1aecba2f98fc6
+
+DS1621xs+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS1621xs%2B_42661.pat
+Hash: 18f849121a9a1918aca94c6774524910
+
+DS1621xs+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1621xs%2B_42218.pat
+Hash: 302fdefb00c8d4f8bf95ac25dca1e864
