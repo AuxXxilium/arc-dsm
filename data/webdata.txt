@@ -334,3 +334,27 @@ Hash: f36f1f22a48b184358823b6168a904fd
 RS3618xs 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS3618xs_42218.pat
 Hash: e91236e37fdbbb3a4f368dffa5a63013
+
+RS4017xs+ 7.2 (7.2.2-72803-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_RS4017xs%2B_72803.pat
+Hash: c339e9865e6016fde603472348452ca6
+
+RS4017xs+ 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS4017xs%2B_69057.pat
+Hash: ae6b1c6363420cc54dbbf0aef654b182
+
+RS4017xs+ 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_RS4017xs%2B_64570.pat
+Hash: f7e3807fe5d30bfdba0620f9b31a339e
+
+RS4017xs+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS4017xs%2B_42962.pat
+Hash: cf8ee4e0654b4c91dd2fb44ec697fe04
+
+RS4017xs+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS4017xs%2B_42661.pat
+Hash: 2b16f828ab77fc2ee354c3ee3e55b855
+
+RS4017xs+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS4017xs%2B_42218.pat
+Hash: 31785a02d8b2f6145d077877668cc362
