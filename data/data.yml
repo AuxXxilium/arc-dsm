@@ -188,3 +188,22 @@
   "7.0.1-42218-0":
     url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS3400_42218.pat"
     hash: "e55ec9e91ec7e4db5854ea6978f126e3"
+"RS18017xs+":
+  "7.2.2-72803-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_RS18017xs%2B_72803.pat"
+    hash: "265dc72c4bcaac9f01b07e18c1fd62c0"
+  "7.2.1-69057-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS18017xs%2B_69057.pat"
+    hash: "0e7173198b5c4efee2d2d373e3766bdb"
+  "7.2.0-64570-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_RS18017xs%2B_64570.pat"
+    hash: "958d1a8901c7e4f4890ff0db334836f0"
+  "7.1.1-42962-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS18017xs%2B_42962.pat"
+    hash: "7fc30e7930edb4d0f0dc921e5e70a3f6"
+  "7.1.0-42661-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS18017xs%2B_42661.pat"
+    hash: "f1c9c5e5cea427f44b97a4a65af1fa0b"
+  "7.0.1-42218-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS18017xs%2B_42218.pat"
+    hash: "9e4168fc0c7808bebd35c485396ea56c"
