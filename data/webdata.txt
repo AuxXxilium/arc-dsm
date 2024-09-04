@@ -454,3 +454,27 @@ Hash: 94278d0a7d891e7a9307036c14b82d41
 FS1018 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS1018_42218.pat
 Hash: 09ec9d58839bef77654226d82336a32d
+
+FS3600 7.2 (7.2.2-72803-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_FS3600_72803.pat
+Hash: 75046346a0484b03e983b7450c1ea6d3
+
+FS3600 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_FS3600_69057.pat
+Hash: 05cbcf3b75043968d6dd8a48e4677098
+
+FS3600 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_FS3600_64570.pat
+Hash: ddc3a00cef97f70cf56264239041c94c
+
+FS3600 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS3600_42962.pat
+Hash: b521eab70dc9836235f21a5cffd96d34
+
+FS3600 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_FS3600_42661.pat
+Hash: 0da6adfbf0fa63740cedeaf92d789e7e
+
+FS3600 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS3600_42218.pat
+Hash: d9a68ec3e8c921641a3b51af68e57411
