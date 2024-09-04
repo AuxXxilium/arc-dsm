@@ -1094,3 +1094,23 @@ Hash: ca3dc79e2cb77faafd76959e8367e83a
 DS420+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS420%2B_42218.pat
 Hash: 50089a9ccd2b724f24de04c86f8ac2aa
+
+DS423+ 7.2 (7.2.2-72803-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_DS423%2B_72803.pat
+Hash: b567d464021578883067fc557f46515a
+
+DS423+ 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS423%2B_69057.pat
+Hash: f39d37dee5a64a3b00c2b5fc03aad432
+
+DS423+ 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS423%2B_64570.pat
+Hash: 62d79e110b5355f32c23b2aa2eb51c24
+
+DS423+ 7.1 (7.1.1-42962-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_DS423%2B_42962.pat
+Hash: 4d901cefef7204d44fd4d0cbcbfc5b52
+
+DS423+ 7.2 (7.2.2-72803-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_DS423%2B_72803.pat
+Hash: b567d464021578883067fc557f46515a
