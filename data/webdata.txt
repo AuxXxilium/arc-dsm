@@ -214,3 +214,27 @@ Hash: 67b2fe123490609b486c4f4022496b2e
 FS2017 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS2017_42218.pat
 Hash: 45394e7dbb73997e62d298ef62ecd8d7
+
+FS3400 7.2 (7.2.2-72803-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_FS3400_72803.pat
+Hash: cfbb47dd357411425a3203af03763526
+
+FS3400 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_FS3400_69057.pat
+Hash: 6f79dba48c5c57c1aa7ca57cc56a1b89
+
+FS3400 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_FS3400_64570.pat
+Hash: c5bf9e2e99f8c76659d7d78eb68c49c8
+
+FS3400 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS3400_42962.pat
+Hash: 4fe7d22917dc2497fbe66884ec3ea3b5
+
+FS3400 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_FS3400_42661.pat
+Hash: 1376f3daf42b193bbf0d24abd1b70371
+
+FS3400 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS3400_42218.pat
+Hash: e55ec9e91ec7e4db5854ea6978f126e3
