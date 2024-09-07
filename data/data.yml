@@ -937,3 +937,22 @@
   "7.2.2-72803-0":
     url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_DVA1622_72803.pat"
     hash: "3e2dfebca0f7d63345fd8412b389fe5f"
+"FS6400":
+  "7.2.2-72803-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_FS6400_72803.pat"
+    hash: "587483d7773129140c9e12db17d514c2"
+  "7.2.1-69057-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057/DSM_FS6400_69057.pat"
+    hash: "66dc986826177528dc9558195e1ddc89"
+  "7.2.0-64570-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_FS6400_64570.pat"
+    hash: "2e69250e65f75bd4bb9e8274d865bc70"
+  "7.1.1-42962-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS6400_42962.pat"
+    hash: "651be491d10a47ecc534295d84341c03"
+  "7.1.0-42661-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_FS6400_42661.pat"
+    hash: "030064272d82777681502745fcfa8c48"
+  "7.0.1-42218-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS6400_42218.pat"
+    hash: "e7887381980432a7be5ddf4dec0772ad"
