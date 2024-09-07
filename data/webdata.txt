@@ -142,3 +142,27 @@ Hash: 2c49260d2646a0944b56933f7d4029fb
 DS918+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS918%2B_42218.pat
 Hash: 0c8a0d2dc6f1d7e37ee63d74760808b8
+
+DS3617xs 7.2 (7.2.2-72803-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_DS3617xs_72803.pat
+Hash: fe6316949f44e00e4da6656962cff598
+
+DS3617xs 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS3617xs_69057.pat
+Hash: 97c06b5d99a708b9c9eff62077b8a6bc
+
+DS3617xs 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS3617xs_64570.pat
+Hash: 4c6165e5c87d83d52a173679d320383f
+
+DS3617xs 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS3617xs_42962.pat
+Hash: b46e3d7933c7f77c78d536d33f9b5c4a
+
+DS3617xs 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS3617xs_42661.pat
+Hash: 94e6263912bc758ee3db81c62a94a8f6
+
+DS3617xs 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS3617xs_42218.pat
+Hash: b7d85926561ff125928b68e7fffa646b
