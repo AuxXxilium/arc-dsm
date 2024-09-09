@@ -70,3 +70,27 @@ Hash: 493544a5e246aa7cea2479b4d454a183
 DS418play 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS418play_42218.pat
 Hash: 720417d493fe763f5e7ba81d1cf6e126
+
+DS620slim 7.2 (7.2.2-72803-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_DS620slim_72803.pat
+Hash: 6850994e2aa3008987f7ed550ff23115
+
+DS620slim 7.2 (7.2.1-69057-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057/DSM_DS620slim_69057.pat
+Hash: 4d83fa3404cf8b4c4eac895ae9ad6a92
+
+DS620slim 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS620slim_64570.pat
+Hash: 9691061ea45d029c515e22de919afa9a
+
+DS620slim 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS620slim_42962.pat
+Hash: 1f2d07cae47692f36ef04651184d86a0
+
+DS620slim 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS620slim_42661.pat
+Hash: 7d563ad4aceaa1fd177011a7bb165ecf
+
+DS620slim 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS620slim_42218.pat
+Hash: d627699bdcee9943a53fdfb0a62e0bb8
