@@ -798,3 +798,27 @@ Hash: ae6cdda2edff9458b2fff7114474f38d
 DS2419+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS2419%2B_42218.pat
 Hash: 59d48e64ad4d0e5bc35f9eec8869d9c5
+
+DS2419+II 7.2 (7.2.2-72803-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_DS2419%2BII_72803.pat
+Hash: 115f5696e178123211147adccc5bb1d0
+
+DS2419+II 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS2419%2BII_69057.pat
+Hash: 948e1799bcd25fbafd5eca2cfd11b338
+
+DS2419+II 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS2419%2BII_64570.pat
+Hash: b3a6f54e2be6578c3e3594801208556b
+
+DS2419+II 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS2419%2BII_42962.pat
+Hash: 50d27c3c6ba5571f4de5c1f787e804a5
+
+DS2419+II 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS2419%2BII_42661.pat
+Hash: 33a068ae26e9e88e57c4b4e6ed218c98
+
+DS2419+II 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS2419%2BII_42218.pat
+Hash: 939109f7fcdcce5e20a3cec9d6ced85a
