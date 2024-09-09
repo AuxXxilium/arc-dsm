@@ -118,3 +118,27 @@ Hash: 5ce16aada281ae4e11359a4e853b65d8
 DS718+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS718%2B_42218.pat
 Hash: 3dac0f41036e712d4278f140035ecaa9
+
+DS918+ 7.2 (7.2.2-72803-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72803/DSM_DS918%2B_72803.pat
+Hash: 524a4f0e8f3411eeece4cef8fe6c4798
+
+DS918+ 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS918%2B_69057.pat
+Hash: f42d7da7fcaa24bc9409e857bdefff30
+
+DS918+ 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS918%2B_64570.pat
+Hash: 4fab55b87cb153239536cca3947f4513
+
+DS918+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS918%2B_42962.pat
+Hash: d5b62813ebc2d78bdbdf08b2c42e1280
+
+DS918+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS918%2B_42661.pat
+Hash: 2c49260d2646a0944b56933f7d4029fb
+
+DS918+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS918%2B_42218.pat
+Hash: 0c8a0d2dc6f1d7e37ee63d74760808b8
