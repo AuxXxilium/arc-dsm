@@ -894,3 +894,22 @@
   "7.0.1-42218-0":
     url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DVA3219_42218.pat"
     hash: "4345e7cff9ba4fe97793c254c87b3ed5"
+"DVA3221":
+  "7.2.2-72806-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DVA3221_72806.pat"
+    hash: "a5ec53983ba6a47824a27bc0f1253e73"
+  "7.2.1-69057-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DVA3221_69057.pat"
+    hash: "fd448e5391b33575fcf8c25f11c09f23"
+  "7.2.0-64570-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DVA3221_64570.pat"
+    hash: "2002e02d355c43e266222307e041302a"
+  "7.1.1-42962-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DVA3221_42962.pat"
+    hash: "23a98723cacf1e1bd248cf8ab07bd788"
+  "7.1.0-42661-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DVA3221_42661.pat"
+    hash: "d433ae251ba95754edde1586851d1e0a"
+  "7.0.1-42218-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DVA3221_42218.pat"
+    hash: "e3455afd4644cb882cb2c9bede08c7bf"
