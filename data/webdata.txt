@@ -1362,3 +1362,27 @@ Hash: c811400d228502f37370b527b5624967
 DS720+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS720%2B_42218.pat
 Hash: 83dd377fa9d66f21e2ab2536bb9a3943
+
+DS920+ 7.2 (7.2.2-72806-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS920%2B_72806.pat
+Hash: 4e6e9ef504996ddf0bea3de46c0879fc
+
+DS920+ 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS920%2B_69057.pat
+Hash: 3846db325eb44d939730a338719ca9b5
+
+DS920+ 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS920%2B_64570.pat
+Hash: 753b33e8c92bbf331be8e58dd97c242f
+
+DS920+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS920%2B_42962.pat
+Hash: 69792ae34d9b3c6e707d0e3e6b82816f
+
+DS920+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS920%2B_42661.pat
+Hash: fa3936a53299b1a1142e4c614e2b360c
+
+DS920+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS920%2B_42218.pat
+Hash: 55a7e4ccbf6fcba9238a11976a4a7381
