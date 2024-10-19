@@ -143,7 +143,7 @@ mkdir -p "${CONFIGS}"
 touch "${TMP_PATH}/data.yml"
 touch "${TMP_PATH}/webdata.txt"
 TAG="$(curl --insecure -m 5 -s https://api.github.com/repos/AuxXxilium/arc-configs/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')"
-curl --insecure -s -w "%{http_code}" -L "https://github.com/AuxXxilium/arc-configs/releases/download/${TAG}/configs.zip" -o "./configs.zip"
+curl --insecure -s -w "%{http_code}" -L "https://github.com/AuxXxilium/arc-configs/releases/download/${TAG}/configs-${TAG}.zip" -o "./configs.zip"
 unzip -oq "./configs.zip" -d "${CONFIGS}" >/dev/null 2>&1
 rm -f "configs.zip"
 P_FILE="${CONFIGS}/platforms.yml"
