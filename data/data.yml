@@ -799,3 +799,22 @@
   "7.2.2-72806-0":
     url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_SA3400D_72806.pat"
     hash: "94155b2af89d9468c0c10275f449f153"
+"DS1618+":
+  "7.2.2-72806-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1618%2B_72806.pat"
+    hash: "83df618fab57a656368d5845025160ba"
+  "7.2.1-69057-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1618%2B_69057.pat"
+    hash: "2e3cfb30b7cbf6043eb3e9d5bacf0b18"
+  "7.2.0-64570-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS1618%2B_64570.pat"
+    hash: "19f8ee90bb8e7bca2ac1549cc9fe179b"
+  "7.1.1-42962-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1618%2B_42962.pat"
+    hash: "f465cb6202ec5ddbd1ed72b8c78f29c4"
+  "7.1.0-42661-1":
+    url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS1618%2B_42661.pat"
+    hash: "145228a6e467c702614f92fcc2edd40c"
+  "7.0.1-42218-0":
+    url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1618%2B_42218.pat"
+    hash: "ed156bf787405393f94f5b08b6dfa1d5"
