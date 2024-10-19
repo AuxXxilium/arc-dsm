@@ -1230,3 +1230,27 @@ Hash: 83b591bfb240c51b2feff8f02eac8bde
 SA6400 7.1 (7.1.1-42962-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_SA6400_42962.pat
 Hash: fdbbea86e280a8f754339a064f9ad2df
+
+DS1520+ 7.2 (7.2.2-72806-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1520%2B_72806.pat
+Hash: ee1d1f09d11b6b9fa3f0edf6627a1544
+
+DS1520+ 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1520%2B_69057.pat
+Hash: a028a246334bb45b398a240ecfe194e8
+
+DS1520+ 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS1520%2B_64570.pat
+Hash: 5063db1ed248fb36074ce8d2aba645a9
+
+DS1520+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1520%2B_42962.pat
+Hash: d28994a9dcdae9730b4d1370a39d3130
+
+DS1520+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS1520%2B_42661.pat
+Hash: 1d8ecfcb2a956488ae355c79a72bb9ec
+
+DS1520+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1520%2B_42218.pat
+Hash: d1ebc3c9a2b9e04980a85c4784904f91
