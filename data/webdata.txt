@@ -990,3 +990,19 @@ Hash: da20a8257ef0b55e81334933cb9ab662
 RS820RP+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS820RP%2B_42218.pat
 Hash: 530d5de622f46e1960ed5b1c32d168a9
+
+SA6400 7.2 (7.2.2-72806-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_SA6400_72806.pat
+Hash: 5ec675ed69c80465cf9a5980208efac8
+
+SA6400 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_SA6400_69057.pat
+Hash: b6cecc4a11211306f2cc328e3b6d49d1
+
+SA6400 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_SA6400_64570.pat
+Hash: 83b591bfb240c51b2feff8f02eac8bde
+
+SA6400 7.1 (7.1.1-42962-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_SA6400_42962.pat
+Hash: fdbbea86e280a8f754339a064f9ad2df
