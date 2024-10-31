@@ -502,3 +502,23 @@ model:
       "7.0.1-42218-0":
         url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_SA3400_42218.pat"
         hash: "236dbf3601ffec5259a3c9d42bb640ba"
+"SA3600":
+  versions:
+      "7.2.2-72806-0":
+        url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_SA3600_72806.pat"
+        hash: "959f9ff2a40cafde128c12da37549313"
+      "7.2.1-69057-1":
+        url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_SA3600_69057.pat"
+        hash: "0cebda065505c2792d4c1f4a90a7876e"
+      "7.2.0-64570-1":
+        url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_SA3600_64570.pat"
+        hash: "cc489fe3b383290713dd13f363a1ee7e"
+      "7.1.1-42962-1":
+        url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_SA3600_42962.pat"
+        hash: "7c21732ca4f4cb4cf43538a3d9497cf8"
+      "7.1.0-42661-1":
+        url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_SA3600_42661.pat"
+        hash: "ece886eba8b0c2eaf260704dbd20f9a7"
+      "7.0.1-42218-0":
+        url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_SA3600_42218.pat"
+        hash: "64c75bdf8d28761cb294e41bf3aee2e9"
