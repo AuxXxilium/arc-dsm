@@ -633,3 +633,23 @@ model:
       "7.0.1-42218-0":
         url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1618%2B_42218.pat"
         hash: "ed156bf787405393f94f5b08b6dfa1d5"
+"DS1819+":
+  versions:
+      "7.2.2-72806-0":
+        url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1819%2B_72806.pat"
+        hash: "e4860802d7037e92fc7ce67ec724e0b1"
+      "7.2.1-69057-1":
+        url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1819%2B_69057.pat"
+        hash: "bd5ed66d4f74e97416c0724737f88315"
+      "7.2.0-64570-1":
+        url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS1819%2B_64570.pat"
+        hash: "e93f143ffe7a4612635efbd4b537b26a"
+      "7.1.1-42962-1":
+        url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1819%2B_42962.pat"
+        hash: "5dac92403628186c629d2ab5aedbcc57"
+      "7.1.0-42661-1":
+        url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS1819%2B_42661.pat"
+        hash: "51a5104488a6f09dbc9a91689aa4a363"
+      "7.0.1-42218-0":
+        url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1819%2B_42218.pat"
+        hash: "82dc294d7f99545d9d7e2ff9bcae114b"
