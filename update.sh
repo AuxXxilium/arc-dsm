@@ -164,6 +164,7 @@ FILESPATH="${HOME}/files"
 while read -r M A; do
     MODEL=$(echo ${M} | sed 's/d$/D/; s/rp$/RP/; s/rp+/RP+/')
     echo "\"${MODEL}\":" >>"${TMP_PATH}/data.yml"
+    echo "  arch: \"${A}\"" >>"${TMP_PATH}/data.yml"
     getDSM "${MODEL}" "${A}"
     git config --global user.email "info@auxxxilium.tech"
     git config --global user.name "AuxXxilium"
