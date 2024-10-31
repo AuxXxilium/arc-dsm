@@ -1200,3 +1200,19 @@ v1000:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2421RP%2B_42218.pat"
       hash: "c0c53783189297b37b2f84ddea0ec457"
+  "RS2423+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS2423%2B_72806.pat"
+      hash: "d562596bb92d17f2f8b62cb57b1a1cc1"
+    "7.2.1-69057-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS2423%2B_69057.pat"
+      hash: "ce2c6810c902577904df02f0480c8856"
+    "7.2.0-64570-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_RS2423%2B_64570.pat"
+      hash: "675f7e5fdc9df67320ee478223d5780e"
+    "7.1.1-42962-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_RS2423%2B_42962.pat"
+      hash: "db45c561e81392e48cb03d8e495a0cbc"
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS2423%2B_72806.pat"
+      hash: "d562596bb92d17f2f8b62cb57b1a1cc1"
