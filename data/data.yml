@@ -965,3 +965,16 @@ purley:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS6400_42218.pat"
       hash: "e7887381980432a7be5ddf4dec0772ad"
+  "HD6500":
+    "7.2.1-69057-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057/DSM_HD6500_69057.pat"
+      hash: "f051382db004b9bbf169e2b1da454914"
+    "7.2.0-64570-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_HD6500_64570.pat"
+      hash: "fbeda2c4f1bd0da48ab469e5a767c95f"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_HD6500_42962.pat"
+      hash: "245c3ccd788a17be79187ff32c074888"
+    "7.2.1-69057-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057/DSM_HD6500_69057.pat"
+      hash: "f051382db004b9bbf169e2b1da454914"
