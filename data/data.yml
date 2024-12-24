@@ -981,3 +981,20 @@ purley:
     "7.2.2-72806-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_HD6500_72806.pat"
       hash: "590930cf1b5ea59e98d2caf9d8a50d18"
+r1000:
+  "DS1522+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1522%2B_72806.pat"
+      hash: "6ce48443d5809d8bd586cfdd6520b685"
+    "7.2.1-69057-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1522%2B_69057.pat"
+      hash: "234e958a0dcf489dae866c14d30ed761"
+    "7.2.0-64570-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS1522%2B_64570.pat"
+      hash: "c23e7b3a8dfec5551cd57d6397ebb079"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1522%2B_42962.pat"
+      hash: "a116d65da8908275ea681dd7ac06b831"
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1522%2B_72806.pat"
+      hash: "6ce48443d5809d8bd586cfdd6520b685"
