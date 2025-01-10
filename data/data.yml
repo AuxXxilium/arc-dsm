@@ -216,3 +216,17 @@ broadwell:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS4017xs%2B_42218.pat"
       hash: "31785a02d8b2f6145d077877668cc362"
+broadwellnk:
+  "DS1621xs+":
+    "":
+      url: "null"
+      hash: "null"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1621xs%2B_42962.pat"
+      hash: "fffec3510c954fc718a1aecba2f98fc6"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS1621xs%2B_42661.pat"
+      hash: "18f849121a9a1918aca94c6774524910"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1621xs%2B_42218.pat"
+      hash: "302fdefb00c8d4f8bf95ac25dca1e864"
