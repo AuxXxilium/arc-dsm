@@ -1,0 +1,20 @@
+
+DS1019+ 7.2 (7.2.2-72806-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1019%2B_72806.pat
+Hash: b308d45d9ffb849f696230917420d2e2
+
+DS1019+ 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1019%2B_69057.pat
+Hash: 7609e7c977d9d44baed886e846d7cf50
+
+DS1019+ 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS1019%2B_64570.pat
+Hash: c1c9b295ca7f1434c0f1eeab4f989316
+
+DS1019+  ()
+Url: null
+Hash: null
+
+DS1019+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1019%2B_42218.pat
+Hash: a7c5ac7a5963aac8bf9a599a8a6f6b86
