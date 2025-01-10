@@ -634,3 +634,19 @@ Hash: 33a068ae26e9e88e57c4b4e6ed218c98
 DS2419+II 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS2419%2BII_42218.pat
 Hash: 939109f7fcdcce5e20a3cec9d6ced85a
+
+DVA3219  ()
+Url: null
+Hash: null
+
+DVA3219 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DVA3219_42962.pat
+Hash: 6aa37856c3bf2a390f99420b2e7dffa4
+
+DVA3219 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DVA3219_42661.pat
+Hash: 5c4dea4a45d96e1a6d5bcc041d300079
+
+DVA3219 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DVA3219_42218.pat
+Hash: 4345e7cff9ba4fe97793c254c87b3ed5
