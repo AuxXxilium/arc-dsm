@@ -268,3 +268,16 @@ broadwellnk:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS3622xs%2B_42218.pat"
       hash: "b9b452577b38adc82aca42e031be267b"
+  "FS1018":
+    "":
+      url: "null"
+      hash: "null"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS1018_42962.pat"
+      hash: "7a0fcb142fb19b892ab8e38d06494fb1"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_FS1018_42661.pat"
+      hash: "94278d0a7d891e7a9307036c14b82d41"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS1018_42218.pat"
+      hash: "09ec9d58839bef77654226d82336a32d"
