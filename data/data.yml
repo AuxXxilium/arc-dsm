@@ -281,3 +281,16 @@ broadwellnk:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS1018_42218.pat"
       hash: "09ec9d58839bef77654226d82336a32d"
+  "FS3600":
+    "":
+      url: "null"
+      hash: "null"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS3600_42962.pat"
+      hash: "b521eab70dc9836235f21a5cffd96d34"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_FS3600_42661.pat"
+      hash: "0da6adfbf0fa63740cedeaf92d789e7e"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS3600_42218.pat"
+      hash: "d9a68ec3e8c921641a3b51af68e57411"
