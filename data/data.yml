@@ -477,3 +477,16 @@ denverton:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1618%2B_42218.pat"
       hash: "ed156bf787405393f94f5b08b6dfa1d5"
+  "DS1819+":
+    "":
+      url: "null"
+      hash: "null"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1819%2B_42962.pat"
+      hash: "5dac92403628186c629d2ab5aedbcc57"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS1819%2B_42661.pat"
+      hash: "51a5104488a6f09dbc9a91689aa4a363"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1819%2B_42218.pat"
+      hash: "82dc294d7f99545d9d7e2ff9bcae114b"
