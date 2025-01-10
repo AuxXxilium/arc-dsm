@@ -442,3 +442,19 @@ Hash: ddbbbcf8ccb8d9d345df3e08debc66f6
 RS4021xs+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS4021xs%2B_42218.pat
 Hash: cbcb77548de26b6843ab31d7a7258b62
+
+SA3400  ()
+Url: null
+Hash: null
+
+SA3400 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_SA3400_42962.pat
+Hash: cc0a219656db7ef26587ed59bbf1643f
+
+SA3400 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_SA3400_42661.pat
+Hash: ae40bcb16dc2c6977371bd0349dde3c2
+
+SA3400 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_SA3400_42218.pat
+Hash: 236dbf3601ffec5259a3c9d42bb640ba
