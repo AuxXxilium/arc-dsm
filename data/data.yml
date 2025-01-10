@@ -427,3 +427,17 @@ broadwellnkv2:
     "7.2.2-72806-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_SA3610_72806.pat"
       hash: "7f283cdb4807c2f5c37f45fe6657bc9c"
+broadwellntbap:
+  "SA3200D":
+    "":
+      url: "null"
+      hash: "null"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_SA3200D_42962.pat"
+      hash: "14d4a437a999e6e0f036516091a7557e"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_SA3200D_42661.pat"
+      hash: "e21d8a4e5f5c7f3b1c493697112ce99a"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_SA3200D_42218.pat"
+      hash: "cc80d9b3b2c53eee527f1fc49d34fec4"
