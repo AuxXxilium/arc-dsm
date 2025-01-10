@@ -294,3 +294,16 @@ broadwellnk:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS3600_42218.pat"
       hash: "d9a68ec3e8c921641a3b51af68e57411"
+  "RS1619xs+":
+    "":
+      url: "null"
+      hash: "null"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS1619xs%2B_42962.pat"
+      hash: "7e0747b8808941d51c35de503473b62e"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS1619xs%2B_42661.pat"
+      hash: "0c0b793d8ae1f0a1ecba66e280bd81e7"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS1619xs%2B_42218.pat"
+      hash: "1ef98087cb11be286a8eac26f55dbe52"
