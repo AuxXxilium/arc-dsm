@@ -782,3 +782,19 @@ Hash: 83b591bfb240c51b2feff8f02eac8bde
 SA6400 7.1 (7.1.1-42962-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_SA6400_42962.pat
 Hash: fdbbea86e280a8f754339a064f9ad2df
+
+DS1520+  ()
+Url: null
+Hash: null
+
+DS1520+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1520%2B_42962.pat
+Hash: d28994a9dcdae9730b4d1370a39d3130
+
+DS1520+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS1520%2B_42661.pat
+Hash: 1d8ecfcb2a956488ae355c79a72bb9ec
+
+DS1520+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1520%2B_42218.pat
+Hash: d1ebc3c9a2b9e04980a85c4784904f91
