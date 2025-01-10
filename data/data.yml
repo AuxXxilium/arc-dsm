@@ -577,3 +577,16 @@ denverton:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2418RP%2B_42218.pat"
       hash: "5be145510b50bb75e686a5226f9d0d6c"
+  "RS2818RP+":
+    "":
+      url: "null"
+      hash: "null"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS2818RP%2B_42962.pat"
+      hash: "a29d83759366fcfacd31b90bcf76daad"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS2818RP%2B_42661.pat"
+      hash: "ac1fca114c808f1640047497ddc00702"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2818RP%2B_42218.pat"
+      hash: "1a3876d1da179b81a5c7ace54cf3b85c"

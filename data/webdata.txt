@@ -710,3 +710,19 @@ Hash: 025536e3e2121979213300abe0246102
 RS2418RP+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2418RP%2B_42218.pat
 Hash: 5be145510b50bb75e686a5226f9d0d6c
+
+RS2818RP+  ()
+Url: null
+Hash: null
+
+RS2818RP+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS2818RP%2B_42962.pat
+Hash: a29d83759366fcfacd31b90bcf76daad
+
+RS2818RP+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS2818RP%2B_42661.pat
+Hash: ac1fca114c808f1640047497ddc00702
+
+RS2818RP+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2818RP%2B_42218.pat
+Hash: 1a3876d1da179b81a5c7ace54cf3b85c
