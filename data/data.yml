@@ -164,3 +164,16 @@ broadwell:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS18017xs%2B_42218.pat"
       hash: "9e4168fc0c7808bebd35c485396ea56c"
+  "RS3617RPxs":
+    "":
+      url: "null"
+      hash: "null"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS3617RPxs_42962.pat"
+      hash: "243f3490787b5a7417546b88a0f0b047"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS3617RPxs_42661.pat"
+      hash: "147becad951f52352e7c7bd83ff4ed18"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS3617RPxs_42218.pat"
+      hash: "7cdb7e52d29859c4e340fb6c84014749"
