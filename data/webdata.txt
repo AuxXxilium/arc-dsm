@@ -1142,3 +1142,19 @@ Hash: e071c4984d041309f151de29b9ba82b5
 FS2500 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS2500_42218.pat
 Hash: 9562d49a07f5481208b672ff777f3cbf
+
+RS1221+  ()
+Url: null
+Hash: null
+
+RS1221+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS1221%2B_42962.pat
+Hash: 441e25883733556af6fb6cbab74090fd
+
+RS1221+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS1221%2B_42661.pat
+Hash: 9fbcbffb36e86b86584b416e45d8d0bd
+
+RS1221+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS1221%2B_42218.pat
+Hash: 9ab734898b1f8af906b65ff91bf2b399
