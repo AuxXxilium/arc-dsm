@@ -1066,3 +1066,19 @@ Hash: b4b72eb8d4e84b2e2a8c29fc0a1ac6aa
 DS1621+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1621%2B_42218.pat
 Hash: 1fd1d6e733bb096f418f68e06f81022e
+
+DS1821+  ()
+Url: null
+Hash: null
+
+DS1821+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1821%2B_42962.pat
+Hash: e54b32884cbc1b913324c8cda5b2f978
+
+DS1821+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS1821%2B_42661.pat
+Hash: c854e197ec6b7b57c5a6667a0a225a19
+
+DS1821+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1821%2B_42218.pat
+Hash: cbe674d818bc06b7eefef2b9c58fc859

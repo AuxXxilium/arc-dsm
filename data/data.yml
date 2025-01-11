@@ -868,3 +868,16 @@ v1000:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1621%2B_42218.pat"
       hash: "1fd1d6e733bb096f418f68e06f81022e"
+  "DS1821+":
+    "":
+      url: "null"
+      hash: "null"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1821%2B_42962.pat"
+      hash: "e54b32884cbc1b913324c8cda5b2f978"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS1821%2B_42661.pat"
+      hash: "c854e197ec6b7b57c5a6667a0a225a19"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1821%2B_42218.pat"
+      hash: "cbe674d818bc06b7eefef2b9c58fc859"
