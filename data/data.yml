@@ -1117,3 +1117,22 @@ v1000:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS2422%2B_42218.pat"
       hash: "7fe3c9ae80396a2ea9ed9909b8746c4b"
+  "FS2500":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_FS2500_72806.pat"
+      hash: "0bf3e6259a2df4892ea602ff62c60c7c"
+    "7.2.1-69057-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_FS2500_69057.pat"
+      hash: "57e899896177917e2dfbff88320555d8"
+    "7.2.0-64570-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_FS2500_64570.pat"
+      hash: "faab7cd3b7456a406f4be1afe9012d5d"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS2500_42962.pat"
+      hash: "169493af5375eb9da89ff324a3fe129a"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_FS2500_42661.pat"
+      hash: "e071c4984d041309f151de29b9ba82b5"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS2500_42218.pat"
+      hash: "9562d49a07f5481208b672ff777f3cbf"
