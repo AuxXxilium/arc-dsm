@@ -1178,3 +1178,27 @@ Hash: 6073f5daa75a0eda84e6a3f3cbae4920
 DVA1622 7.2 (7.2.2-72806-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DVA1622_72806.pat
 Hash: 36a6736d6dcb5f4ff570871809831183
+
+FS6400 7.2 (7.2.2-72806-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_FS6400_72806.pat
+Hash: 1b726b745327977401045b7434de6ad4
+
+FS6400 7.2 (7.2.1-69057-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057/DSM_FS6400_69057.pat
+Hash: 66dc986826177528dc9558195e1ddc89
+
+FS6400 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_FS6400_64570.pat
+Hash: 2e69250e65f75bd4bb9e8274d865bc70
+
+FS6400 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS6400_42962.pat
+Hash: 651be491d10a47ecc534295d84341c03
+
+FS6400 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_FS6400_42661.pat
+Hash: 030064272d82777681502745fcfa8c48
+
+FS6400 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS6400_42218.pat
+Hash: e7887381980432a7be5ddf4dec0772ad
