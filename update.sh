@@ -163,13 +163,15 @@ DSMPATH="${HOME}/dsm"
 FILESPATH="${HOME}/files"
 PREA=""
 while read -r M A; do
-    if [ "${PREA}" != "${A}" ]; then
+    if [ "${PREA}" != "${A}" ] && [ "${A}" != "" ] && [ "${A}" != "null" ]; then
         echo "${A}:" >>"${TMP_PATH}/data.yml"
         PREA="${A}"
     fi
     MODEL=$(echo ${M} | sed 's/d$/D/; s/rp$/RP/; s/rp+/RP+/')
-    echo "  \"${MODEL}\":" >>"${TMP_PATH}/data.yml"
-    getDSM "${MODEL}" "${A}"
+    if [ "${A}" != "" ] && [ "${A}" != "null" ]; then
+        echo "  \"${MODEL}\":" >>"${TMP_PATH}/data.yml"
+        getDSM "${MODEL}" "${A}"
+    fi
     git config --global user.email "info@auxxxilium.tech"
     git config --global user.name "AuxXxilium"
     git fetch
