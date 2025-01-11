@@ -916,3 +916,16 @@ v1000:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS2422%2B_42218.pat"
       hash: "7fe3c9ae80396a2ea9ed9909b8746c4b"
+  "FS2500":
+    "":
+      url: "null"
+      hash: "null"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS2500_42962.pat"
+      hash: "169493af5375eb9da89ff324a3fe129a"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_FS2500_42661.pat"
+      hash: "e071c4984d041309f151de29b9ba82b5"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS2500_42218.pat"
+      hash: "9562d49a07f5481208b672ff777f3cbf"
