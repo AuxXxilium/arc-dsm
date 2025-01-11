@@ -1182,3 +1182,19 @@ Hash: ce7b512d6920e51fdaa3f20cb345d17d
 RS1221RP+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS1221RP%2B_42218.pat
 Hash: cd56441518205ee7063764d0ef94cbbe
+
+RS2421+  ()
+Url: null
+Hash: null
+
+RS2421+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS2421%2B_42962.pat
+Hash: d19fd46faea20ff55490e8ac507c1ecd
+
+RS2421+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS2421%2B_42661.pat
+Hash: 65b158d4349a90ca627b324d874c9b07
+
+RS2421+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2421%2B_42218.pat
+Hash: ba8245e29676793f24e9d8ceea1a2e20

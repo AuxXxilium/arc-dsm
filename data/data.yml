@@ -961,3 +961,16 @@ v1000:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS1221RP%2B_42218.pat"
       hash: "cd56441518205ee7063764d0ef94cbbe"
+  "RS2421+":
+    "":
+      url: "null"
+      hash: "null"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS2421%2B_42962.pat"
+      hash: "d19fd46faea20ff55490e8ac507c1ecd"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS2421%2B_42661.pat"
+      hash: "65b158d4349a90ca627b324d874c9b07"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2421%2B_42218.pat"
+      hash: "ba8245e29676793f24e9d8ceea1a2e20"
