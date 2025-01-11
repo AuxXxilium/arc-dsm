@@ -546,3 +546,27 @@ Hash: 5dd0954d761e8ac81f3e2f50e088fb8e
 RS3621xs+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS3621xs%2B_42218.pat
 Hash: f2b6896f7ea7237bd52501f80e502396
+
+RS4021xs+ 7.2 (7.2.2-72806-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS4021xs%2B_72806.pat
+Hash: fa55d5394111eaa7823551564ac74cd2
+
+RS4021xs+ 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS4021xs%2B_69057.pat
+Hash: 339a5bd6bdcb65b32a57c344fef41dff
+
+RS4021xs+ 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_RS4021xs%2B_64570.pat
+Hash: a55ff87947b0ad53e981dc1ffd23c829
+
+RS4021xs+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS4021xs%2B_42962.pat
+Hash: fc15f132649a8c8626190dc864bbdf8c
+
+RS4021xs+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS4021xs%2B_42661.pat
+Hash: ddbbbcf8ccb8d9d345df3e08debc66f6
+
+RS4021xs+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS4021xs%2B_42218.pat
+Hash: cbcb77548de26b6843ab31d7a7258b62
