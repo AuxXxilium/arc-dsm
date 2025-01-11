@@ -942,3 +942,22 @@ v1000:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS1221%2B_42218.pat"
       hash: "9ab734898b1f8af906b65ff91bf2b399"
+  "RS1221RP+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS1221RP%2B_72806.pat"
+      hash: "12a287daec77135d0977274464ef0b95"
+    "7.2.1-69057-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS1221RP%2B_69057.pat"
+      hash: "f6a9c300a8aba8b7971d8ecd67a9a254"
+    "7.2.0-64570-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_RS1221RP%2B_64570.pat"
+      hash: "dfdd8d6db83b0ec2d47ef6f1ed0bff5e"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS1221RP%2B_42962.pat"
+      hash: "3da6804567e48789084138326fae4e3a"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS1221RP%2B_42661.pat"
+      hash: "ce7b512d6920e51fdaa3f20cb345d17d"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS1221RP%2B_42218.pat"
+      hash: "cd56441518205ee7063764d0ef94cbbe"
