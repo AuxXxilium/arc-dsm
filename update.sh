@@ -168,7 +168,7 @@ while read -r M A; do
         PREA="${A}"
     fi
     MODEL=$(echo ${M} | sed 's/d$/D/; s/rp$/RP/; s/rp+/RP+/')
-    if [ "${A}" != "" ] && [ "${A}" != "null" ]; then
+    if [ "${MODEL}" != "" ] && [ "${MODEL}" != "null" ]; then
         echo "  \"${MODEL}\":" >>"${TMP_PATH}/data.yml"
         getDSM "${MODEL}" "${A}"
     fi
