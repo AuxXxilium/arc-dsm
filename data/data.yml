@@ -926,3 +926,19 @@ geminilake:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS920%2B_42218.pat"
       hash: "55a7e4ccbf6fcba9238a11976a4a7381"
+  "DVA1622":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DVA1622_72806.pat"
+      hash: "36a6736d6dcb5f4ff570871809831183"
+    "7.2.1-69057-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DVA1622_69057.pat"
+      hash: "768f381ac51a665b16554bace91abe32"
+    "7.2.0-64570-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DVA1622_64570.pat"
+      hash: "5729fdc37d56ba46e556a5b6aa931b42"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DVA1622_42962.pat"
+      hash: "6073f5daa75a0eda84e6a3f3cbae4920"
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DVA1622_72806.pat"
+      hash: "36a6736d6dcb5f4ff570871809831183"
