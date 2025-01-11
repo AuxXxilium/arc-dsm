@@ -616,3 +616,22 @@ denverton:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1819%2B_42218.pat"
       hash: "82dc294d7f99545d9d7e2ff9bcae114b"
+  "DS2419+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS2419%2B_72806.pat"
+      hash: "eb12a7f890f75cbec459be88e288fe3b"
+    "7.2.1-69057-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS2419%2B_69057.pat"
+      hash: "8513269cb1ee01030e8d7cd3d57fc8d6"
+    "7.2.0-64570-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS2419%2B_64570.pat"
+      hash: "5716f9a0aadb529cfa131c0c0a399c3e"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS2419%2B_42962.pat"
+      hash: "7b53fbb5c813af9db29b39382b5e5d68"
+    "7.1.0-42661-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS2419%2B_42661.pat"
+      hash: "ae6cdda2edff9458b2fff7114474f38d"
+    "7.0.1-42218-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS2419%2B_42218.pat"
+      hash: "59d48e64ad4d0e5bc35f9eec8869d9c5"
