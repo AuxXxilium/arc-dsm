@@ -1042,3 +1042,13 @@ v1000:
     "7.2.2-72806-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS822%2B_72806.pat"
       hash: "19033774f5c5379ee9345010a6de77ae"
+  "RS822RP+":
+    "":
+      url: "null"
+      hash: "null"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS822RP%2B_42962.pat"
+      hash: "bc988679f582cbb5da2d641f5021c5d3"
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS822RP%2B_72806.pat"
+      hash: "f7cbb94b1a9856f3e5672c97a5c875f9"
