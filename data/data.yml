@@ -561,3 +561,19 @@ broadwellntbap:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_SA3200D_42218.pat"
       hash: "cc80d9b3b2c53eee527f1fc49d34fec4"
+  "SA3400D":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_SA3400D_72806.pat"
+      hash: "94155b2af89d9468c0c10275f449f153"
+    "7.2.1-69057-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_SA3400D_69057.pat"
+      hash: "482e8d9b4647d9820af3125511fc98cd"
+    "7.2.0-64570-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_SA3400D_64570.pat"
+      hash: "59e012ddd8ede601d3cfc3e3d5e2324d"
+    "7.1.1-42962-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_SA3400D_42962.pat"
+      hash: "07fdf9e297ca66fa0821341e3be1933b"
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_SA3400D_72806.pat"
+      hash: "94155b2af89d9468c0c10275f449f153"
