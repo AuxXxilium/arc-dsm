@@ -231,6 +231,10 @@ FS3400 7.1 (7.1.1-42962-1)
 Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS3400_42962.pat
 Hash: 4fe7d22917dc2497fbe66884ec3ea3b5
 
+FS3400 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_FS3400_42661.pat
+Hash: 1376f3daf42b193bbf0d24abd1b70371
+
 FS3400 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS3400_42218.pat
 Hash: e55ec9e91ec7e4db5854ea6978f126e3
