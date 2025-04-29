@@ -34,13 +34,17 @@ function getDSM() {
                 echo "${MODEL} ${VERSION:0:3} (${VERSION})"
                 echo "${PAT_URL}"
                 echo "${PAT_HASH}"
-                echo "    \"${VERSION}\":" >>"${TMP_PATH}/data.yml"
-                echo "      url: \"${PAT_URL}\"" >>"${TMP_PATH}/data.yml"
-                echo "      hash: \"${PAT_HASH}\"" >>"${TMP_PATH}/data.yml"
-                echo "" >>"${TMP_PATH}/webdata.txt"
-                echo "${MODEL} ${URLVER} (${VERSION})" >>"${TMP_PATH}/webdata.txt"
-                echo "Url: ${PAT_URL}" >>"${TMP_PATH}/webdata.txt"
-                echo "Hash: ${PAT_HASH}" >>"${TMP_PATH}/webdata.txt"
+                if ! grep -q "${PAT_HASH}" "${TMP_PATH}/data.yml"; then
+                    echo "    \"${VERSION}\":" >>"${TMP_PATH}/data.yml"
+                    echo "      url: \"${PAT_URL}\"" >>"${TMP_PATH}/data.yml"
+                    echo "      hash: \"${PAT_HASH}\"" >>"${TMP_PATH}/data.yml"
+                    echo "" >>"${TMP_PATH}/webdata.txt"
+                    echo "${MODEL} ${URLVER} (${VERSION})" >>"${TMP_PATH}/webdata.txt"
+                    echo "Url: ${PAT_URL}" >>"${TMP_PATH}/webdata.txt"
+                    echo "Hash: ${PAT_HASH}" >>"${TMP_PATH}/webdata.txt"
+                else
+                    echo "PAT: ${PAT_HASH} already exists in data.yml. Skipping export."
+                fi
                 if [ -f "${DESTINATION}/pat_url" ] && [ -f "${DESTINATION}/pat_hash" ]; then
                     OLDURL="$(cat "${DESTINATION}/pat_url")"
                     OLDHASH="$(cat "${DESTINATION}/pat_hash")"
