@@ -1550,3 +1550,7 @@ Hash: 3b8ddf443835f9caf3e618a0040eca41
 RS822RP+ 7.1 (7.1.1-42962-1)
 Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS822RP%2B_42962.pat
 Hash: bc988679f582cbb5da2d641f5021c5d3
+
+DS925+ 7.2 (7.2.2-72806-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS925%2B_72806.pat
+Hash: fe642d1e762e8a050aa5d307e0f4c0d1
