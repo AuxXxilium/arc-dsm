@@ -1218,3 +1218,16 @@ v1000:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2821RP%2B_42218.pat"
       hash: "896946ab9bed611f26f5258724af6aef"
+  "RS822+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS822%2B_72806.pat"
+      hash: "19033774f5c5379ee9345010a6de77ae"
+    "7.2.1-69057-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS822%2B_69057.pat"
+      hash: "15b1df11e5b3161b2a04ee2547163e99"
+    "7.2.0-64570-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_RS822%2B_64570.pat"
+      hash: "4ccecca2e30861ef3016419381db7f6e"
+    "7.1.1-42962-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS822%2B_42962.pat"
+      hash: "2673a9d78c32b1daf5b3454478e89077"
