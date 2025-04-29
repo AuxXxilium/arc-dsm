@@ -1014,3 +1014,27 @@ Hash: 1d8ecfcb2a956488ae355c79a72bb9ec
 DS1520+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS1520%2B_42218.pat
 Hash: d1ebc3c9a2b9e04980a85c4784904f91
+
+DS220+ 7.2 (7.2.2-72806-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS220%2B_72806.pat
+Hash: bc024b7d92523bc0057232e0d1b23aa1
+
+DS220+ 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS220%2B_69057.pat
+Hash: 29111f8860063c4a9a84827a2d9e019a
+
+DS220+ 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS220%2B_64570.pat
+Hash: 34fa653e965663cd663d7d1e2b9e60d3
+
+DS220+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS220%2B_42962.pat
+Hash: dcdae26b1419f67f53a7936e6176cc7c
+
+DS220+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_DS220%2B_42661.pat
+Hash: 536af980d23f2d79fcbdfb117444ca06
+
+DS220+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS220%2B_42218.pat
+Hash: b77984bcefef6ddc2e847a336cb2d764
