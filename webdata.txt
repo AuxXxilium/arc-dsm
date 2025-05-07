@@ -987,10 +987,6 @@ SA6400 7.2 (7.2.0-64570-1)
 Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_SA6400_64570.pat
 Hash: 83b591bfb240c51b2feff8f02eac8bde
 
-SA6400 7.1 (7.1.1-42962-0)
-Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_SA6400_42962.pat
-Hash: fdbbea86e280a8f754339a064f9ad2df
-
 DS1520+ 7.2 (7.2.2-72806-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1520%2B_72806.pat
 Hash: ee1d1f09d11b6b9fa3f0edf6627a1544
@@ -1550,6 +1546,10 @@ Hash: 3b8ddf443835f9caf3e618a0040eca41
 RS822RP+ 7.1 (7.1.1-42962-1)
 Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS822RP%2B_42962.pat
 Hash: bc988679f582cbb5da2d641f5021c5d3
+
+DS1525+ 7.2 (7.2.2-72806-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1525%2B_72806.pat
+Hash: c000af5015b63683cd133f955952703c
 
 DS925+ 7.2 (7.2.2-72806-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS925%2B_72806.pat
