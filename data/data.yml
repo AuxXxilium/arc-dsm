@@ -854,3 +854,16 @@ geminilake:
     "7.0.1-42218-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS420%2B_42218.pat"
       hash: "50089a9ccd2b724f24de04c86f8ac2aa"
+  "DS423+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS423%2B_72806.pat"
+      hash: "e5605b52000e9e8a63657e0599268932"
+    "7.2.1-69057-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS423%2B_69057.pat"
+      hash: "f39d37dee5a64a3b00c2b5fc03aad432"
+    "7.2.0-64570-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS423%2B_64570.pat"
+      hash: "62d79e110b5355f32c23b2aa2eb51c24"
+    "7.1.1-42962-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_DS423%2B_42962.pat"
+      hash: "4d901cefef7204d44fd4d0cbcbfc5b52"
