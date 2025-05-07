@@ -509,3 +509,16 @@ broadwellnkv2:
     "7.1.1-42962-1":
       url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_FS3410_42962.pat"
       hash: "1bade8eb7eadd514699d4beb714531ad"
+  "SA3410":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_SA3410_72806.pat"
+      hash: "022967f2ae03fec0aab2fe733b126a60"
+    "7.2.1-69057-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057/DSM_SA3410_69057.pat"
+      hash: "35e549de6071e76e023673d7769c2e78"
+    "7.2.0-64570-1":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_SA3410_64570.pat"
+      hash: "bdc69bf4f4fd3b0c040c4117f46084fe"
+    "7.1.1-42962-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_SA3410_42962.pat"
+      hash: "e915219272385f93ad8ef32b3423b1fe"
