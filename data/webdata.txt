@@ -1186,3 +1186,19 @@ Hash: fbeda2c4f1bd0da48ab469e5a767c95f
 HD6500 7.1 (7.1.1-42962-1)
 Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_HD6500_42962.pat
 Hash: 245c3ccd788a17be79187ff32c074888
+
+DS1522+ 7.2 (7.2.2-72806-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1522%2B_72806.pat
+Hash: 6ce48443d5809d8bd586cfdd6520b685
+
+DS1522+ 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_DS1522%2B_69057.pat
+Hash: 234e958a0dcf489dae866c14d30ed761
+
+DS1522+ 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_DS1522%2B_64570.pat
+Hash: c23e7b3a8dfec5551cd57d6397ebb079
+
+DS1522+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_DS1522%2B_42962.pat
+Hash: a116d65da8908275ea681dd7ac06b831
