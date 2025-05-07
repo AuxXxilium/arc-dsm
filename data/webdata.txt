@@ -926,3 +926,27 @@ Hash: ac1fca114c808f1640047497ddc00702
 RS2818RP+ 7.0 (7.0.1-42218-0)
 Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS2818RP%2B_42218.pat
 Hash: 1a3876d1da179b81a5c7ace54cf3b85c
+
+RS820+ 7.2 (7.2.2-72806-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS820%2B_72806.pat
+Hash: 13e81d4da0c3f26fa213bc37d5ae59e0
+
+RS820+ 7.2 (7.2.1-69057-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS820%2B_69057.pat
+Hash: 073cc8988b143e26e931784c3ad795a6
+
+RS820+ 7.2 (7.2.0-64570-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.2/64570-1/DSM_RS820%2B_64570.pat
+Hash: 784eefe4dce2e83edcdd82f8983a2d0b
+
+RS820+ 7.1 (7.1.1-42962-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS820%2B_42962.pat
+Hash: 423ecfdb73c88432232a28d96ebb4e06
+
+RS820+ 7.1 (7.1.0-42661-1)
+Url: https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS820%2B_42661.pat
+Hash: dc7cb29466311558acc2c70e166b478a
+
+RS820+ 7.0 (7.0.1-42218-0)
+Url: https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_RS820%2B_42218.pat
+Hash: 89901ca8b6f50a2d0b02c854350f5da9
