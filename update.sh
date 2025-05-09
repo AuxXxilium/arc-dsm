@@ -120,6 +120,7 @@ function getDSM() {
                         cp "${UNTAR_PAT_PATH}/GRUB_VER"        "${DESTINATION}"
                         cp "${UNTAR_PAT_PATH}/zImage"          "${DESTINATION}"
                         cp "${UNTAR_PAT_PATH}/rd.gz"           "${DESTINATION}"
+                        cp "${UNTAR_PAT_PATH}/VERSION"         "${DESTINATION}"
                         cd "${DESTINATION}"
                         tar -cf "${DESTINATIONFILES}/${PAT_HASH}.tar" .
                         rm -f "${PAT_PATH}"
