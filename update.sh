@@ -9,12 +9,12 @@ function getDSM() {
     PLATFORM="${2}"
     PRODUCTVERS="$(readConfigEntriesArray "platforms.${PLATFORM}.productvers" "${P_FILE}" | sort -r)"
     echo "${PRODUCTVERS}" >"${TMP_PATH}/productvers"
-    while IFS= read -r line; do
+    while read -r line; do
         PRODUCTVER="${line}"
         PJ="$(python scripts/functions.py getpats4mv -m "${MODEL}" -v "${PRODUCTVER}")"
         PVS="$(echo "${PJ}" | jq -r 'keys | sort | reverse | join("\n")')"
         echo "${PVS}" >"${TMP_PATH}/versions"
-        while IFS= read -r line; do
+        while read -r line; do
             VERSION="${line}"
             CHECK_URL=$(echo "${PJ}" | jq -r ".\"${VERSION}\".url")
             if curl --head -skL -m 5 "${CHECK_URL}" | head -n 1 | grep -q "404\|403"; then
@@ -142,8 +142,9 @@ function getDSM() {
 HOME=$(pwd)
 CONFIGS="./configs"
 TMP_PATH="${HOME}/data"
-mkdir -p "${TMP_PATH}"
+rm -rf "${TMP_PATH}"
 rm -rf "${CONFIGS}"
+mkdir -p "${TMP_PATH}"
 mkdir -p "${CONFIGS}"
 touch "${TMP_PATH}/data.yml"
 touch "${TMP_PATH}/webdata.txt"
@@ -167,7 +168,7 @@ EXTRACTOR_BIN="syno_extract_system_patch"
 DSMPATH="${HOME}/dsm"
 FILESPATH="${HOME}/files"
 PREA=""
-while IFS= read -r M A; do
+while read -r M A; do
     MODEL=$(echo ${M} | sed 's/d$/D/; s/rp$/RP/; s/rp+/RP+/')
     if [ "${PREA}" != "${A}" ] && [ "${A}" != "" ] && [ "${A}" != "null" ]; then
         echo "${A}:" >>"${TMP_PATH}/data.yml"
