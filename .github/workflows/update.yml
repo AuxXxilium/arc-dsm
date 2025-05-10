@@ -69,5 +69,5 @@ jobs:
         run: |
           sudo git fetch
           sudo git add .
-          sudo git commit -m "dsm: update $(date +%Y-%m-%d" "%H:%M:%S)"
+          sudo git commit -m "data: update $(date +%Y-%m-%d" "%H:%M:%S)"
           sudo git push -f

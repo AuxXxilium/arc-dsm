@@ -181,8 +181,8 @@ while read -r M A; do
     git config --global user.email "info@auxxxilium.tech"
     git config --global user.name "AuxXxilium"
     git fetch
-    git add ${HOME}/dsm/${MODEL}
-    git add ${HOME}/files/${MODEL}
+    git add "${HOME}/dsm/${MODEL}"
+    git add "${HOME}/files/${MODEL}"
     git commit -m "${MODEL}: update $(date +%Y-%m-%d" "%H:%M:%S)"
     git push
 done < <(cat "${TMP_PATH}/modellist")
@@ -192,9 +192,3 @@ cp -f "${TMP_PATH}/data.yml" "${HOME}/data.yml"
 rm -rf "${CACHE_PATH}/dl"
 rm -rf "${TMP_PATH}"
 rm -rf "${CONFIGS}"
-git config --global user.email "info@auxxxilium.tech"
-git config --global user.name "AuxXxilium"
-git fetch
-git add ${HOME}/.
-git commit -m "data: update $(date +%Y-%m-%d" "%H:%M:%S)"
-git push
