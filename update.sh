@@ -143,7 +143,7 @@ HOME=$(pwd)
 CONFIGS="./configs"
 TMP_PATH="${HOME}/data"
 mkdir -p "${TMP_PATH}"
-rm -f "${CONFIGS}"
+rm -rf "${CONFIGS}"
 mkdir -p "${CONFIGS}"
 touch "${TMP_PATH}/data.yml"
 touch "${TMP_PATH}/webdata.txt"
@@ -155,7 +155,7 @@ P_FILE="${CONFIGS}/platforms.yml"
 PS="$(readConfigEntriesArray "platforms" "${P_FILE}" | sort)"
 MJ="$(python scripts/functions.py getmodels -p "${PS[*]}")"
 echo -n "" >"${TMP_PATH}/modellist"
-echo "${MJ}" | jq -c '.[]' | while read -r item; do
+echo "${MJ}" | jq -c '.[]' | while IFS= read -r item; do
     name=$(echo "$item" | jq -r '.name')
     arch=$(echo "$item" | jq -r '.arch')
     echo "${name} ${arch}" >>"${TMP_PATH}/modellist"
@@ -167,22 +167,16 @@ EXTRACTOR_BIN="syno_extract_system_patch"
 DSMPATH="${HOME}/dsm"
 FILESPATH="${HOME}/files"
 PREA=""
-while read -r M A; do
+while IFS= read -r M A; do
+    MODEL=$(echo ${M} | sed 's/d$/D/; s/rp$/RP/; s/rp+/RP+/')
     if [ "${PREA}" != "${A}" ] && [ "${A}" != "" ] && [ "${A}" != "null" ]; then
         echo "${A}:" >>"${TMP_PATH}/data.yml"
         PREA="${A}"
     fi
-    MODEL=$(echo ${M} | sed 's/d$/D/; s/rp$/RP/; s/rp+/RP+/')
     if [ "${MODEL}" != "" ] && [ "${MODEL}" != "null" ]; then
         echo "  \"${MODEL}\":" >>"${TMP_PATH}/data.yml"
         getDSM "${MODEL}" "${A}"
     fi
-    git config --global user.email "info@auxxxilium.tech"
-    git config --global user.name "AuxXxilium"
-    git fetch
-    git add ${HOME}/.
-    git commit -m "${MODEL}: update $(date +%Y-%m-%d" "%H:%M:%S)"
-    git push -f
 done < <(cat "${TMP_PATH}/modellist")
 cp -f "${TMP_PATH}/webdata.txt" "${HOME}/webdata.txt"
 cp -f "${TMP_PATH}/data.yml" "${HOME}/data.yml"
@@ -190,3 +184,9 @@ cp -f "${TMP_PATH}/data.yml" "${HOME}/data.yml"
 rm -rf "${CACHE_PATH}/dl"
 rm -rf "${TMP_PATH}"
 rm -rf "${CONFIGS}"
+git config --global user.email "info@auxxxilium.tech"
+git config --global user.name "AuxXxilium"
+git fetch
+git add ${HOME}/.
+git commit -m "data: update $(date +%Y-%m-%d" "%H:%M:%S)"
+git push -f
