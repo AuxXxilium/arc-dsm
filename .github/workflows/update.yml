@@ -1,11 +1,11 @@
 #
-# Copyright (C) 2023 AuxXxilium <https://github.com/AuxXxilium>
+# Copyright (C) 2025 AuxXxilium <https://github.com/AuxXxilium>
 # 
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
 #
 
-name: Update
+name: Update Data
 
 on:
   workflow_dispatch:
@@ -48,8 +48,11 @@ jobs:
             sed \
             zip \
             unzip \
-            python3
+            python3-full
           sudo snap install yq
+          # Backup the original python3 executable.
+          sudo mv -f "$(realpath $(which python3))/EXTERNALLY-MANAGED" "$(realpath $(which python3))/EXTERNALLY-MANAGED.bak" 2>/dev/null || true
+          sudo pip3 install -U -r scripts/requirements.txt
 
       - name: Clean Files
         if: inputs.cleanfiles == true
@@ -62,7 +65,6 @@ jobs:
           sudo rm -rf ./tmp
           sudo rm -rf ./configs
           sudo rm -f ./configs.zip
-          sudo rm -f ./dsmdata.yml
           sudo ./update.sh
 
       - name: Check and Push
