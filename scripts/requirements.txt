@@ -2,4 +2,7 @@ bs4
 click
 kmodule
 requests
+requests-toolbelt
 openpyxl
+qrcode[pil]
+beautifulsoup4
