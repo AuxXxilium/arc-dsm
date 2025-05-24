@@ -106,7 +106,7 @@ getDSM() {
     rm -f "${PAT_PATH}"
     rm -rf "${UNTAR_PAT_PATH}"
 
-    echo "DSM Extraction complete: ${MODEL}_${URL_VER}"
+    echo -n "DSM Extraction complete: ${MODEL}_${URL_VER}"
 
     writeConfigKey "${PLATFORM}.\"${MODEL}\".\"${URL_VER}\".hash" "${PAT_HASH}" "${TMP_PATH}/data.yml"
     {
