@@ -1003,6 +1003,10 @@ denverton:
       url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS2818RP%2B_42661.pat"
       hash: "ac1fca114c808f1640047497ddc00702"
 geminilakenk:
+  "DS225+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS225%2B_72806.pat"
+      hash: "9c3bae41a595d029a15c83acbf5eb0c8"
   "DS425+":
     "7.2.2-72806-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS425%2B_72806.pat"
