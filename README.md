@@ -3,7 +3,7 @@
 ### Links
 
 - <a href="https://github.com/AuxXxilium">Overview</a>
-- <a href="https://auxxxilium.tech/wiki">FAQ & Wiki</a>
+- <a href="https://xpenology.tech/wiki">FAQ & Wiki</a>
 - <a href="https://github.com/AuxXxilium/arc/releases/latest">Download</a>
 
 ### Thanks
