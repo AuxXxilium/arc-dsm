@@ -1,3 +1,34 @@
+v1000nk:
+  "DS1525+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1525%2B_72806.pat"
+      hash: "c000af5015b63683cd133f955952703c"
+  "DS1825+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1825%2B_72806.pat"
+      hash: "2f68faa10229ebff1a801521fcc48ac9"
+  "DS925+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS925%2B_72806.pat"
+      hash: "fe642d1e762e8a050aa5d307e0f4c0d1"
+  "RS2825RP+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS2825RP%2B_72806.pat"
+      hash: "2a334064e4421c7031d5502c63b05837"
+geminilakenk:
+  "DS225+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS225%2B_72806.pat"
+      hash: "9c3bae41a595d029a15c83acbf5eb0c8"
+  "DS425+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS425%2B_72806.pat"
+      hash: "0e70938eae1c6fb22222a973d6d2fb3b"
+r1000nk:
+  "DS725+":
+    "7.2.2-72806-0":
+      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS725%2B_72806.pat"
+      hash: "0b17cb3ccc5b6c7c1dcb9112be1095ed"
 purley:
   "HD6500":
     "7.2.2-72806-0":
@@ -328,23 +359,6 @@ r1000:
     "7.1.1-42962-1":
       url: "https://global.synologydownload.com/download/DSM/release/7.1.1/42962-1/DSM_RS422%2B_42962.pat"
       hash: "5b12e689f7ab0fcfc477d9be1bba84ad"
-v1000nk:
-  "DS1525+":
-    "7.2.2-72806-0":
-      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1525%2B_72806.pat"
-      hash: "c000af5015b63683cd133f955952703c"
-  "DS1825+":
-    "7.2.2-72806-0":
-      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1825%2B_72806.pat"
-      hash: "2f68faa10229ebff1a801521fcc48ac9"
-  "DS925+":
-    "7.2.2-72806-0":
-      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS925%2B_72806.pat"
-      hash: "fe642d1e762e8a050aa5d307e0f4c0d1"
-  "RS2825RP+":
-    "7.2.2-72806-0":
-      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS2825RP%2B_72806.pat"
-      hash: "2a334064e4421c7031d5502c63b05837"
 v1000:
   "DS1621+":
     "7.2.2-72806-0":
@@ -559,7 +573,7 @@ v1000:
   "RS822+":
     "7.2.2-72806-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS822%2B_72806.pat"
-      hash: "19033774f5c5379ee9345010a6de77ae"
+      hash: "dc6b19001faa6be7151dfa325f6e85e4"
     "7.2.1-69057-1":
       url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS822%2B_69057.pat"
       hash: "15b1df11e5b3161b2a04ee2547163e99"
@@ -572,7 +586,7 @@ v1000:
   "RS822RP+":
     "7.2.2-72806-0":
       url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS822RP%2B_72806.pat"
-      hash: "f7cbb94b1a9856f3e5672c97a5c875f9"
+      hash: "18d0c3a7fabf243a8540065452fe05be"
     "7.2.1-69057-1":
       url: "https://global.synologydownload.com/download/DSM/release/7.2.1/69057-1/DSM_RS822RP%2B_69057.pat"
       hash: "db43c65b125ff4c67e407fa02ca4eabd"
@@ -1002,20 +1016,6 @@ denverton:
     "7.1.0-42661-1":
       url: "https://global.synologydownload.com/download/DSM/release/7.1/42661-1/DSM_RS2818RP%2B_42661.pat"
       hash: "ac1fca114c808f1640047497ddc00702"
-geminilakenk:
-  "DS225+":
-    "7.2.2-72806-0":
-      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS225%2B_72806.pat"
-      hash: "9c3bae41a595d029a15c83acbf5eb0c8"
-  "DS425+":
-    "7.2.2-72806-0":
-      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS425%2B_72806.pat"
-      hash: "0e70938eae1c6fb22222a973d6d2fb3b"
-r1000nk:
-  "DS725+":
-    "7.2.2-72806-0":
-      url: "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS725%2B_72806.pat"
-      hash: "0b17cb3ccc5b6c7c1dcb9112be1095ed"
 broadwell:
   "FS3400":
     "7.2.2-72806-0":
