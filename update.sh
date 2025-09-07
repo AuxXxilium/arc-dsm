@@ -109,6 +109,7 @@ getDSM() {
 
     echo -n "DSM Extraction complete: ${MODEL}_${URL_VER}"
 
+    writeConfigKey "${PLATFORM}.\"${MODEL}\".\"${URL_VER}\".url" "${PAT_URL}" "${TMP_PATH}/data.yml"
     writeConfigKey "${PLATFORM}.\"${MODEL}\".\"${URL_VER}\".hash" "${PAT_HASH}" "${TMP_PATH}/data.yml"
     {
       echo ""
@@ -170,5 +171,5 @@ git config --global user.name "AuxXxilium"
 git fetch
 git add "${HOME}/webdata.txt"
 git add "${HOME}/data.yml"
-git commit -m "data: update $(date +%Y-%m-%d" "%H:%M:%S)"
-git push
+git commit -m "data: update $(date +%Y-%m-%d" "%H:%M:%S)" || true
+git push || true
