@@ -41,7 +41,7 @@ getDSM() {
     MODEL="${2}"
     URL_VER="${3}"
     PAT_URL="${4}"
-    PAT_URL=$(echo "${PAT_URL}" | sed 's/global.synologydownload.com/global.download.synology.com/')
+    # PAT_URL=$(echo "${PAT_URL}" | sed 's/global.synologydownload.com/global.download.synology.com/')
     PRODUCTVER="${URL_VER:0:3}"
     PAT_FILE="${MODEL}_${URL_VER}.pat"
     PAT_PATH="${CACHE_PATH}/dl/${PAT_FILE}"

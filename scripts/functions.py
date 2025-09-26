@@ -143,7 +143,7 @@ def getpats(workpath, jsonpath):
                         continue
                     V = __fullversion(f"{S['build_ver']}-{S['build_num']}-{S['nano']}")
                     if V not in pats[arch][M]:
-                        reqPat = session.head(S['files'][0]['url'].split('?')[0], timeout=10, verify=False)
+                        reqPat = session.head(S['files'][0]['url'].split('?')[0].replace("global.synologydownload.com", "global.download.synology.com"), timeout=10, verify=False)
                         if reqPat.status_code == 403:
                             continue
                         pats[arch][M][V] = {
