@@ -96,7 +96,7 @@ def getpats(workpath, jsonpath):
         V = __fullversion(f"{build_ver}-{build_num}-{buildnano}")
         if V not in pats[arch][M]:
             pats[arch][M][V] = {
-                'url': data['info']['system']['detail'][0]['items'][0]['files'][0]['url'].split('?')[0],
+                'url': rewrite_url(data['info']['system']['detail'][0]['items'][0]['files'][0]['url'].split('?')[0]),
                 'hash': data['info']['system']['detail'][0]['items'][0]['files'][0].get('checksum', '0' * 32)
             }
 
@@ -143,7 +143,7 @@ def getpats(workpath, jsonpath):
                         continue
                     V = __fullversion(f"{S['build_ver']}-{S['build_num']}-{S['nano']}")
                     if V not in pats[arch][M]:
-                        reqPat = session.head(S['files'][0]['url'].split('?')[0], timeout=10, verify=False)
+                        reqPat = session.head(rewrite_url(S['files'][0]['url'].split('?')[0]), timeout=10, verify=False)
                         if reqPat.status_code == 403:
                             continue
                         pats[arch][M][V] = {
@@ -177,5 +177,5 @@ def getpats(workpath, jsonpath):
         with open(jsonpath, "w", encoding="utf-8") as f:
             yaml.dump(quote_models_versions(pats), f, indent=2, allow_unicode=True, sort_keys=False)
 
-if __name__ == "__main__":
-    cli()
+def rewrite_url(url):
+    return url.replace("global.synologydownload.com", "global.download.synology.com")
