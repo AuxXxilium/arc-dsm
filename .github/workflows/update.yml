@@ -10,6 +10,12 @@ name: Update Data
 on:
   workflow_dispatch:
     inputs:
+      runs:
+        description: "runs-on"
+        type: choice
+        options:
+          - ubuntu-latest
+          - self-hosted
       cleanfiles: 
         description: 'clean files'
         default: false
@@ -17,7 +23,7 @@ on:
 
 jobs:
   dsm-files:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runs }}
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -66,10 +72,3 @@ jobs:
           sudo rm -rf ./configs
           sudo rm -f ./configs.zip
           sudo ./update.sh
-
-      - name: Check and Push
-        run: |
-          sudo git fetch
-          sudo git add .
-          sudo git commit -m "data: update $(date +%Y-%m-%d" "%H:%M:%S)"
-          sudo git push -f
