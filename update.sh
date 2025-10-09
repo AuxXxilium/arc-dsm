@@ -97,11 +97,11 @@ getDSM() {
     echo "${HASH}" >"${DESTINATION}/ramdisk_hash"
 
     echo -n "Copying files: "
-    cp "${UNTAR_PAT_PATH}/grub_cksum.syno" "${DESTINATION}"
-    cp "${UNTAR_PAT_PATH}/GRUB_VER"        "${DESTINATION}"
-    cp "${UNTAR_PAT_PATH}/zImage"          "${DESTINATION}"
-    cp "${UNTAR_PAT_PATH}/rd.gz"           "${DESTINATION}"
-    cp "${UNTAR_PAT_PATH}/VERSION"         "${DESTINATION}"
+    cp -f "${UNTAR_PAT_PATH}/grub_cksum.syno" "${DESTINATION}"
+    cp -f "${UNTAR_PAT_PATH}/GRUB_VER"        "${DESTINATION}"
+    cp -f "${UNTAR_PAT_PATH}/zImage"          "${DESTINATION}"
+    cp -f "${UNTAR_PAT_PATH}/rd.gz"           "${DESTINATION}"
+    cp -f "${UNTAR_PAT_PATH}/VERSION"         "${DESTINATION}"
     cd "${DESTINATION}"
     tar -cf "${DESTINATIONFILES}/${PAT_HASH}.tar" .
     rm -f "${PAT_PATH}"
