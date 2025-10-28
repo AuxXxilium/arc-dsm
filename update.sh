@@ -78,11 +78,11 @@ getDSM() {
   esac
 
   if [ "${isencrypted}" = "yes" ]; then
-      echo "Extracting..."
-      LD_LIBRARY_PATH="${EXTRACTOR_PATH}" "${EXTRACTOR_PATH}/${EXTRACTOR_BIN}" "${PAT_PATH}" "${UNTAR_PAT_PATH}"
+    echo "Extracting..."
+    LD_LIBRARY_PATH="${EXTRACTOR_PATH}" "${EXTRACTOR_PATH}/${EXTRACTOR_BIN}" "${PAT_PATH}" "${UNTAR_PAT_PATH}"
   else
-      echo "Extracting..."
-      tar -xf "${PAT_PATH}" -C "${UNTAR_PAT_PATH}" || { echo "Error extracting"; return; }
+    echo "Extracting..."
+    tar -xf "${PAT_PATH}" -C "${UNTAR_PAT_PATH}" || { echo "Error extracting"; return; }
   fi
 
   HASH=$(sha256sum "${UNTAR_PAT_PATH}/zImage" | awk '{print$1}')
@@ -110,73 +110,10 @@ getDSM() {
   {
     echo ""
     echo "${MODEL} ${PRODUCTVER} (${URL_VER})"
-    echo "${PAT_URL}"
-
-    rm -f "${PAT_PATH}"
-    echo "Downloading ${PAT_FILE}"
-    STATUS=$(curl -k -w "%{http_code}" -L "${PAT_URL}" -o "${PAT_PATH}" --progress-bar)
-    if [ $? -ne 0 ] || [ "${STATUS}" -ne 200 ]; then
-        rm -f "${PAT_PATH}"
-        echo "Error downloading"
-        return
-    fi
-
-    PAT_HASH=$(md5sum "${PAT_PATH}" | awk '{print $1}')
-    echo "${PAT_HASH}" >"${DESTINATION}/pat_hash"
-    echo "${PAT_URL}" >"${DESTINATION}/pat_url"
-
-    rm -rf "${UNTAR_PAT_PATH}"
-    mkdir -p "${UNTAR_PAT_PATH}"
-    echo -n "Disassembling ${PAT_FILE}: "
-    header=$(od -bcN2 "${PAT_PATH}" | head -1 | awk '{print $3}')
-    case ${header} in
-        105) echo "Uncompressed tar"; isencrypted="no" ;;
-        213) echo "Compressed tar"; isencrypted="no" ;;
-        255) echo "Encrypted"; isencrypted="yes" ;;
-        *)   echo "Unknown/corrupted"; return ;;
-    esac
-
-    if [ "${isencrypted}" = "yes" ]; then
-        [ -f "${EXTRACTOR_PATH}/${EXTRACTOR_BIN}" ] && echo "Extractor cached."
-        echo "Extracting..."
-        LD_LIBRARY_PATH="${EXTRACTOR_PATH}" "${EXTRACTOR_PATH}/${EXTRACTOR_BIN}" "${PAT_PATH}" "${UNTAR_PAT_PATH}"
-    else
-        echo "Extracting..."
-        tar -xf "${PAT_PATH}" -C "${UNTAR_PAT_PATH}" || { echo "Error extracting"; return; }
-    fi
-
-    echo -n "Checking hash of zImage: "
-    HASH=$(sha256sum "${UNTAR_PAT_PATH}/zImage" | awk '{print$1}')
-    echo "OK - ${HASH}"
-    echo "${HASH}" >"${DESTINATION}/zImage_hash"
-
-    echo -n "Checking hash of ramdisk: "
-    HASH=$(sha256sum "${UNTAR_PAT_PATH}/rd.gz" | awk '{print$1}')
-    echo "OK - ${HASH}"
-    echo "${HASH}" >"${DESTINATION}/ramdisk_hash"
-
-    echo -n "Copying files: "
-    cp -f "${UNTAR_PAT_PATH}/grub_cksum.syno" "${DESTINATION}"
-    cp -f "${UNTAR_PAT_PATH}/GRUB_VER"        "${DESTINATION}"
-    cp -f "${UNTAR_PAT_PATH}/zImage"          "${DESTINATION}"
-    cp -f "${UNTAR_PAT_PATH}/rd.gz"           "${DESTINATION}"
-    cp -f "${UNTAR_PAT_PATH}/VERSION"         "${DESTINATION}"
-    cd "${DESTINATION}"
-    tar -cf "${DESTINATIONFILES}/${PAT_HASH}.tar" .
-    rm -f "${PAT_PATH}"
-    rm -rf "${UNTAR_PAT_PATH}"
-
-    echo -n "DSM Extraction complete: ${MODEL}_${URL_VER}"
-
-    writeConfigKey "${PLATFORM}.\"${MODEL}\".\"${URL_VER}\".url" "${PAT_URL}" "${TMP_PATH}/data.yml"
-    writeConfigKey "${PLATFORM}.\"${MODEL}\".\"${URL_VER}\".hash" "${PAT_HASH}" "${TMP_PATH}/data.yml"
-    {
-      echo ""
-      echo "${MODEL} ${PRODUCTVER} (${URL_VER})"
-      echo "Url: ${PAT_URL}"
-      echo "Hash: ${PAT_HASH}"
-    } >>"${TMP_PATH}/webdata.txt"
-    cd "${HOME}"
+    echo "Url: ${PAT_URL}"
+    echo "Hash: ${PAT_HASH}"
+  } >>"${TMP_PATH}/webdata.txt"
+  cd "${HOME}"
 }
 
 # --- Main ---
@@ -187,7 +124,7 @@ mkdir -p "${TMP_PATH}" "${CACHE_PATH}" "${CONFIGS}"
 if [ ! -f "${CONFIGS}/platforms.yml" ]; then
   TAG="$(curl --insecure -m 5 -s https://api.github.com/repos/AuxXxilium/arc-configs/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')"
   curl --insecure -s -L "https://github.com/AuxXxilium/arc-configs/releases/download/${TAG}/configs-${TAG}.zip" -o "configs.zip"
-  unzip -oq "configs.zip" -d "${CONFIGS}" >/dev/null 2>&1
+  unzip -oq "configs.zip" -d "${CONFIGS}" 2>/dev/null
   rm -f "configs.zip"
 fi
 
@@ -232,5 +169,5 @@ git config --global user.name "AuxXxilium"
 git fetch
 git add "${HOME}/webdata.txt"
 git add "${HOME}/data.yml"
-git commit -m "data: update $(date +%Y-%m-%d" "%H:%M:%S)" || true
+git commit -m "data: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
 git push || true
