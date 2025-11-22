@@ -25,6 +25,11 @@ jobs:
   dsm-files:
     runs-on: ${{ inputs.runs }}
     steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          swap-storage: false
+
       - name: Checkout
         uses: actions/checkout@main
 

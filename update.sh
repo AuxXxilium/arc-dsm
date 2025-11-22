@@ -78,11 +78,11 @@ getDSM() {
   esac
 
   if [ "${isencrypted}" = "yes" ]; then
-      echo "Extracting..."
-      LD_LIBRARY_PATH="${EXTRACTOR_PATH}" "${EXTRACTOR_PATH}/${EXTRACTOR_BIN}" "${PAT_PATH}" "${UNTAR_PAT_PATH}"
+    echo "Extracting..."
+    LD_LIBRARY_PATH="${EXTRACTOR_PATH}" "${EXTRACTOR_PATH}/${EXTRACTOR_BIN}" "${PAT_PATH}" "${UNTAR_PAT_PATH}"
   else
-      echo "Extracting..."
-      tar -xf "${PAT_PATH}" -C "${UNTAR_PAT_PATH}" || { echo "Error extracting"; return; }
+    echo "Extracting..."
+    tar -xf "${PAT_PATH}" -C "${UNTAR_PAT_PATH}" || { echo "Error extracting"; return; }
   fi
 
   HASH=$(sha256sum "${UNTAR_PAT_PATH}/zImage" | awk '{print$1}')
@@ -124,7 +124,7 @@ mkdir -p "${TMP_PATH}" "${CACHE_PATH}" "${CONFIGS}"
 if [ ! -f "${CONFIGS}/platforms.yml" ]; then
   TAG="$(curl --insecure -m 5 -s https://api.github.com/repos/AuxXxilium/arc-configs/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')"
   curl --insecure -s -L "https://github.com/AuxXxilium/arc-configs/releases/download/${TAG}/configs-${TAG}.zip" -o "configs.zip"
-  unzip -oq "configs.zip" -d "${CONFIGS}" >/dev/null 2>&1
+  unzip -oq "configs.zip" -d "${CONFIGS}" 2>/dev/null
   rm -f "configs.zip"
 fi
 
@@ -152,7 +152,7 @@ for PLATFORM in $(readConfigEntriesArray "" "${TMP_PATH}/data.yml"); do
       git fetch
       git add "${HOME}/dsm/${MODEL}"
       git add "${HOME}/files/${MODEL}"
-      git commit -m "${MODEL}: update $(date +%Y-%m-%d" "%H:%M:%S)"
+      git commit -m "${MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)"
       git push
     done
   done
@@ -169,5 +169,5 @@ git config --global user.name "AuxXxilium"
 git fetch
 git add "${HOME}/webdata.txt"
 git add "${HOME}/data.yml"
-git commit -m "data: update $(date +%Y-%m-%d" "%H:%M:%S)" || true
+git commit -m "data: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
 git push || true
