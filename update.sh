@@ -10,7 +10,7 @@
 set -e
 
 # --- Config ---
-HOME=$(pwd)
+HOME="$(pwd)"
 TMP_PATH="${HOME}/data"
 CACHE_PATH="${HOME}/cache"
 CONFIGS="configs"
@@ -29,7 +29,7 @@ writeConfigKey() {
 }
 readConfigKey() {
   local RESULT
-  RESULT=$(yq eval '.'${1}' | explode(.)' "${2}" 2>/dev/null)
+  RESULT="$(yq eval '.'${1}' | explode(.)' "${2}" 2>/dev/null)"
   [ "${RESULT}" = "null" ] && echo "" || echo "${RESULT}"
 }
 readConfigEntriesArray() {
@@ -41,7 +41,7 @@ getDSM() {
   MODEL="${2}"
   URL_VER="${3}"
   PAT_URL="${4}"
-  PAT_URL=$(echo "${PAT_URL}" | sed 's/global.synologydownload.com/global.download.synology.com/')
+  PAT_URL="$(echo "${PAT_URL}" | sed 's/global.synologydownload.com/global.download.synology.com/')"
   PRODUCTVER="${URL_VER:0:3}"
   PAT_FILE="${MODEL}_${URL_VER}.pat"
   PAT_PATH="${CACHE_PATH}/dl/${PAT_FILE}"
@@ -62,7 +62,7 @@ getDSM() {
       return
   fi
 
-  PAT_HASH=$(md5sum "${PAT_PATH}" | awk '{print $1}')
+  PAT_HASH="$(md5sum "${PAT_PATH}" | awk '{print $1}')"
   echo "${PAT_HASH}" >"${DESTINATION}/pat_hash"
   echo "${PAT_URL}" >"${DESTINATION}/pat_url"
 
@@ -85,11 +85,11 @@ getDSM() {
     tar -xf "${PAT_PATH}" -C "${UNTAR_PAT_PATH}" || { echo "Error extracting"; return; }
   fi
 
-  HASH=$(sha256sum "${UNTAR_PAT_PATH}/zImage" | awk '{print$1}')
+  HASH="$(sha256sum "${UNTAR_PAT_PATH}/zImage" | awk '{print$1}')"
   echo "Checking hash of zImage: OK - ${HASH}"
   echo "${HASH}" >"${DESTINATION}/zImage_hash"
 
-  HASH=$(sha256sum "${UNTAR_PAT_PATH}/rd.gz" | awk '{print$1}')
+  HASH="$(sha256sum "${UNTAR_PAT_PATH}/rd.gz" | awk '{print$1}')"
   echo "Checking hash of ramdisk: OK - ${HASH}"
   echo "${HASH}" >"${DESTINATION}/ramdisk_hash"
 
