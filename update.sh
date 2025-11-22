@@ -152,7 +152,7 @@ for PLATFORM in $(readConfigEntriesArray "" "${TMP_PATH}/data.yml"); do
       git fetch
       git add "${HOME}/dsm/${MODEL}"
       git add "${HOME}/files/${MODEL}"
-      git commit -m "${MODEL}: update $(date +%Y-%m-%d" "%H:%M:%S)"
+      git commit -m "${MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)"
       git push
     done
   done

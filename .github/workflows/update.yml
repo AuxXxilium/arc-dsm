@@ -25,6 +25,11 @@ jobs:
   dsm-files:
     runs-on: ${{ inputs.runs }}
     steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          swap-storage: false
+
       - name: Checkout
         uses: actions/checkout@main
 
@@ -59,11 +64,6 @@ jobs:
           # Backup the original python3 executable.
           sudo mv -f "$(realpath $(which python3))/EXTERNALLY-MANAGED" "$(realpath $(which python3))/EXTERNALLY-MANAGED.bak" 2>/dev/null || true
           sudo pip3 install -U -r scripts/requirements.txt
-
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
-        with:
-          swap-storage: false
 
       - name: Clean Files
         if: inputs.cleanfiles == true
