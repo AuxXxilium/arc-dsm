@@ -1,8 +1,11 @@
 geminilakemango:
   "BST170-8T":
-    "7.2.1-65646-0":
-      url: "https://global.download.synology.com/download/BSM/release/1.3.1/65646/BSM_BST170-8T_65646.pat"
-      hash: "a206f09a68c1096fe848236de858f408"
+    "7.2.0-65831-0":
+      url: "https://global.download.synology.com/download/BSM/release/1.4/65831/BSM_BST170-8T_65831.pat"
+      hash: "e72582ff2ce2fe8768b2e6cdaead2acf"
+    "7.2.2-65648-0":
+      url: "https://global.download.synology.com/download/BSM/release/1.3.2/65648/BSM_BST170-8T_65648.pat"
+      hash: "5f7cc84bbabf362602548d07052932e8"
 r1000aem:
   "DP320":
     "7.2.0-71583-0":
@@ -24,8 +27,8 @@ epyc7002aem:
 v1000nk:
   "DS1525+":
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-4/DSM_DS1525%2B_72806.pat"
-      hash: "ace29e3406e6093cc07a8ef6f13e00bb"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_DS1525%2B_72806.pat"
+      hash: "421210ec4cdec348041acc5fe105ca21"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_DS1525%2B_86003.pat"
       hash: "59fb4ff46e20cb53311f2db65a8c4de1"
@@ -34,8 +37,8 @@ v1000nk:
       hash: "e5db7fd1638d7136a72317dc1a71ba50"
   "DS1825+":
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-4/DSM_DS1825%2B_72806.pat"
-      hash: "ae455083309d6398985af768696be7e7"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_DS1825%2B_72806.pat"
+      hash: "6166bb99d72dd4ef306a6a9ce9625450"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_DS1825%2B_86003.pat"
       hash: "4197e6e1742e04d3d166c562cf970999"
@@ -44,8 +47,8 @@ v1000nk:
       hash: "f693d9c352d95e06f3ca911d3c814511"
   "DS925+":
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-4/DSM_DS925%2B_72806.pat"
-      hash: "44fa9fcf16727514d537637720ae2e13"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_DS925%2B_72806.pat"
+      hash: "a4f263a45145d1780a3d8a1625a3e39b"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_DS925%2B_86003.pat"
       hash: "44149f1849982199da7626f7a03a45a8"
@@ -54,8 +57,8 @@ v1000nk:
       hash: "240f8f8754159b111e2aba1cc5c8a515"
   "RS2825RP+":
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-4/DSM_RS2825RP%2B_72806.pat"
-      hash: "0d88dd0912459568c737affec0bd77c5"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_RS2825RP%2B_72806.pat"
+      hash: "38eb187885266869e2a9f1f342169081"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_RS2825RP%2B_86003.pat"
       hash: "15e5014419281a862fa0250875df2b6f"
@@ -65,8 +68,8 @@ v1000nk:
 geminilakenk:
   "DS225+":
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-4/DSM_DS225%2B_72806.pat"
-      hash: "983a63ff9dbffc8bb7af4e4be9150495"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_DS225%2B_72806.pat"
+      hash: "4921aaf0c13238a4694fbf23b1c18405"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_DS225%2B_86003.pat"
       hash: "17db9512bc2f39184a7c0e6d3acb7ba6"
@@ -75,8 +78,8 @@ geminilakenk:
       hash: "1b6c1243a5e6119f2ad934b5e5b4dea5"
   "DS425+":
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-4/DSM_DS425%2B_72806.pat"
-      hash: "bd3be86bce505715652b286578c7d858"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_DS425%2B_72806.pat"
+      hash: "56cc98e3016ecb861b3105e630241aab"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_DS425%2B_86003.pat"
       hash: "a0339ced50dfb5ac9810ef54465f886a"
@@ -86,8 +89,8 @@ geminilakenk:
 r1000nk:
   "DS725+":
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-4/DSM_DS725%2B_72806.pat"
-      hash: "3e49bdbaea102ff29e7f1cb82c0b6727"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_DS725%2B_72806.pat"
+      hash: "136facb9f9f609a8db832734ff5c185d"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_DS725%2B_86003.pat"
       hash: "266499f996658aebeae1f06ae080ee5b"
@@ -97,8 +100,8 @@ r1000nk:
 purley:
   "HD6500":
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-4/DSM_HD6500_72806.pat"
-      hash: "0f41b9b8a5e2470d356ca6e4ce98651d"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_HD6500_72806.pat"
+      hash: "5ae86c3a45602d798f52452cdf0329eb"
     "7.2.1-69057-0":
       url: "https://global.download.synology.com/download/DSM/release/7.2.1/69057-8/DSM_HD6500_69057.pat"
       hash: "825b37f958eb19b8a490bd3e1c91925a"
