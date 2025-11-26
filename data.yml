@@ -1,29 +1,3 @@
-geminilakemango:
-  "BST170-8T":
-    "7.2.0-65831-0":
-      url: "https://global.download.synology.com/download/BSM/release/1.4/65831/BSM_BST170-8T_65831.pat"
-      hash: "e72582ff2ce2fe8768b2e6cdaead2acf"
-    "7.2.2-65648-0":
-      url: "https://global.download.synology.com/download/BSM/release/1.3.2/65648/BSM_BST170-8T_65648.pat"
-      hash: "5f7cc84bbabf362602548d07052932e8"
-r1000aem:
-  "DP320":
-    "7.2.0-71583-0":
-      url: "https://global.download.synology.com/download/APM/release/1.0/71583/APM_DP320_71583.pat"
-      hash: "c0c0e61a56ade6cd62dd7619463f8b76"
-  "DP340":
-    "7.2.0-71583-0":
-      url: "https://global.download.synology.com/download/APM/release/1.0/71583/APM_DP340_71583.pat"
-      hash: "f753a5e490d9568adcc17a91379edbbd"
-epyc7002aem:
-  "DP7200":
-    "7.2.0-71583-0":
-      url: "https://global.download.synology.com/download/APM/release/1.0/71583/APM_DP7200_71583.pat"
-      hash: "941b75199d6eb760d2943adb041ada96"
-  "DP7400":
-    "7.2.0-71583-0":
-      url: "https://global.download.synology.com/download/APM/release/1.0/71583/APM_DP7400_71583.pat"
-      hash: "c9931cc9432b80d9089be3344f10c37a"
 v1000nk:
   "DS1525+":
     "7.2.2-72806-0":
