@@ -1,3 +1,29 @@
+epyc7002:
+  "SA6400":
+    "7.3.2-86009-0":
+      url: "https://global.download.synology.com/download/DSM/release/7.3.2/86009-1/DSM_SA6400_86009.pat"
+      hash: "5810c8a42bce232961d4cc6adce965fb"
+    "7.2.2-72806-0":
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806/DSM_SA6400_72806.pat"
+      hash: "5ec675ed69c80465cf9a5980208efac8"
+    "7.2.1-69057-0":
+      url: "https://global.download.synology.com/download/DSM/release/7.2.1/69057-1/DSM_SA6400_69057.pat"
+      hash: "b6cecc4a11211306f2cc328e3b6d49d1"
+    "7.1.1-42962-0":
+      url: "https://global.download.synology.com/download/DSM/release/7.1.1/42962-9/DSM_SA6400_42962.pat"
+      hash: "907276f0d774fab7453fcd52ea02606c"
+    "7.3.1-86003-0":
+      url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_SA6400_86003.pat"
+      hash: "b48025830a4bf309d0e4be3f5bfafe6d"
+    "7.3.0-81180-0":
+      url: "https://global.download.synology.com/download/DSM/release/7.3/81180/DSM_SA6400_81180.pat"
+      hash: "22654ed69089efb278951b7a3d196ae6"
+    "7.2.1-69057-1":
+      url: "https://global.download.synology.com/download/DSM/release/7.2.1/69057-1/DSM_SA6400_69057.pat"
+      hash: "b6cecc4a11211306f2cc328e3b6d49d1"
+    "7.2.0-64570-1":
+      url: "https://global.download.synology.com/download/DSM/release/7.2/64570-1/DSM_SA6400_64570.pat"
+      hash: "83b591bfb240c51b2feff8f02eac8bde"
 apollolake:
   "DS1019+":
     "7.3.2-86009-0":
@@ -41,8 +67,8 @@ apollolake:
       url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806/DSM_DS620slim_72806.pat"
       hash: "4c3a37f192511d17d956fad40ddfac8d"
     "7.2.1-69057-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.1/69057-8/DSM_DS620slim_69057.pat"
-      hash: "f68df51d45a882d6175aca91f884a8f9"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.1/69057-9/DSM_DS620slim_69057.pat"
+      hash: "2d10c18f8194713a310411dcadc994b2"
     "7.2.0-64570-0":
       url: "https://global.download.synology.com/download/DSM/release/7.2/64570-1/DSM_DS620slim_64570.pat"
       hash: "9691061ea45d029c515e22de919afa9a"
@@ -547,8 +573,8 @@ v1000nk:
       url: "https://global.download.synology.com/download/DSM/release/7.3.2/86009/DSM_DS1525%2B_86009.pat"
       hash: "25dc540ee1495567165bc32b22a805da"
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_DS1525%2B_72806.pat"
-      hash: "421210ec4cdec348041acc5fe105ca21"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-6/DSM_DS1525%2B_72806.pat"
+      hash: "dbae5c3ed021945c29231045b7cbcccd"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_DS1525%2B_86003.pat"
       hash: "59fb4ff46e20cb53311f2db65a8c4de1"
@@ -560,8 +586,8 @@ v1000nk:
       url: "https://global.download.synology.com/download/DSM/release/7.3.2/86009/DSM_DS1825%2B_86009.pat"
       hash: "27144a3f1375e9bce040a0ca74c3c64f"
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_DS1825%2B_72806.pat"
-      hash: "6166bb99d72dd4ef306a6a9ce9625450"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-6/DSM_DS1825%2B_72806.pat"
+      hash: "372f7a5f5c3dcab9e200a760748f518c"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_DS1825%2B_86003.pat"
       hash: "4197e6e1742e04d3d166c562cf970999"
@@ -573,21 +599,25 @@ v1000nk:
       url: "https://global.download.synology.com/download/DSM/release/7.3.2/86009/DSM_DS925%2B_86009.pat"
       hash: "efa4c1e08cb0247441b1e045b0acf00a"
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_DS925%2B_72806.pat"
-      hash: "a4f263a45145d1780a3d8a1625a3e39b"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-6/DSM_DS925%2B_72806.pat"
+      hash: "3a0a5095f918dc67bb91cbdb10e17355"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_DS925%2B_86003.pat"
       hash: "44149f1849982199da7626f7a03a45a8"
     "7.3.0-81180-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3/81180/DSM_DS925%2B_81180.pat"
       hash: "240f8f8754159b111e2aba1cc5c8a515"
+  "RS2423RP+II":
+    "7.3.2-86009-0":
+      url: "https://global.download.synology.com/download/DSM/release/7.3.2/86009/DSM_RS2423RP%2BII_86009.pat"
+      hash: "508614cc0074dc3323598a25a1d66431"
   "RS2825RP+":
     "7.3.2-86009-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.2/86009/DSM_RS2825RP%2B_86009.pat"
       hash: "fc69abe4f5d6a297bb30641f26db6e03"
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_RS2825RP%2B_72806.pat"
-      hash: "38eb187885266869e2a9f1f342169081"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-6/DSM_RS2825RP%2B_72806.pat"
+      hash: "d446eca2691e401a4f1512cd18ab77bf"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_RS2825RP%2B_86003.pat"
       hash: "15e5014419281a862fa0250875df2b6f"
@@ -1764,8 +1794,8 @@ geminilakenk:
       url: "https://global.download.synology.com/download/DSM/release/7.3.2/86009/DSM_DS225%2B_86009.pat"
       hash: "d31a54d4551a3e6669892488078938e5"
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_DS225%2B_72806.pat"
-      hash: "4921aaf0c13238a4694fbf23b1c18405"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-6/DSM_DS225%2B_72806.pat"
+      hash: "f159a9c71411fb77c7ab4ec50b334356"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_DS225%2B_86003.pat"
       hash: "17db9512bc2f39184a7c0e6d3acb7ba6"
@@ -1777,8 +1807,8 @@ geminilakenk:
       url: "https://global.download.synology.com/download/DSM/release/7.3.2/86009/DSM_DS425%2B_86009.pat"
       hash: "29eed2651390072877cc41fccdabe00f"
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_DS425%2B_72806.pat"
-      hash: "56cc98e3016ecb861b3105e630241aab"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-6/DSM_DS425%2B_72806.pat"
+      hash: "54968bc1537cd071507bb9e6453d75eb"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_DS425%2B_86003.pat"
       hash: "a0339ced50dfb5ac9810ef54465f886a"
@@ -1791,8 +1821,8 @@ r1000nk:
       url: "https://global.download.synology.com/download/DSM/release/7.3.2/86009/DSM_DS725%2B_86009.pat"
       hash: "ac4980279465666429037ec442aa250f"
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_DS725%2B_72806.pat"
-      hash: "136facb9f9f609a8db832734ff5c185d"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-6/DSM_DS725%2B_72806.pat"
+      hash: "be650cc2b9eed81a10bee8600bffe624"
     "7.3.1-86003-0":
       url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_DS725%2B_86003.pat"
       hash: "266499f996658aebeae1f06ae080ee5b"
@@ -2173,8 +2203,8 @@ purley:
       url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806/DSM_FS6400_72806.pat"
       hash: "1b726b745327977401045b7434de6ad4"
     "7.2.1-69057-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.1/69057-8/DSM_FS6400_69057.pat"
-      hash: "e7f2df882c9379d7f59555d6fe3bae82"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.1/69057-9/DSM_FS6400_69057.pat"
+      hash: "5711cb72d782c1a2a265950f1681fffc"
     "7.2.0-64570-0":
       url: "https://global.download.synology.com/download/DSM/release/7.2/64570-1/DSM_FS6400_64570.pat"
       hash: "2e69250e65f75bd4bb9e8274d865bc70"
@@ -2204,11 +2234,11 @@ purley:
       url: "https://global.download.synology.com/download/DSM/release/7.3.2/86009/DSM_HD6500_86009.pat"
       hash: "674b0dde8d937e2e3b3214e78e9d23e7"
     "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-5/DSM_HD6500_72806.pat"
-      hash: "5ae86c3a45602d798f52452cdf0329eb"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806-6/DSM_HD6500_72806.pat"
+      hash: "f69cae67106affc78ea546bd2ee86a8a"
     "7.2.1-69057-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.1/69057-8/DSM_HD6500_69057.pat"
-      hash: "825b37f958eb19b8a490bd3e1c91925a"
+      url: "https://global.download.synology.com/download/DSM/release/7.2.1/69057-9/DSM_HD6500_69057.pat"
+      hash: "d7db2c814fa31f664338f341faf10261"
     "7.2.0-64570-0":
       url: "https://global.download.synology.com/download/DSM/release/7.2/64570-1/DSM_HD6500_64570.pat"
       hash: "fbeda2c4f1bd0da48ab469e5a767c95f"
@@ -2287,29 +2317,3 @@ broadwellntbap:
     "7.2.0-64570-1":
       url: "https://global.download.synology.com/download/DSM/release/7.2/64570-1/DSM_SA3400D_64570.pat"
       hash: "59e012ddd8ede601d3cfc3e3d5e2324d"
-epyc7002:
-  "SA6400":
-    "7.3.2-86009-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.3.2/86009/DSM_SA6400_86009.pat"
-      hash: "d6c45e7af197dad85a4dae98069b6f54"
-    "7.2.2-72806-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.2/72806/DSM_SA6400_72806.pat"
-      hash: "5ec675ed69c80465cf9a5980208efac8"
-    "7.2.1-69057-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.1/69057-1/DSM_SA6400_69057.pat"
-      hash: "b6cecc4a11211306f2cc328e3b6d49d1"
-    "7.1.1-42962-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.1.1/42962-9/DSM_SA6400_42962.pat"
-      hash: "907276f0d774fab7453fcd52ea02606c"
-    "7.3.1-86003-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.3.1/86003/DSM_SA6400_86003.pat"
-      hash: "b48025830a4bf309d0e4be3f5bfafe6d"
-    "7.3.0-81180-0":
-      url: "https://global.download.synology.com/download/DSM/release/7.3/81180/DSM_SA6400_81180.pat"
-      hash: "22654ed69089efb278951b7a3d196ae6"
-    "7.2.1-69057-1":
-      url: "https://global.download.synology.com/download/DSM/release/7.2.1/69057-1/DSM_SA6400_69057.pat"
-      hash: "b6cecc4a11211306f2cc328e3b6d49d1"
-    "7.2.0-64570-1":
-      url: "https://global.download.synology.com/download/DSM/release/7.2/64570-1/DSM_SA6400_64570.pat"
-      hash: "83b591bfb240c51b2feff8f02eac8bde"
