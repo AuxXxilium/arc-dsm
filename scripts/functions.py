@@ -22,13 +22,7 @@ def cli():
 @cli.command()
 @click.option("-w", "--workpath", type=str, required=True, help="The workpath of Arc.")
 @click.option("-j", "--jsonpath", type=str, required=True, help="The output path of yaml file.")
-@click.option(
-    "--all-models-from-update7/--supported-models-only",
-    default=True,
-    show_default=True,
-    help="Fetch all models visible in update7 RSS, or only models in configs/platforms.yml.",
-)
-def getpats(workpath, jsonpath, all_models_from_update7):
+def getpats(workpath, jsonpath):
     def __fullversion(major, minor, patch, build, phase):
         return f"{major}.{minor}.{patch}-{build}-{phase}"
 
@@ -50,14 +44,6 @@ def getpats(workpath, jsonpath, all_models_from_update7):
     def __is_dsm_family_link(link):
         link_l = str(link or "").lower()
         return "/download/dsm/release/" in link_l or "/download/dsm_enterprise/release/" in link_l
-
-    # Load platforms.yml and build model->platform mapping
-    platforms = {}
-    if not all_models_from_update7:
-        platforms_yml = os.path.join(workpath, "configs", "platforms.yml")
-        with open(platforms_yml, "r", encoding="utf-8") as f:
-            platforms_data = yaml.safe_load(f) or {}
-            platforms = platforms_data.get("platforms", {})
 
     # Fetch and parse the XML feed
     url = "http://update7.synology.com/autoupdate/genRSS.php?include_beta=1"
@@ -125,9 +111,8 @@ def getpats(workpath, jsonpath, all_models_from_update7):
             if model_name.startswith("Enterprise_"):
                 model_name = model_name[len("Enterprise_"):]
 
-            if not all_models_from_update7 and arch not in platforms:
-                continue
-
+            # Always skip architectures Arc doesn't know about.
+            # In supported-models-only mode also restrict to listed model names.
             # Initialize data structure
             if arch not in pats:
                 pats[arch] = {}

@@ -78,25 +78,45 @@ getDSM() {
 
   if [ "${isencrypted}" = "yes" ]; then
     echo "Extracting..."
-    LD_LIBRARY_PATH="${EXTRACTOR_PATH}" "${EXTRACTOR_PATH}/${EXTRACTOR_BIN}" "${PAT_PATH}" "${UNTAR_PAT_PATH}"
+    if ! LD_LIBRARY_PATH="${EXTRACTOR_PATH}" "${EXTRACTOR_PATH}/${EXTRACTOR_BIN}" "${PAT_PATH}" "${UNTAR_PAT_PATH}"; then
+      echo "Error extracting (encrypted)"
+      rm -f "${PAT_PATH}"; rm -rf "${UNTAR_PAT_PATH}"
+      return
+    fi
   else
     echo "Extracting..."
-    tar -xf "${PAT_PATH}" -C "${UNTAR_PAT_PATH}" || { echo "Error extracting"; return; }
+    if ! tar -xf "${PAT_PATH}" -C "${UNTAR_PAT_PATH}"; then
+      echo "Error extracting"
+      rm -f "${PAT_PATH}"; rm -rf "${UNTAR_PAT_PATH}"
+      return
+    fi
+  fi
+
+  # zImage is required; abort if missing
+  if [ ! -f "${UNTAR_PAT_PATH}/zImage" ]; then
+    echo "Error: zImage not found in PAT, skipping"
+    rm -f "${PAT_PATH}"; rm -rf "${UNTAR_PAT_PATH}"
+    return
   fi
 
   HASH="$(sha256sum "${UNTAR_PAT_PATH}/zImage" | awk '{print$1}')"
   echo "Checking hash of zImage: OK - ${HASH}"
   echo "${HASH}" >"${DESTINATION}/zImage_hash"
 
-  HASH="$(sha256sum "${UNTAR_PAT_PATH}/rd.gz" | awk '{print$1}')"
-  echo "Checking hash of ramdisk: OK - ${HASH}"
-  echo "${HASH}" >"${DESTINATION}/ramdisk_hash"
+  # rd.gz and grub_cksum.syno are optional (some PAT formats omit them)
+  if [ -f "${UNTAR_PAT_PATH}/rd.gz" ]; then
+    HASH="$(sha256sum "${UNTAR_PAT_PATH}/rd.gz" | awk '{print$1}')"
+    echo "Checking hash of ramdisk: OK - ${HASH}"
+    echo "${HASH}" >"${DESTINATION}/ramdisk_hash"
+    cp -f "${UNTAR_PAT_PATH}/rd.gz" "${DESTINATION}"
+  else
+    echo "Note: rd.gz not present in PAT"
+  fi
 
-  cp -f "${UNTAR_PAT_PATH}/grub_cksum.syno" "${DESTINATION}"
-  cp -f "${UNTAR_PAT_PATH}/GRUB_VER"        "${DESTINATION}"
+  [ -f "${UNTAR_PAT_PATH}/grub_cksum.syno" ] && cp -f "${UNTAR_PAT_PATH}/grub_cksum.syno" "${DESTINATION}"
+  [ -f "${UNTAR_PAT_PATH}/GRUB_VER"        ] && cp -f "${UNTAR_PAT_PATH}/GRUB_VER"        "${DESTINATION}"
   cp -f "${UNTAR_PAT_PATH}/zImage"          "${DESTINATION}"
-  cp -f "${UNTAR_PAT_PATH}/rd.gz"           "${DESTINATION}"
-  cp -f "${UNTAR_PAT_PATH}/VERSION"         "${DESTINATION}"
+  [ -f "${UNTAR_PAT_PATH}/VERSION"          ] && cp -f "${UNTAR_PAT_PATH}/VERSION"         "${DESTINATION}"
   cd "${DESTINATION}"
   tar -cf "${DESTINATIONFILES}/${PAT_HASH}.tar" .
   rm -f "${PAT_PATH}"
@@ -117,7 +137,15 @@ getDSM() {
 
 # --- Main ---
 rm -rf "${TMP_PATH}" "${CACHE_PATH}"
-mkdir -p "${TMP_PATH}" "${CACHE_PATH}"
+mkdir -p "${TMP_PATH}" "${CACHE_PATH}" "configs"
+
+# --- Get configs (platforms.yml required to filter unsupported architectures) ---
+if [ ! -f "configs/platforms.yml" ]; then
+  TAG="$(curl --insecure -m 10 -s https://api.github.com/repos/AuxXxilium/arc-configs/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')"
+  curl --insecure -s -L "https://github.com/AuxXxilium/arc-configs/releases/download/${TAG}/configs-${TAG}.zip" -o "configs.zip"
+  unzip -oq "configs.zip" -d "configs" 2>/dev/null
+  rm -f "configs.zip"
+fi
 
 # --- Clean up and prepare data files ---
 rm -f "${TMP_PATH}/data.yml" "${TMP_PATH}/webdata.txt"
@@ -128,11 +156,18 @@ touch "${TMP_PATH}/webdata.txt"
 git config --global user.email "info@auxxxilium.tech"
 git config --global user.name "AuxXxilium"
 
+# --- Build platforms list (from configs + any missing from upstream) ---
+PLATFORMS="$(readConfigEntriesArray "platforms" "configs/platforms.yml")"
+MISSING_PLATFORMS=("epyc7003ntb")
+for _missing in "${MISSING_PLATFORMS[@]}"; do
+  echo "${PLATFORMS}" | grep -qxF "${_missing}" || PLATFORMS="${PLATFORMS}"$'\n'"${_missing}"
+done
+
 # --- Get PATs ---
-python3 scripts/functions.py getpats --all-models-from-update7 -w "." -j "${TMP_PATH}/data.yml"
+python3 scripts/functions.py getpats -w "." -j "${TMP_PATH}/data.yml"
 
 # --- Process each platform, model, and version ---
-for PLATFORM in $(readConfigEntriesArray "" "${TMP_PATH}/data.yml"); do
+for PLATFORM in ${PLATFORMS}; do
   echo "Processing platform: ${PLATFORM}"
   for MODEL in $(readConfigEntriesArray "${PLATFORM}" "${TMP_PATH}/data.yml"); do
     echo "Processing model: ${MODEL}"
@@ -154,7 +189,7 @@ done
 cp -f "${TMP_PATH}/webdata.txt" "${HOME}/webdata.txt"
 cp -f "${TMP_PATH}/data.yml" "${HOME}/data.yml"
 
-rm -rf "${CACHE_PATH}" "${TMP_PATH}"
+rm -rf "${CACHE_PATH}" "${TMP_PATH}" "configs"
 
 git config --global user.email "info@auxxxilium.tech"
 git config --global user.name "AuxXxilium"
