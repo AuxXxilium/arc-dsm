@@ -124,6 +124,10 @@ rm -f "${TMP_PATH}/data.yml" "${TMP_PATH}/webdata.txt"
 touch "${TMP_PATH}/data.yml"
 touch "${TMP_PATH}/webdata.txt"
 
+# --- Git identity (set once) ---
+git config --global user.email "info@auxxxilium.tech"
+git config --global user.name "AuxXxilium"
+
 # --- Get PATs ---
 python3 scripts/functions.py getpats --all-models-from-update7 -w "." -j "${TMP_PATH}/data.yml"
 
@@ -138,14 +142,11 @@ for PLATFORM in $(readConfigEntriesArray "" "${TMP_PATH}/data.yml"); do
       URL_VER="${VERSION}"
       PAT_URL=$(readConfigKey "${PLATFORM}.\"${MODEL}\".\"${VERSION}\".url" "${TMP_PATH}/data.yml")
       getDSM "${PLATFORM}" "${MODEL}" "${URL_VER}" "${PAT_URL}"
-      git config --global user.email "info@auxxxilium.tech"
-      git config --global user.name "AuxXxilium"
-      git fetch
-      git add "${HOME}/dsm/${MODEL}"
-      git add "${HOME}/files/${MODEL}"
-      git commit -m "${MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)"
-      git push
     done
+    git add "${HOME}/dsm/${MODEL}"
+    git add "${HOME}/files/${MODEL}"
+    git commit -m "${MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
+    git push
   done
 done
 
