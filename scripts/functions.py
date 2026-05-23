@@ -7,6 +7,7 @@
 #
 
 import os, re, sys, glob, json, yaml, click, shutil, tarfile, kmodule, requests, urllib3
+from urllib.parse import unquote
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry  # type: ignore
 import xml.etree.ElementTree as ET
@@ -21,15 +22,42 @@ def cli():
 @cli.command()
 @click.option("-w", "--workpath", type=str, required=True, help="The workpath of Arc.")
 @click.option("-j", "--jsonpath", type=str, required=True, help="The output path of yaml file.")
-def getpats(workpath, jsonpath):
+@click.option(
+    "--all-models-from-update7/--supported-models-only",
+    default=True,
+    show_default=True,
+    help="Fetch all models visible in update7 RSS, or only models in configs/platforms.yml.",
+)
+def getpats(workpath, jsonpath, all_models_from_update7):
     def __fullversion(major, minor, patch, build, phase):
         return f"{major}.{minor}.{patch}-{build}-{phase}"
 
+    def __version_at_least(major, minor, req_major=7, req_minor=2):
+        try:
+            return (int(major), int(minor)) >= (int(req_major), int(req_minor))
+        except Exception:
+            return False
+
+    def __buildver_at_least(build_ver, req_major=7, req_minor=2):
+        try:
+            parts = str(build_ver or "").split(".")
+            major = int(parts[0]) if len(parts) > 0 else 0
+            minor = int(parts[1]) if len(parts) > 1 else 0
+            return (major, minor) >= (int(req_major), int(req_minor))
+        except Exception:
+            return False
+
+    def __is_dsm_family_link(link):
+        link_l = str(link or "").lower()
+        return "/download/dsm/release/" in link_l or "/download/dsm_enterprise/release/" in link_l
+
     # Load platforms.yml and build model->platform mapping
-    platforms_yml = os.path.join(workpath, "configs", "platforms.yml")
-    with open(platforms_yml, "r") as f:
-        platforms_data = yaml.safe_load(f)
-        platforms = platforms_data.get("platforms", {})
+    platforms = {}
+    if not all_models_from_update7:
+        platforms_yml = os.path.join(workpath, "configs", "platforms.yml")
+        with open(platforms_yml, "r", encoding="utf-8") as f:
+            platforms_data = yaml.safe_load(f) or {}
+            platforms = platforms_data.get("platforms", {})
 
     # Fetch and parse the XML feed
     url = "http://update7.synology.com/autoupdate/genRSS.php?include_beta=1"
@@ -56,34 +84,48 @@ def getpats(workpath, jsonpath):
     # Parse XML and build model->platform mapping
     pats = {}
     for item in root.findall(".//item"):
-        major_ver = item.find("MajorVer").text
-        minor_ver = item.find("MinorVer").text
-        build_num = item.find("BuildNum").text
-        build_phase = item.find("BuildPhase").text
+        major_ver = (item.findtext("MajorVer") or "0").strip()
+        minor_ver = (item.findtext("MinorVer") or "0").strip()
+        build_num = (item.findtext("BuildNum") or "0").strip()
+        build_phase = (item.findtext("BuildPhase") or "0").strip()
 
         # Extract the patch version from the mLink URL
-        m_link = item.find("model/mLink").text
+        m_link = item.findtext("model/mLink") or ""
+        if not __is_dsm_family_link(m_link):
+            continue
         patch_ver_match = re.search(r"/(\d+\.\d+\.\d+)/", m_link)
         patch_ver = patch_ver_match.group(1).split(".")[-1] if patch_ver_match else "0"
 
-        # Skip versions below 7
-        if int(major_ver) < 7:
+        # Keep only DSM 7.2 and above
+        if not __version_at_least(major_ver, minor_ver, 7, 2):
             continue
 
         version = __fullversion(major_ver, minor_ver, patch_ver, build_num, build_phase)
 
         for model in item.findall("model"):
-            m_unique = model.find("mUnique").text
-            m_link = model.find("mLink").text
-            m_checksum = model.find("mCheckSum").text or "0" * 32
+            m_unique = model.findtext("mUnique") or ""
+            m_link = model.findtext("mLink") or ""
+            if not __is_dsm_family_link(m_link):
+                continue
+            m_checksum = model.findtext("mCheckSum") or "0" * 32
 
             # Extract architecture and model name
             if "_" not in m_unique:
                 continue
             arch = m_unique.split("_")[1]
-            model_name = m_link.split("/")[-1].split("_")[1].replace("%2B", "+")
 
-            if arch not in platforms:
+            # PAT names are usually DSM_<MODEL>_<BUILD>.pat, but Enterprise uses
+            # DSM_Enterprise_<MODEL>_<BUILD>.pat. Join middle tokens and strip the
+            # Enterprise prefix so both formats map to the real model.
+            pat_name = unquote(m_link.split("/")[-1]).replace(".pat", "")
+            parts = pat_name.split("_")
+            if len(parts) < 3:
+                continue
+            model_name = "_".join(parts[1:-1])
+            if model_name.startswith("Enterprise_"):
+                model_name = model_name[len("Enterprise_"):]
+
+            if not all_models_from_update7 and arch not in platforms:
                 continue
 
             # Initialize data structure
@@ -131,7 +173,7 @@ def getpats(workpath, jsonpath):
                 "hash": checksum or ("0" * 32)
             }
 
-    def fetch_product_patches(session, product, arch, version_prefix="7"):
+    def fetch_product_patches(session, product, arch, version_prefix="7", min_major=7, min_minor=2):
         """
         Query Synology API endpoints for a given product/model and return a dict
         of patches keyed by version string compatible with __fullversion.
@@ -155,6 +197,8 @@ def getpats(workpath, jsonpath):
                 build_ver = it.get('build_ver', '') or ''
                 # skip non-DSM builds (e.g. app versions like "1.3.1")
                 if not build_ver.startswith(str(version_prefix)):
+                    continue
+                if not __buildver_at_least(build_ver, min_major, min_minor):
                     continue
                 files = it.get('files') or []
                 if not files:
@@ -183,6 +227,8 @@ def getpats(workpath, jsonpath):
             verstr = pv.get('version', '')
             if not verstr.startswith(str(version_prefix)):
                 continue
+            if not __buildver_at_least(f"{verstr}.0", min_major, min_minor):
+                continue
 
             # sometimes need to fetch per-major/minor product info
             try:
@@ -197,6 +243,8 @@ def getpats(workpath, jsonpath):
                     build_ver = it.get('build_ver', '') or ''
                     # skip non-DSM builds
                     if not build_ver.startswith(str(version_prefix)):
+                        continue
+                    if not __buildver_at_least(build_ver, min_major, min_minor):
                         continue
                     files = it.get('files') or []
                     if not files:
@@ -229,6 +277,8 @@ def getpats(workpath, jsonpath):
                     # ensure upgrade step is a DSM build matching prefix
                     if not build_ver.startswith(str(version_prefix)):
                         continue
+                    if not __buildver_at_least(build_ver, min_major, min_minor):
+                        continue
                     files = S.get('files') or []
                     if not files:
                         continue
@@ -256,7 +306,7 @@ def getpats(workpath, jsonpath):
 
         for model_name, arch in model_arch.items():
             try:
-                api_patches = fetch_product_patches(session, model_name, arch, version_prefix="7")
+                api_patches = fetch_product_patches(session, model_name, arch, version_prefix="7", min_major=7, min_minor=2)
                 for V, info in api_patches.get(arch, {}).get(model_name, {}).items():
                     if arch not in pats:
                         pats[arch] = {}

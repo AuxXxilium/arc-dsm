@@ -13,7 +13,6 @@ set -e
 HOME="$(pwd)"
 TMP_PATH="${HOME}/data"
 CACHE_PATH="${HOME}/cache"
-CONFIGS="configs"
 DSMPATH="${HOME}/dsm"
 FILESPATH="${HOME}/files"
 EXTRACTOR_PATH="${HOME}/extractor"
@@ -118,15 +117,7 @@ getDSM() {
 
 # --- Main ---
 rm -rf "${TMP_PATH}" "${CACHE_PATH}"
-mkdir -p "${TMP_PATH}" "${CACHE_PATH}" "${CONFIGS}"
-
-# --- Get configs ---
-if [ ! -f "${CONFIGS}/platforms.yml" ]; then
-  TAG="$(curl --insecure -m 5 -s https://api.github.com/repos/AuxXxilium/arc-configs/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')"
-  curl --insecure -s -L "https://github.com/AuxXxilium/arc-configs/releases/download/${TAG}/configs-${TAG}.zip" -o "configs.zip"
-  unzip -oq "configs.zip" -d "${CONFIGS}" 2>/dev/null
-  rm -f "configs.zip"
-fi
+mkdir -p "${TMP_PATH}" "${CACHE_PATH}"
 
 # --- Clean up and prepare data files ---
 rm -f "${TMP_PATH}/data.yml" "${TMP_PATH}/webdata.txt"
@@ -134,7 +125,7 @@ touch "${TMP_PATH}/data.yml"
 touch "${TMP_PATH}/webdata.txt"
 
 # --- Get PATs ---
-python3 scripts/functions.py getpats -w "." -j "${TMP_PATH}/data.yml"
+python3 scripts/functions.py getpats --all-models-from-update7 -w "." -j "${TMP_PATH}/data.yml"
 
 # --- Process each platform, model, and version ---
 for PLATFORM in $(readConfigEntriesArray "" "${TMP_PATH}/data.yml"); do
@@ -162,7 +153,7 @@ done
 cp -f "${TMP_PATH}/webdata.txt" "${HOME}/webdata.txt"
 cp -f "${TMP_PATH}/data.yml" "${HOME}/data.yml"
 
-rm -rf "${CACHE_PATH}" "${TMP_PATH}" "${CONFIGS}"
+rm -rf "${CACHE_PATH}" "${TMP_PATH}"
 
 git config --global user.email "info@auxxxilium.tech"
 git config --global user.name "AuxXxilium"
