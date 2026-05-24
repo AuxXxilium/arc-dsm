@@ -34,6 +34,33 @@ readConfigKey() {
 readConfigEntriesArray() {
   yq eval '.'${1}' | explode(.) | to_entries | map([.key])[] | .[]' "${2}"
 }
+readTopLevelEntries() {
+  yq eval 'keys | .[]' "${1}"
+}
+mergeMissingDataFromSource() {
+  local SRC_PATH="${1}"
+  local SRC_LABEL="${2}"
+
+  [ -f "${SRC_PATH}" ] || return 0
+  echo "Merging missing entries from ${SRC_LABEL}"
+
+  for OLD_PLATFORM in $(readTopLevelEntries "${SRC_PATH}"); do
+    for OLD_MODEL in $(readConfigEntriesArray "${OLD_PLATFORM}" "${SRC_PATH}"); do
+      for OLD_VERSION in $(readConfigEntriesArray "${OLD_PLATFORM}.\"${OLD_MODEL}\"" "${SRC_PATH}"); do
+        NEW_URL="$(readConfigKey "${OLD_PLATFORM}.\"${OLD_MODEL}\".\"${OLD_VERSION}\".url" "${TMP_PATH}/data.yml")"
+        if [ -n "${NEW_URL}" ]; then
+          continue
+        fi
+
+        OLD_URL="$(readConfigKey "${OLD_PLATFORM}.\"${OLD_MODEL}\".\"${OLD_VERSION}\".url" "${SRC_PATH}")"
+        OLD_HASH="$(readConfigKey "${OLD_PLATFORM}.\"${OLD_MODEL}\".\"${OLD_VERSION}\".hash" "${SRC_PATH}")"
+
+        [ -n "${OLD_URL}" ] && writeConfigKey "${OLD_PLATFORM}.\"${OLD_MODEL}\".\"${OLD_VERSION}\".url" "${OLD_URL}" "${TMP_PATH}/data.yml"
+        [ -n "${OLD_HASH}" ] && writeConfigKey "${OLD_PLATFORM}.\"${OLD_MODEL}\".\"${OLD_VERSION}\".hash" "${OLD_HASH}" "${TMP_PATH}/data.yml"
+      done
+    done
+  done
+}
 
 getDSM() {
   PLATFORM="${1}"
@@ -165,6 +192,18 @@ done
 
 # --- Get PATs ---
 python3 scripts/functions.py getpats -w "." -j "${TMP_PATH}/data.yml"
+
+# --- Merge Synology data with backup data.yml ---
+# Keep Synology values as primary; fill only missing entries from backup.
+BACKUP_DATA_URL="${BACKUP_DATA_URL:-https://github.com/AuxXxilium/arc-dsm/raw/refs/heads/backup/data.yml}"
+if [ -n "${BACKUP_DATA_URL}" ]; then
+  BACKUP_URL_DATA_PATH="${TMP_PATH}/backup-url-data.yml"
+  if curl --insecure -sSfL "${BACKUP_DATA_URL}" -o "${BACKUP_URL_DATA_PATH}"; then
+    mergeMissingDataFromSource "${BACKUP_URL_DATA_PATH}" "${BACKUP_DATA_URL}"
+  else
+    echo "Note: could not download backup data.yml from ${BACKUP_DATA_URL}, skipping backup URL merge"
+  fi
+fi
 
 # --- Process each platform, model, and version ---
 for PLATFORM in ${PLATFORMS}; do

@@ -45,6 +45,49 @@ def getpats(workpath, jsonpath):
         link_l = str(link or "").lower()
         return "/download/dsm/release/" in link_l or "/download/dsm_enterprise/release/" in link_l
 
+    def __load_known_arches(base_path):
+        """
+        Load known architecture keys from arc-configs platforms.yml when available.
+        """
+        known = set()
+        candidates = [
+            os.path.join(base_path, "configs", "platforms.yml"),
+            os.path.join(base_path, "platforms.yml"),
+        ]
+        for path in candidates:
+            try:
+                if not os.path.exists(path):
+                    continue
+                with open(path, "r", encoding="utf-8") as f:
+                    data = yaml.safe_load(f) or {}
+                platforms = data.get("platforms", {}) if isinstance(data, dict) else {}
+                if isinstance(platforms, dict):
+                    for k in platforms.keys():
+                        known.add(str(k).strip().lower())
+                if known:
+                    break
+            except Exception:
+                continue
+        return known
+
+    def __extract_arch(m_unique, known_arches):
+        """
+        Extract arch from mUnique robustly.
+        Preferred: any token that matches known platforms keys.
+        Fallback: legacy synology_<arch>_* format.
+        """
+        s = str(m_unique or "").strip().lower()
+        if not s:
+            return ""
+        tokens = [t for t in re.split(r"[_\-\s]+", s) if t]
+        if known_arches:
+            for t in tokens:
+                if t in known_arches:
+                    return t
+        if len(tokens) >= 2:
+            return tokens[1]
+        return ""
+
     # Fetch and parse the XML feed
     url = "http://update7.synology.com/autoupdate/genRSS.php?include_beta=1"
     try:
@@ -66,6 +109,8 @@ def getpats(workpath, jsonpath):
     except Exception as e:
         click.echo(f"Error fetching or parsing XML: {e}")
         return
+
+    known_arches = __load_known_arches(workpath)
 
     # Parse XML and build model->platform mapping
     pats = {}
@@ -96,9 +141,9 @@ def getpats(workpath, jsonpath):
             m_checksum = model.findtext("mCheckSum") or "0" * 32
 
             # Extract architecture and model name
-            if "_" not in m_unique:
+            arch = __extract_arch(m_unique, known_arches)
+            if not arch:
                 continue
-            arch = m_unique.split("_")[1]
 
             # PAT names are usually DSM_<MODEL>_<BUILD>.pat, but Enterprise uses
             # DSM_Enterprise_<MODEL>_<BUILD>.pat. Join middle tokens and strip the
