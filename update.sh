@@ -37,6 +37,27 @@ readConfigEntriesArray() {
 readTopLevelEntries() {
   yq eval 'keys | .[]' "${1}"
 }
+isVersionAtLeast72() {
+  local V="${1}"
+  local PREFIX MAJOR MINOR
+  PREFIX="${V%%-*}"
+  MAJOR="${PREFIX%%.*}"
+  local REST="${PREFIX#*.}"
+  MINOR="${REST%%.*}"
+
+  [ -z "${MAJOR}" ] && return 1
+  [ -z "${MINOR}" ] && return 1
+  [[ "${MAJOR}" =~ ^[0-9]+$ ]] || return 1
+  [[ "${MINOR}" =~ ^[0-9]+$ ]] || return 1
+
+  if [ "${MAJOR}" -gt 7 ]; then
+    return 0
+  fi
+  if [ "${MAJOR}" -eq 7 ] && [ "${MINOR}" -ge 2 ]; then
+    return 0
+  fi
+  return 1
+}
 mergeMissingDataFromSource() {
   local SRC_PATH="${1}"
   local SRC_LABEL="${2}"
@@ -47,6 +68,10 @@ mergeMissingDataFromSource() {
   for OLD_PLATFORM in $(readTopLevelEntries "${SRC_PATH}"); do
     for OLD_MODEL in $(readConfigEntriesArray "${OLD_PLATFORM}" "${SRC_PATH}"); do
       for OLD_VERSION in $(readConfigEntriesArray "${OLD_PLATFORM}.\"${OLD_MODEL}\"" "${SRC_PATH}"); do
+        if ! isVersionAtLeast72 "${OLD_VERSION}"; then
+          continue
+        fi
+
         NEW_URL="$(readConfigKey "${OLD_PLATFORM}.\"${OLD_MODEL}\".\"${OLD_VERSION}\".url" "${TMP_PATH}/data.yml")"
         if [ -n "${NEW_URL}" ]; then
           continue
