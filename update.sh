@@ -15,6 +15,8 @@ TMP_PATH="${HOME}/data"
 CACHE_PATH="${HOME}/cache"
 DSMPATH="${HOME}/dsm"
 FILESPATH="${HOME}/files"
+MODULESPATH="${HOME}/modules"
+MODULESFILESPATH="${HOME}/modules_files"
 EXTRACTOR_PATH="${HOME}/extractor"
 EXTRACTOR_BIN="syno_extract_system_patch"
 
@@ -87,20 +89,43 @@ mergeMissingDataFromSource() {
   done
 }
 
+packModulesForModel() {
+  local MODEL="${1}"
+  local MODULES_MODEL_PATH="${MODULESPATH}/${MODEL}"
+  local MODULES_FILES_PATH="${MODULESFILESPATH}/${MODEL}"
+
+  [ -d "${MODULES_MODEL_PATH}" ] || return 0
+  mkdir -p "${MODULES_FILES_PATH}"
+  rm -f "${MODULES_FILES_PATH}"/*.tar
+
+  for PRODUCTVER_DIR in "${MODULES_MODEL_PATH}"/*; do
+    [ -d "${PRODUCTVER_DIR}" ] || continue
+    PAT_HASH_FILE="${PRODUCTVER_DIR}/.module_pat_hash"
+    if [ -f "${PAT_HASH_FILE}" ]; then
+      PAT_HASH="$(cat "${PAT_HASH_FILE}")"
+      tar -C "${PRODUCTVER_DIR}" -cf "${MODULES_FILES_PATH}/${PAT_HASH}.tar" .
+    else
+      PRODUCTVER="$(basename "${PRODUCTVER_DIR}")"
+      tar -C "${PRODUCTVER_DIR}" -cf "${MODULES_FILES_PATH}/${PRODUCTVER}.tar" .
+    fi
+  done
+}
+
 getDSM() {
   PLATFORM="${1}"
   MODEL="${2}"
   URL_VER="${3}"
   PAT_URL="${4}"
   PAT_URL="$(echo "${PAT_URL}" | sed 's/global.synologydownload.com/global.download.synology.com/')"
-  PRODUCTVER="${URL_VER:0:3}"
+  PRODUCTVER="${URL_VER%%-*}"
   PAT_FILE="${MODEL}_${URL_VER}.pat"
   PAT_PATH="${CACHE_PATH}/dl/${PAT_FILE}"
   UNTAR_PAT_PATH="${CACHE_PATH}/${MODEL}/${URL_VER}"
   DESTINATION="${DSMPATH}/${MODEL}/${URL_VER}"
   DESTINATIONFILES="${FILESPATH}/${MODEL}/${PRODUCTVER}"
-
+  DESTINATIONMODULES="${MODULESPATH}/${MODEL}/${PRODUCTVER}"
   mkdir -p "${DESTINATION}" "${DESTINATIONFILES}" "${CACHE_PATH}/dl"
+  mkdir -p "${DESTINATIONMODULES}"
   echo "${MODEL} ${PRODUCTVER} (${URL_VER})"
   echo "${PAT_URL}"
 
@@ -169,6 +194,34 @@ getDSM() {
   [ -f "${UNTAR_PAT_PATH}/GRUB_VER"        ] && cp -f "${UNTAR_PAT_PATH}/GRUB_VER"        "${DESTINATION}"
   cp -f "${UNTAR_PAT_PATH}/zImage"          "${DESTINATION}"
   [ -f "${UNTAR_PAT_PATH}/VERSION"          ] && cp -f "${UNTAR_PAT_PATH}/VERSION"         "${DESTINATION}"
+
+  MODULES_COPIED=0
+  if [ -f "${UNTAR_PAT_PATH}/rd.gz" ]; then
+    rdpath="${UNTAR_PAT_PATH}/rd"
+    mkdir -p "${rdpath}"
+    (cd "${rdpath}"; xz -dc < "${UNTAR_PAT_PATH}/rd.gz" | cpio -idm) >/dev/null 2>&1 || true
+    if [ -d "${rdpath}/usr/lib/modules" ]; then
+      echo "Copying rd modules"
+      cp -a "${rdpath}/usr/lib/modules/." "${DESTINATIONMODULES}/"
+      MODULES_COPIED=1
+    fi
+  fi
+  if [ -f "${UNTAR_PAT_PATH}/hda1.tgz" ]; then
+    hda1path="${UNTAR_PAT_PATH}/hda1"
+    mkdir -p "${hda1path}"
+    (cd "${hda1path}"; xz -dc < "${UNTAR_PAT_PATH}/hda1.tgz" | cpio -idm) >/dev/null 2>&1 || true
+    if [ -d "${hda1path}/usr/lib/modules" ]; then
+      echo "Copying hda1 modules"
+      cp -a "${hda1path}/usr/lib/modules/." "${DESTINATIONMODULES}/"
+      MODULES_COPIED=1
+    fi
+  fi
+  if [ "${MODULES_COPIED}" -eq 1 ]; then
+    echo "${PAT_HASH}" >"${DESTINATIONMODULES}/.module_pat_hash"
+  else
+    echo "Note: no module trees found in PAT"
+  fi
+
   cd "${DESTINATION}"
   tar -cf "${DESTINATIONFILES}/${PAT_HASH}.tar" .
   rm -f "${PAT_PATH}"
@@ -235,17 +288,20 @@ for PLATFORM in ${PLATFORMS}; do
   echo "Processing platform: ${PLATFORM}"
   for MODEL in $(readConfigEntriesArray "${PLATFORM}" "${TMP_PATH}/data.yml"); do
     echo "Processing model: ${MODEL}"
-    for VERSION in $(readConfigEntriesArray "${PLATFORM}.\"${MODEL}\"" "${TMP_PATH}/data.yml"); do
+    for VERSION in $(readConfigEntriesArray "${PLATFORM}.\"${MODEL}\"" "${TMP_PATH}/data.yml" | sort -t'-' -k2,2n -k3,3n); do
       echo "Processing version: ${VERSION}"
       PAT_HASH=""
       URL_VER="${VERSION}"
       PAT_URL=$(readConfigKey "${PLATFORM}.\"${MODEL}\".\"${VERSION}\".url" "${TMP_PATH}/data.yml")
       getDSM "${PLATFORM}" "${MODEL}" "${URL_VER}" "${PAT_URL}"
     done
+    packModulesForModel "${MODEL}"
     git add "${HOME}/dsm/${MODEL}"
     git add "${HOME}/files/${MODEL}"
+    git add "${HOME}/modules/${MODEL}"
+    git add "${HOME}/modules_files/${MODEL}"
     git commit -m "${MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
-    git push
+    git push || true
   done
 done
 
