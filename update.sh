@@ -263,10 +263,6 @@ git config --global user.name "AuxXxilium"
 
 # --- Build platforms list (from configs + any missing from upstream) ---
 PLATFORMS="$(readConfigEntriesArray "platforms" "configs/platforms.yml")"
-MISSING_PLATFORMS=("epyc7003ntb")
-for _missing in "${MISSING_PLATFORMS[@]}"; do
-  echo "${PLATFORMS}" | grep -qxF "${_missing}" || PLATFORMS="${PLATFORMS}"$'\n'"${_missing}"
-done
 
 # --- Get PATs ---
 python3 scripts/functions.py getpats -w "." -j "${TMP_PATH}/data.yml"
