@@ -349,6 +349,183 @@ def getpats(workpath, jsonpath):
                 continue
     except Exception:
         pass
+
+    # -- Synology archive scraper: pick up versions not yet in the RSS feed --
+    # Static model->arch fallback covering all models shipped through DSM 7.x.
+    # Derived from the Synology RSS mUnique field and maintained alongside platforms.yml.
+    # Where a model maps to multiple platforms (e.g. v1000 and v1000nk), both are listed
+    # as separate entries — the archive scraper injects into whichever arch is in known_arches.
+    _ARCHIVE_MODEL_ARCH_MULTI = [
+        # apollolake
+        ("DS116", "apollolake"), ("DS118", "apollolake"), ("DS119j", "apollolake"),
+        ("DS120j", "apollolake"), ("DS1019+", "apollolake"), ("DS218+", "apollolake"),
+        ("DS418play", "apollolake"), ("DS620slim", "apollolake"),
+        ("DS718+", "apollolake"), ("DS918+", "apollolake"),
+        # broadwell
+        ("DS216", "broadwell"), ("DS216+", "broadwell"), ("DS216+II", "broadwell"),
+        ("DS216j", "broadwell"), ("DS216play", "broadwell"),
+        ("DS218", "broadwell"), ("DS218j", "broadwell"), ("DS218play", "broadwell"),
+        ("DS220j", "broadwell"),
+        ("DS416", "broadwell"), ("DS416j", "broadwell"), ("DS416play", "broadwell"),
+        ("DS416slim", "broadwell"), ("DS418", "broadwell"), ("DS418j", "broadwell"),
+        ("DS419slim", "broadwell"), ("DS420j", "broadwell"),
+        ("DS716+", "broadwell"), ("DS716+II", "broadwell"),
+        ("DS3617xs", "broadwell"), ("DS3617xsII", "broadwell"),
+        ("RS18016xs+", "broadwell"), ("RS217", "broadwell"), ("RS816", "broadwell"),
+        ("RS818+", "broadwell"), ("RS818RP+", "broadwell"), ("RS819", "broadwell"),
+        ("RS1219+", "broadwell"), ("RS2416+", "broadwell"), ("RS2416RP+", "broadwell"),
+        ("RS3617RPxs", "broadwell"), ("RS3617xs", "broadwell"), ("RS3617xs+", "broadwell"),
+        # broadwellnk
+        ("DS1621xs+", "broadwellnk"), ("DS3018xs", "broadwellnk"),
+        ("DS3622xs+", "broadwellnk"), ("FS1018", "broadwellnk"),
+        ("FS3400", "broadwellnk"), ("FS3600", "broadwellnk"),
+        ("RS1619xs+", "broadwellnk"), ("RS1626xs+", "broadwellnk"),
+        ("RS3618xs", "broadwellnk"), ("RS3621RPxs", "broadwellnk"),
+        ("RS3621xs+", "broadwellnk"), ("RS4017xs+", "broadwellnk"),
+        ("RS4021xs+", "broadwellnk"), ("SA3400", "broadwellnk"), ("SA3600", "broadwellnk"),
+        # broadwellnkv2
+        ("DS3626xs", "broadwellnkv2"), ("RS3626xs", "broadwellnkv2"),
+        ("RS4826xs+", "broadwellnkv2"), ("RS6426xs+", "broadwellnkv2"),
+        ("SA3410", "broadwellnkv2"), ("SA3610", "broadwellnkv2"),
+        # broadwellntbap
+        ("FS200T", "broadwellntbap"), ("FS2017", "broadwellntbap"),
+        ("FS3017", "broadwellntbap"), ("FS6400", "broadwellntbap"),
+        ("FS6420", "broadwellntbap"), ("HD6500", "broadwellntbap"),
+        ("SA3200D", "broadwellntbap"), ("SA3400D", "broadwellntbap"),
+        # denverton
+        ("DS1618+", "denverton"), ("DS1819+", "denverton"),
+        ("DS2419+", "denverton"), ("DS2419+II", "denverton"),
+        ("DVA3219", "denverton"), ("DVA3221", "denverton"),
+        ("RS18017xs+", "denverton"), ("RS2418+", "denverton"), ("RS2418RP+", "denverton"),
+        ("RS2818RP+", "denverton"), ("RS820+", "denverton"), ("RS820RP+", "denverton"),
+        # geminilake
+        ("DS124", "geminilake"), ("DS220+", "geminilake"), ("DS224+", "geminilake"),
+        ("DS420+", "geminilake"), ("DS423", "geminilake"), ("DS423+", "geminilake"),
+        ("DS1520+", "geminilake"), ("DS720+", "geminilake"), ("DS920+", "geminilake"),
+        ("DVA1622", "geminilake"),
+        # geminilakenk
+        ("DS223", "geminilakenk"), ("DS223j", "geminilakenk"),
+        ("DS225+", "geminilakenk"), ("DS425+", "geminilakenk"),
+        ("DS725+", "geminilakenk"), ("DS925+", "geminilakenk"),
+        ("RS826+", "geminilakenk"), ("RS826RP+", "geminilakenk"),
+        # purley
+        ("FS3410", "purley"),
+        # r1000
+        ("DS422+", "r1000"), ("DS522+", "r1000"), ("DS723+", "r1000"),
+        ("DS923+", "r1000"), ("DS1522+", "r1000"), ("RS422+", "r1000"),
+        # r1000nk
+        ("DS1525+", "r1000nk"), ("DS1825+", "r1000nk"),
+        ("RS2423+", "r1000nk"), ("RS2423RP+", "r1000nk"), ("RS2423RP+II", "r1000nk"),
+        ("RS2825RP+", "r1000nk"),
+        # v1000
+        ("DS1621+", "v1000"), ("DS1821+", "v1000"), ("DS1823xs+", "v1000"),
+        ("DS2422+", "v1000"), ("FS2500", "v1000"),
+        ("RS1221+", "v1000"), ("RS1221RP+", "v1000"),
+        ("RS2421+", "v1000"), ("RS2421RP+", "v1000"), ("RS2821RP+", "v1000"),
+        ("RS822+", "v1000"), ("RS822RP+", "v1000"),
+        # v1000nk
+        ("DS1525+", "v1000nk"), ("DS1825+", "v1000nk"),
+        ("RS2423RP+II", "v1000nk"), ("RS2825RP+", "v1000nk"),
+        # epyc7002
+        ("SA6400", "epyc7002"), ("VirtualDSM", "epyc7002"),
+        # epyc7003ntb
+        ("FS3420", "epyc7003ntb"),
+    ]
+    # Build a flat dict: last-write wins, but we iterate in order so more-specific
+    # (nk) entries placed after the base platform will not override since we use
+    # the multi-list directly when injecting archive entries.
+    _ARCHIVE_MODEL_ARCH = {}
+    for _m, _a in _ARCHIVE_MODEL_ARCH_MULTI:
+        if _m not in _ARCHIVE_MODEL_ARCH:
+            _ARCHIVE_MODEL_ARCH[_m] = _a
+
+    def _fetch_archive_versions(sess):
+        """Return list of (major, minor, patch, build) tuples from the Synology archive index."""
+        try:
+            r = sess.get("https://archive.synology.com/download/Os/DSM", timeout=15, verify=False)
+            r.encoding = "utf-8"
+            versions = []
+            for m in re.finditer(r'href=["\']?/download/Os/DSM/(\d+)\.(\d+)-(\d+)["\']?', r.text):
+                major, minor, build = int(m.group(1)), int(m.group(2)), m.group(3)
+                versions.append((major, minor, build))
+            return versions
+        except Exception:
+            return []
+
+    def _fetch_archive_pats_for_version(sess, major, minor, build):
+        """
+        Fetch .pat file URLs from the archive page for a given DSM release.
+        Returns list of (model_name, url) pairs.
+        """
+        url = f"https://archive.synology.com/download/Os/DSM/{major}.{minor}-{build}"
+        try:
+            r = sess.get(url, timeout=15, verify=False)
+            r.encoding = "utf-8"
+        except Exception:
+            return []
+
+        results = []
+        base = "https://global.synologydownload.com"
+        for m in re.finditer(r'href=["\']?(https://[^"\']*|/download/[^"\']*\.pat)["\']?', r.text):
+            link = m.group(1)
+            if not link.startswith("http"):
+                link = base + link
+            link = link.split("?")[0]
+            if not link.lower().endswith(".pat"):
+                continue
+            filename = unquote(link.split("/")[-1]).replace(".pat", "")
+            parts = filename.split("_")
+            if len(parts) < 3:
+                continue
+            model_name = "_".join(parts[1:-1])
+            if model_name.startswith("Enterprise_"):
+                model_name = model_name[len("Enterprise_"):]
+            results.append((model_name, link))
+        return results
+
+    try:
+        # Build a merged model->arch multi-list (RSS-derived entries added on top)
+        merged_model_arch_multi = list(_ARCHIVE_MODEL_ARCH_MULTI)
+        for a in list(pats.keys()):
+            for m in list(pats[a].keys()):
+                if not any(x == (m, a) for x in merged_model_arch_multi):
+                    merged_model_arch_multi.append((m, a))
+
+        archive_versions = _fetch_archive_versions(session)
+        for (major, minor, build) in archive_versions:
+            if not __version_at_least(major, minor, 7, 2):
+                continue
+            # patch is "0" — archive pages list full PATs, not patch-only updates
+            version_str = __fullversion(major, minor, "0", build, "0")
+            # Skip if this version is already fully covered (present for any known model)
+            already_have = any(
+                version_str in pats.get(a, {}).get(m, {})
+                for m, a in merged_model_arch_multi
+                if a in pats and m in pats.get(a, {})
+            )
+            if already_have:
+                continue
+
+            pat_entries = _fetch_archive_pats_for_version(session, major, minor, build)
+            # Build a lookup from the archive results for quick access
+            archive_url_map = {model: url for model, url in pat_entries}
+            for model_name, arch in merged_model_arch_multi:
+                if arch not in known_arches:
+                    continue
+                pat_url = archive_url_map.get(model_name)
+                if not pat_url:
+                    continue
+                if arch not in pats:
+                    pats[arch] = {}
+                if model_name not in pats[arch]:
+                    pats[arch][model_name] = {}
+                if version_str not in pats[arch][model_name]:
+                    pats[arch][model_name][version_str] = {
+                        "url": pat_url,
+                        "hash": "0" * 32
+                    }
+    except Exception:
+        pass
     # -- end: Synology API helpers and merge
 
     # Write as YAML in the requested format
