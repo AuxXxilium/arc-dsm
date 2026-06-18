@@ -35,10 +35,10 @@ packModulesForModel() {
     PAT_HASH_FILE="${PRODUCTVER_DIR}/.module_pat_hash"
     if [ -f "${PAT_HASH_FILE}" ]; then
       PAT_HASH="$(cat "${PAT_HASH_FILE}")"
-      tar -C "${PRODUCTVER_DIR}" -cf "${MODULES_FILES_PATH}/${PAT_HASH}.tar" .
+      tar -C "${PRODUCTVER_DIR}" -cf "${MODULES_FILES_PATH}/${PAT_HASH}.tar" . || echo "Warning: tar failed for ${PRODUCTVER_DIR}"
     else
       PRODUCTVER="$(basename "${PRODUCTVER_DIR}")"
-      tar -C "${PRODUCTVER_DIR}" -cf "${MODULES_FILES_PATH}/${PRODUCTVER}.tar" .
+      tar -C "${PRODUCTVER_DIR}" -cf "${MODULES_FILES_PATH}/${PRODUCTVER}.tar" . || echo "Warning: tar failed for ${PRODUCTVER_DIR}"
     fi
   done
 }

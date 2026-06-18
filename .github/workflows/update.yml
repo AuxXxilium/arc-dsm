@@ -70,9 +70,76 @@ jobs:
           sudo rm -rf ./files
           sudo rm -rf ./dsm
 
+      - name: Download configs
+        run: |
+          sudo rm -rf ./configs
+          sudo mkdir -p ./configs
+          curl --insecure -s -L "https://raw.githubusercontent.com/AuxXxilium/arc-configs/main/platforms.yml" -o ./configs/platforms.yml
+
+      - name: Remove DSM 7.0 and 7.1 files
+        run: |
+          removed=0
+          for dir in dsm files modules modules_files; do
+            [ -d "./${dir}" ] || continue
+            for model_dir in "./${dir}"/*/; do
+              for ver_dir in "${model_dir}"7.0.* "${model_dir}"7.1.*; do
+                [ -d "${ver_dir}" ] || continue
+                echo "Removing ${ver_dir}"
+                sudo rm -rf "${ver_dir}"
+                removed=$((removed + 1))
+              done
+            done
+          done
+          if [ "${removed}" -gt 0 ]; then
+            git add -A
+            git diff --cached --quiet || git commit -m "cleanup: remove DSM 7.0/7.1 files"
+            git push || true
+          else
+            echo "Nothing to remove"
+          fi
+
+      - name: Remove unsupported platform models
+        run: |
+          # Build set of supported models from genRSS mUnique fields x configs/platforms.yml
+          SUPPORTED_MODELS="$(python3 - <<'EOF'
+import yaml, requests, xml.etree.ElementTree as ET
+with open("configs/platforms.yml") as f:
+    pcfg = yaml.safe_load(f) or {}
+supported = {str(k).strip().lower() for k in (pcfg.get("platforms") or {}).keys()}
+r = requests.get("https://update7.synology.com/autoupdate/genRSS.php?include_beta=1", timeout=15)
+root = ET.fromstring(r.content)
+models = set()
+for munique in root.iter("mUnique"):
+    parts = munique.text.strip().split("_")
+    if len(parts) < 3 or parts[0] != "synology":
+        continue
+    if parts[1].lower() not in supported:
+        continue
+    models.add("_".join(parts[2:]))
+print("\n".join(sorted(models)))
+EOF
+          )"
+          removed=0
+          for dir in dsm files modules modules_files; do
+            [ -d "./${dir}" ] || continue
+            for model_dir in "./${dir}"/*/; do
+              MODEL="$(basename "${model_dir}")"
+              if ! echo "${SUPPORTED_MODELS}" | grep -qxF "${MODEL}"; then
+                echo "Removing unsupported model: ${dir}/${MODEL}"
+                sudo rm -rf "${model_dir}"
+                removed=$((removed + 1))
+              fi
+            done
+          done
+          if [ "${removed}" -gt 0 ]; then
+            git add -A
+            git diff --cached --quiet || git commit -m "cleanup: remove unsupported platform models"
+            git push || true
+          else
+            echo "Nothing to remove"
+          fi
+
       - name: Update
         run: |
           sudo rm -rf ./tmp
-          sudo rm -rf ./configs
-          sudo rm -f ./configs.zip
           sudo ./update.sh
