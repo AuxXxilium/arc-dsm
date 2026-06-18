@@ -1,0 +1,117 @@
+#
+# Copyright (C) 2025 AuxXxilium <https://github.com/AuxXxilium>
+#
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+
+name: Rebuild Data
+
+on:
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: "runs-on"
+        type: choice
+        options:
+          - ubuntu-latest
+          - self-hosted
+
+jobs:
+  rebuild-data:
+    runs-on: ${{ inputs.runs }}
+    steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          swap-storage: false
+
+      - name: Checkout main
+        uses: actions/checkout@main
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Initialization environment
+        run: |
+          sudo git config --global user.email "info@auxxxilium.tech"
+          sudo git config --global user.name "AuxXxilium"
+          sudo timedatectl set-timezone "Europe/Berlin"
+          sudo snap install yq
+
+      - name: Rebuild data.yml and webdata.txt from stored dsm/ data
+        run: |
+          set -e
+          DATA_YML="./data.yml"
+          WEBDATA="./webdata.txt"
+          TMP_YML="$(mktemp)"
+          echo "{}" > "${TMP_YML}"
+          > "${WEBDATA}"
+
+          # Build model->platform map from existing data.yml
+          declare -A MODEL_PLATFORM
+          CURRENT_PLATFORM=""
+          while IFS= read -r line; do
+            if [[ "${line}" =~ ^([a-z][a-z0-9_-]+):$ ]]; then
+              CURRENT_PLATFORM="${BASH_REMATCH[1]}"
+            elif [[ "${line}" =~ ^[[:space:]]+\"([^\"]+)\":$ ]]; then
+              MODEL_PLATFORM["${BASH_REMATCH[1]}"]="${CURRENT_PLATFORM}"
+            fi
+          done < "${DATA_YML}"
+
+          isVersionAtLeast72() {
+            local V="${1}" PREFIX MAJOR MINOR REST
+            PREFIX="${V%%-*}"
+            MAJOR="${PREFIX%%.*}"
+            REST="${PREFIX#*.}"
+            MINOR="${REST%%.*}"
+            [[ "${MAJOR}" =~ ^[0-9]+$ ]] || return 1
+            [[ "${MINOR}" =~ ^[0-9]+$ ]] || return 1
+            if [ "${MAJOR}" -gt 7 ]; then return 0; fi
+            if [ "${MAJOR}" -eq 7 ] && [ "${MINOR}" -ge 2 ]; then return 0; fi
+            return 1
+          }
+
+          for MODEL_DIR in ./dsm/*/; do
+            MODEL="$(basename "${MODEL_DIR}")"
+            PLATFORM="${MODEL_PLATFORM[${MODEL}]:-}"
+            if [ -z "${PLATFORM}" ]; then
+              echo "Warning: no platform found for model ${MODEL}, skipping"
+              continue
+            fi
+            for VERSION_DIR in "${MODEL_DIR}"*/; do
+              [ -d "${VERSION_DIR}" ] || continue
+              VERSION="$(basename "${VERSION_DIR}")"
+              isVersionAtLeast72 "${VERSION}" || continue
+              PAT_URL_FILE="${VERSION_DIR}pat_url"
+              PAT_HASH_FILE="${VERSION_DIR}pat_hash"
+              [ -f "${PAT_URL_FILE}" ] || continue
+              [ -f "${PAT_HASH_FILE}" ] || continue
+              PAT_URL="$(tr -d '[:space:]' < "${PAT_URL_FILE}")"
+              PAT_HASH="$(tr -d '[:space:]' < "${PAT_HASH_FILE}")"
+              [ -z "${PAT_URL}" ] && continue
+              [ -z "${PAT_HASH}" ] && continue
+              yq eval \
+                ".\"${PLATFORM}\".\"${MODEL}\".\"${VERSION}\".url = \"${PAT_URL}\" | .\"${PLATFORM}\".\"${MODEL}\".\"${VERSION}\".hash = \"${PAT_HASH}\"" \
+                --inplace "${TMP_YML}"
+              PRODUCTVER="${VERSION%%-*}"
+              printf '\n%s %s (%s)\nUrl: %s\nHash: %s\n' \
+                "${MODEL}" "${PRODUCTVER}" "${VERSION}" "${PAT_URL}" "${PAT_HASH}" >> "${WEBDATA}"
+            done
+          done
+
+          {
+            printf '#\n# Copyright (C) 2025 AuxXxilium <https://github.com/AuxXxilium>\n#\n# This is free software, licensed under the MIT License.\n# See /LICENSE for more information.\n#\n\n'
+            cat "${TMP_YML}"
+          } > "${DATA_YML}"
+          rm -f "${TMP_YML}"
+
+          echo "Rebuilt data.yml — entry count: $(grep -c 'url:' "${DATA_YML}")"
+          echo "Rebuilt webdata.txt — entry count: $(grep -c '^Hash:' "${WEBDATA}")"
+
+      - name: Commit and push
+        run: |
+          git add ./data.yml ./webdata.txt
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "data: rebuild from stored dsm/ data $(date +%Y-%m-%d\ %H:%M:%S)"
+          git push

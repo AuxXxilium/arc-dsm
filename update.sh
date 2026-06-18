@@ -2,7 +2,7 @@
 
 #
 # Copyright (C) 2025 AuxXxilium <https://github.com/AuxXxilium>
-# 
+#
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
 #
@@ -21,74 +21,6 @@ EXTRACTOR_PATH="${HOME}/extractor"
 EXTRACTOR_BIN="syno_extract_system_patch"
 
 # --- Helper Functions ---
-writeConfigKey() {
-  if [ "${2}" = "{}" ]; then
-    yq eval ".${1} = {}" --inplace "${3}" 2>/dev/null
-  else
-    yq eval ".${1} = \"${2}\"" --inplace "${3}" 2>/dev/null
-  fi
-}
-readConfigKey() {
-  local RESULT
-  RESULT="$(yq eval '.'${1}' | explode(.)' "${2}" 2>/dev/null)"
-  [ "${RESULT}" = "null" ] && echo "" || echo "${RESULT}"
-}
-readConfigEntriesArray() {
-  yq eval '.'${1}' | explode(.) | to_entries | map([.key])[] | .[]' "${2}"
-}
-readTopLevelEntries() {
-  yq eval 'keys | .[]' "${1}"
-}
-isVersionAtLeast72() {
-  local V="${1}"
-  local PREFIX MAJOR MINOR
-  PREFIX="${V%%-*}"
-  MAJOR="${PREFIX%%.*}"
-  local REST="${PREFIX#*.}"
-  MINOR="${REST%%.*}"
-
-  [ -z "${MAJOR}" ] && return 1
-  [ -z "${MINOR}" ] && return 1
-  [[ "${MAJOR}" =~ ^[0-9]+$ ]] || return 1
-  [[ "${MINOR}" =~ ^[0-9]+$ ]] || return 1
-
-  if [ "${MAJOR}" -gt 7 ]; then
-    return 0
-  fi
-  if [ "${MAJOR}" -eq 7 ] && [ "${MINOR}" -ge 2 ]; then
-    return 0
-  fi
-  return 1
-}
-mergeMissingDataFromSource() {
-  local SRC_PATH="${1}"
-  local SRC_LABEL="${2}"
-
-  [ -f "${SRC_PATH}" ] || return 0
-  echo "Merging missing entries from ${SRC_LABEL}"
-
-  for OLD_PLATFORM in $(readTopLevelEntries "${SRC_PATH}"); do
-    for OLD_MODEL in $(readConfigEntriesArray "${OLD_PLATFORM}" "${SRC_PATH}"); do
-      for OLD_VERSION in $(readConfigEntriesArray "${OLD_PLATFORM}.\"${OLD_MODEL}\"" "${SRC_PATH}"); do
-        if ! isVersionAtLeast72 "${OLD_VERSION}"; then
-          continue
-        fi
-
-        NEW_URL="$(readConfigKey "${OLD_PLATFORM}.\"${OLD_MODEL}\".\"${OLD_VERSION}\".url" "${TMP_PATH}/data.yml")"
-        if [ -n "${NEW_URL}" ]; then
-          continue
-        fi
-
-        OLD_URL="$(readConfigKey "${OLD_PLATFORM}.\"${OLD_MODEL}\".\"${OLD_VERSION}\".url" "${SRC_PATH}")"
-        OLD_HASH="$(readConfigKey "${OLD_PLATFORM}.\"${OLD_MODEL}\".\"${OLD_VERSION}\".hash" "${SRC_PATH}")"
-
-        [ -n "${OLD_URL}" ] && writeConfigKey "${OLD_PLATFORM}.\"${OLD_MODEL}\".\"${OLD_VERSION}\".url" "${OLD_URL}" "${TMP_PATH}/data.yml"
-        [ -n "${OLD_HASH}" ] && writeConfigKey "${OLD_PLATFORM}.\"${OLD_MODEL}\".\"${OLD_VERSION}\".hash" "${OLD_HASH}" "${TMP_PATH}/data.yml"
-      done
-    done
-  done
-}
-
 packModulesForModel() {
   local MODEL="${1}"
   local MODULES_MODEL_PATH="${MODULESPATH}/${MODEL}"
@@ -124,18 +56,28 @@ getDSM() {
   DESTINATION="${DSMPATH}/${MODEL}/${URL_VER}"
   DESTINATIONFILES="${FILESPATH}/${MODEL}/${PRODUCTVER}"
   DESTINATIONMODULES="${MODULESPATH}/${MODEL}/${PRODUCTVER}"
+
+  # Skip if already extracted
+  if [ -f "${DESTINATION}/zImage" ]; then
+    echo "Skipping ${MODEL} ${URL_VER} — already exists"
+    return
+  fi
+
   mkdir -p "${DESTINATION}" "${DESTINATIONFILES}" "${CACHE_PATH}/dl"
   mkdir -p "${DESTINATIONMODULES}"
   echo "${MODEL} ${PRODUCTVER} (${URL_VER})"
   echo "${PAT_URL}"
 
-  rm -f "${PAT_PATH}"
-  echo "Downloading ${PAT_FILE}"
-  STATUS=$(curl -k -w "%{http_code}" -L "${PAT_URL}" -o "${PAT_PATH}" --progress-bar)
-  if [ $? -ne 0 ] || [ "${STATUS}" -ne 200 ]; then
-      rm -f "${PAT_PATH}"
-      echo "Error downloading"
-      return
+  if [ -f "${PAT_PATH}" ]; then
+    echo "Using cached ${PAT_FILE}"
+  else
+    echo "Downloading ${PAT_FILE}"
+    STATUS=$(curl -k -w "%{http_code}" -L "${PAT_URL}" -o "${PAT_PATH}" --progress-bar)
+    if [ $? -ne 0 ] || [ "${STATUS}" -ne 200 ]; then
+        rm -f "${PAT_PATH}"
+        echo "Error downloading"
+        return
+    fi
   fi
 
   PAT_HASH="$(md5sum "${PAT_PATH}" | awk '{print $1}')"
@@ -228,15 +170,6 @@ getDSM() {
   rm -rf "${UNTAR_PAT_PATH}"
 
   echo "DSM Extraction complete: ${MODEL}_${URL_VER}"
-
-  writeConfigKey "${PLATFORM}.\"${MODEL}\".\"${URL_VER}\".url" "${PAT_URL}" "${TMP_PATH}/data.yml"
-  writeConfigKey "${PLATFORM}.\"${MODEL}\".\"${URL_VER}\".hash" "${PAT_HASH}" "${TMP_PATH}/data.yml"
-  {
-    echo ""
-    echo "${MODEL} ${PRODUCTVER} (${URL_VER})"
-    echo "Url: ${PAT_URL}"
-    echo "Hash: ${PAT_HASH}"
-  } >>"${TMP_PATH}/webdata.txt"
   cd "${HOME}"
 }
 
@@ -252,65 +185,39 @@ if [ ! -f "configs/platforms.yml" ]; then
   rm -f "configs.zip"
 fi
 
-# --- Clean up and prepare data files ---
-rm -f "${TMP_PATH}/data.yml" "${TMP_PATH}/webdata.txt"
-touch "${TMP_PATH}/data.yml"
-touch "${TMP_PATH}/webdata.txt"
-
-# --- Git identity (set once) ---
+# --- Git identity ---
 git config --global user.email "info@auxxxilium.tech"
 git config --global user.name "AuxXxilium"
 
-# --- Build platforms list (from configs + any missing from upstream) ---
-PLATFORMS="$(readConfigEntriesArray "platforms" "configs/platforms.yml")"
+# --- Fetch PAT list from Synology archive ---
+PAT_LIST="${TMP_PATH}/patlist.tsv"
+python3 scripts/functions.py getpats -w "." -o "${PAT_LIST}"
 
-# --- Get PATs ---
-python3 scripts/functions.py getpats -w "." -j "${TMP_PATH}/data.yml"
-
-# --- Merge Synology data with backup data.yml ---
-# Keep Synology values as primary; fill only missing entries from backup.
-BACKUP_DATA_URL="${BACKUP_DATA_URL:-https://github.com/AuxXxilium/arc-dsm/raw/refs/heads/backup/data.yml}"
-if [ -n "${BACKUP_DATA_URL}" ]; then
-  BACKUP_URL_DATA_PATH="${TMP_PATH}/backup-url-data.yml"
-  if curl --insecure -sSfL "${BACKUP_DATA_URL}" -o "${BACKUP_URL_DATA_PATH}"; then
-    mergeMissingDataFromSource "${BACKUP_URL_DATA_PATH}" "${BACKUP_DATA_URL}"
-  else
-    echo "Note: could not download backup data.yml from ${BACKUP_DATA_URL}, skipping backup URL merge"
+# --- Process entries: PLATFORM MODEL VERSION URL ---
+LAST_MODEL=""
+while IFS=$'\t' read -r PLATFORM MODEL VERSION PAT_URL; do
+  if [ "${MODEL}" != "${LAST_MODEL}" ] && [ -n "${LAST_MODEL}" ]; then
+    packModulesForModel "${LAST_MODEL}"
+    git add "${HOME}/dsm/${LAST_MODEL}"
+    git add "${HOME}/files/${LAST_MODEL}"
+    git add "${HOME}/modules/${LAST_MODEL}"
+    git add "${HOME}/modules_files/${LAST_MODEL}"
+    git commit -m "${LAST_MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
+    git push || true
   fi
+  getDSM "${PLATFORM}" "${MODEL}" "${VERSION}" "${PAT_URL}"
+  LAST_MODEL="${MODEL}"
+done < <(sort -t$'\t' -k2,2 -k3,3 "${PAT_LIST}")
+
+# Commit the final model
+if [ -n "${LAST_MODEL}" ]; then
+  packModulesForModel "${LAST_MODEL}"
+  git add "${HOME}/dsm/${LAST_MODEL}"
+  git add "${HOME}/files/${LAST_MODEL}"
+  git add "${HOME}/modules/${LAST_MODEL}"
+  git add "${HOME}/modules_files/${LAST_MODEL}"
+  git commit -m "${LAST_MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
+  git push || true
 fi
 
-# --- Process each platform, model, and version ---
-for PLATFORM in ${PLATFORMS}; do
-  echo "Processing platform: ${PLATFORM}"
-  for MODEL in $(readConfigEntriesArray "${PLATFORM}" "${TMP_PATH}/data.yml"); do
-    echo "Processing model: ${MODEL}"
-    for VERSION in $(readConfigEntriesArray "${PLATFORM}.\"${MODEL}\"" "${TMP_PATH}/data.yml" | sort -t'-' -k2,2n -k3,3n); do
-      echo "Processing version: ${VERSION}"
-      PAT_HASH=""
-      URL_VER="${VERSION}"
-      PAT_URL=$(readConfigKey "${PLATFORM}.\"${MODEL}\".\"${VERSION}\".url" "${TMP_PATH}/data.yml")
-      getDSM "${PLATFORM}" "${MODEL}" "${URL_VER}" "${PAT_URL}"
-    done
-    packModulesForModel "${MODEL}"
-    git add "${HOME}/dsm/${MODEL}"
-    git add "${HOME}/files/${MODEL}"
-    git add "${HOME}/modules/${MODEL}"
-    git add "${HOME}/modules_files/${MODEL}"
-    git commit -m "${MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
-    git push || true
-  done
-done
-
-# --- Finalize ---
-cp -f "${TMP_PATH}/webdata.txt" "${HOME}/webdata.txt"
-cp -f "${TMP_PATH}/data.yml" "${HOME}/data.yml"
-
 rm -rf "${CACHE_PATH}" "${TMP_PATH}" "configs"
-
-git config --global user.email "info@auxxxilium.tech"
-git config --global user.name "AuxXxilium"
-git fetch
-git add "${HOME}/webdata.txt"
-git add "${HOME}/data.yml"
-git commit -m "data: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
-git push || true
