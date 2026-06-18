@@ -175,49 +175,46 @@ getDSM() {
 
 # --- Main ---
 rm -rf "${TMP_PATH}" "${CACHE_PATH}"
-mkdir -p "${TMP_PATH}" "${CACHE_PATH}" "configs"
+mkdir -p "${TMP_PATH}" "${CACHE_PATH}"
 
-# --- Get configs (platforms.yml required to filter unsupported architectures) ---
 if [ ! -f "configs/platforms.yml" ]; then
-  TAG="$(curl --insecure -m 10 -s https://api.github.com/repos/AuxXxilium/arc-configs/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')"
-  curl --insecure -s -L "https://github.com/AuxXxilium/arc-configs/releases/download/${TAG}/configs-${TAG}.zip" -o "configs.zip"
-  unzip -oq "configs.zip" -d "configs" 2>/dev/null
-  rm -f "configs.zip"
+  echo "Error: configs/platforms.yml not found" >&2
+  exit 1
 fi
-
-# --- Git identity ---
-git config --global user.email "info@auxxxilium.tech"
-git config --global user.name "AuxXxilium"
 
 # --- Fetch PAT list from Synology archive ---
 PAT_LIST="${TMP_PATH}/patlist.tsv"
 python3 scripts/functions.py getpats -w "." -o "${PAT_LIST}"
 
-# --- Process entries: PLATFORM MODEL VERSION URL ---
-LAST_MODEL=""
+# --- Process all entries: commit per model, push every 5 models ---
+UNPUSHED=0
 while IFS=$'\t' read -r PLATFORM MODEL VERSION PAT_URL; do
-  if [ "${MODEL}" != "${LAST_MODEL}" ] && [ -n "${LAST_MODEL}" ]; then
+  if [ "${MODEL}" != "${LAST_MODEL:-}" ] && [ -n "${LAST_MODEL:-}" ]; then
     packModulesForModel "${LAST_MODEL}"
-    git add "${HOME}/dsm/${LAST_MODEL}"
-    git add "${HOME}/files/${LAST_MODEL}"
-    git add "${HOME}/modules/${LAST_MODEL}"
-    git add "${HOME}/modules_files/${LAST_MODEL}"
-    git commit -m "${LAST_MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
-    git push || true
+    git add "dsm/${LAST_MODEL}" "files/${LAST_MODEL}" "modules/${LAST_MODEL}" "modules_files/${LAST_MODEL}"
+    git diff --cached --quiet || {
+      git commit -m "${LAST_MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)"
+      UNPUSHED=$((UNPUSHED + 1))
+    }
+    if [ "${UNPUSHED}" -ge 5 ]; then
+      git push
+      UNPUSHED=0
+    fi
   fi
   getDSM "${PLATFORM}" "${MODEL}" "${VERSION}" "${PAT_URL}"
   LAST_MODEL="${MODEL}"
 done < <(sort -t$'\t' -k2,2 -k3,3 "${PAT_LIST}")
 
-# Commit the final model
-if [ -n "${LAST_MODEL}" ]; then
+# Final model
+if [ -n "${LAST_MODEL:-}" ]; then
   packModulesForModel "${LAST_MODEL}"
-  git add "${HOME}/dsm/${LAST_MODEL}"
-  git add "${HOME}/files/${LAST_MODEL}"
-  git add "${HOME}/modules/${LAST_MODEL}"
-  git add "${HOME}/modules_files/${LAST_MODEL}"
-  git commit -m "${LAST_MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
-  git push || true
+  git add "dsm/${LAST_MODEL}" "files/${LAST_MODEL}" "modules/${LAST_MODEL}" "modules_files/${LAST_MODEL}"
+  git diff --cached --quiet || {
+    git commit -m "${LAST_MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)"
+    UNPUSHED=$((UNPUSHED + 1))
+  }
 fi
 
-rm -rf "${CACHE_PATH}" "${TMP_PATH}" "configs"
+rm -rf "${CACHE_PATH}" "${TMP_PATH}"
+
+[ "${UNPUSHED}" -gt 0 ] && git push || true

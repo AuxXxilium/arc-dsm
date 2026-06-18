@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2025 AuxXxilium <https://github.com/AuxXxilium>
-# 
+#
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
 #
@@ -16,7 +16,7 @@ on:
         options:
           - ubuntu-latest
           - self-hosted
-      cleanfiles: 
+      cleanfiles:
         description: 'clean files'
         default: false
         type: boolean
@@ -32,15 +32,21 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@main
+        with:
+          sparse-checkout: |
+            scripts
+            update.sh
+            data.yml
+            webdata.txt
 
       - name: Initialization environment
-        run : |
-          sudo git config --global user.email "info@auxxxilium.tech"
-          sudo git config --global user.name "AuxXxilium"
+        run: |
+          git config --global user.email "info@auxxxilium.tech"
+          git config --global user.name "AuxXxilium"
           sudo timedatectl set-timezone "Europe/Berlin"
-          
-          sudo apt update
-          sudo apt install -y \
+
+          sudo apt-get update -qq
+          sudo apt-get install -y \
             jq \
             build-essential \
             libtool \
@@ -60,68 +66,20 @@ jobs:
             zip \
             unzip \
             python3-full
-          # Backup the original python3 executable.
-          sudo mv -f "$(dirname $(realpath $(which python3)))/EXTERNALLY-MANAGED" "$(dirname $(realpath $(which python3)))/EXTERNALLY-MANAGED.bak" 2>/dev/null || true
-          sudo pip3 install -U -r scripts/requirements.txt
+          PYTHON_LIB="$(dirname "$(realpath "$(which python3)")")"
+          sudo mv -f "${PYTHON_LIB}/EXTERNALLY-MANAGED" "${PYTHON_LIB}/EXTERNALLY-MANAGED.bak" 2>/dev/null || true
+          sudo pip3 install -q -U -r scripts/requirements.txt
 
       - name: Clean Files
         if: inputs.cleanfiles == true
-        run: |
-          sudo rm -rf ./files
-          sudo rm -rf ./dsm
+        run: sudo rm -rf ./files ./dsm ./modules ./modules_files
 
       - name: Download configs
         run: |
-          sudo rm -rf ./configs
+          sudo rm -rf -- ./configs
           sudo mkdir -p ./configs
-          curl --insecure -s -L "https://raw.githubusercontent.com/AuxXxilium/arc-configs/main/platforms.yml" -o ./configs/platforms.yml
-
-      - name: Remove DSM 7.0 and 7.1 files
-        run: |
-          removed=0
-          for dir in dsm files modules modules_files; do
-            [ -d "./${dir}" ] || continue
-            for model_dir in "./${dir}"/*/; do
-              for ver_dir in "${model_dir}"7.0.* "${model_dir}"7.1.*; do
-                [ -d "${ver_dir}" ] || continue
-                echo "Removing ${ver_dir}"
-                sudo rm -rf "${ver_dir}"
-                removed=$((removed + 1))
-              done
-            done
-          done
-          if [ "${removed}" -gt 0 ]; then
-            git add -A
-            git diff --cached --quiet || git commit -m "cleanup: remove DSM 7.0/7.1 files"
-            git push || true
-          else
-            echo "Nothing to remove"
-          fi
-
-      - name: Remove unsupported platform models
-        run: |
-          SUPPORTED_MODELS="$(python3 scripts/get_models.py)"
-          removed=0
-          for dir in dsm files modules modules_files; do
-            [ -d "./${dir}" ] || continue
-            for model_dir in "./${dir}"/*/; do
-              MODEL="$(basename "${model_dir}")"
-              if ! echo "${SUPPORTED_MODELS}" | grep -qxF "${MODEL}"; then
-                echo "Removing unsupported model: ${dir}/${MODEL}"
-                sudo rm -rf "${model_dir}"
-                removed=$((removed + 1))
-              fi
-            done
-          done
-          if [ "${removed}" -gt 0 ]; then
-            git add -A
-            git diff --cached --quiet || git commit -m "cleanup: remove unsupported platform models"
-            git push || true
-          else
-            echo "Nothing to remove"
-          fi
+          curl --insecure -fsSL "https://raw.githubusercontent.com/AuxXxilium/arc-configs/main/platforms.yml" \
+            -o ./configs/platforms.yml
 
       - name: Update
-        run: |
-          sudo rm -rf ./tmp
-          sudo ./update.sh
+        run: ./update.sh
