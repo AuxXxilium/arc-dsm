@@ -77,7 +77,7 @@ jobs:
       - name: Download configs
         run: |
           sudo rm -rf -- ./configs
-          sudo mkdir -p ./configs
+          mkdir -p ./configs
           curl --insecure -fsSL "https://raw.githubusercontent.com/AuxXxilium/arc-configs/main/platforms.yml" \
             -o ./configs/platforms.yml
 
