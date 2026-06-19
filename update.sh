@@ -2,7 +2,7 @@
 
 #
 # Copyright (C) 2025 AuxXxilium <https://github.com/AuxXxilium>
-# 
+#
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
 #
@@ -35,7 +35,7 @@ readConfigEntriesArray() {
   yq eval '.'${1}' | explode(.) | to_entries | map([.key])[] | .[]' "${2}"
 }
 readTopLevelEntries() {
-  yq eval 'keys | .[]' "${1}"
+  yq eval -N 'keys | .[]' "${1}"
 }
 isVersionAtLeast72() {
   local V="${1}"
@@ -93,24 +93,33 @@ getDSM() {
   URL_VER="${3}"
   PAT_URL="${4}"
   PAT_URL="$(echo "${PAT_URL}" | sed 's/global.synologydownload.com/global.download.synology.com/')"
-  PRODUCTVER="${URL_VER:0:3}"
+  PRODUCTVER="${URL_VER%%-*}"
   PAT_FILE="${MODEL}_${URL_VER}.pat"
   PAT_PATH="${CACHE_PATH}/dl/${PAT_FILE}"
   UNTAR_PAT_PATH="${CACHE_PATH}/${MODEL}/${URL_VER}"
   DESTINATION="${DSMPATH}/${MODEL}/${URL_VER}"
   DESTINATIONFILES="${FILESPATH}/${MODEL}/${PRODUCTVER}"
 
+  # Skip if already extracted
+  if [ -f "${DESTINATION}/zImage" ]; then
+    echo "Skipping ${MODEL} ${URL_VER} — already exists"
+    return
+  fi
+
   mkdir -p "${DESTINATION}" "${DESTINATIONFILES}" "${CACHE_PATH}/dl"
   echo "${MODEL} ${PRODUCTVER} (${URL_VER})"
   echo "${PAT_URL}"
 
-  rm -f "${PAT_PATH}"
-  echo "Downloading ${PAT_FILE}"
-  STATUS=$(curl -k -w "%{http_code}" -L "${PAT_URL}" -o "${PAT_PATH}" --progress-bar)
-  if [ $? -ne 0 ] || [ "${STATUS}" -ne 200 ]; then
+  if [ -f "${PAT_PATH}" ]; then
+    echo "Using cached ${PAT_FILE}"
+  else
+    echo "Downloading ${PAT_FILE}"
+    STATUS=$(curl -k -w "%{http_code}" -L "${PAT_URL}" -o "${PAT_PATH}" --progress-bar)
+    if [ $? -ne 0 ] || [ "${STATUS}" -ne 200 ]; then
       rm -f "${PAT_PATH}"
       echo "Error downloading"
       return
+    fi
   fi
 
   PAT_HASH="$(md5sum "${PAT_PATH}" | awk '{print $1}')"
@@ -155,7 +164,6 @@ getDSM() {
   echo "Checking hash of zImage: OK - ${HASH}"
   echo "${HASH}" >"${DESTINATION}/zImage_hash"
 
-  # rd.gz and grub_cksum.syno are optional (some PAT formats omit them)
   if [ -f "${UNTAR_PAT_PATH}/rd.gz" ]; then
     HASH="$(sha256sum "${UNTAR_PAT_PATH}/rd.gz" | awk '{print$1}')"
     echo "Checking hash of ramdisk: OK - ${HASH}"
@@ -169,6 +177,7 @@ getDSM() {
   [ -f "${UNTAR_PAT_PATH}/GRUB_VER"        ] && cp -f "${UNTAR_PAT_PATH}/GRUB_VER"        "${DESTINATION}"
   cp -f "${UNTAR_PAT_PATH}/zImage"          "${DESTINATION}"
   [ -f "${UNTAR_PAT_PATH}/VERSION"          ] && cp -f "${UNTAR_PAT_PATH}/VERSION"         "${DESTINATION}"
+
   cd "${DESTINATION}"
   tar -cf "${DESTINATIONFILES}/${PAT_HASH}.tar" .
   rm -f "${PAT_PATH}"
@@ -189,14 +198,11 @@ getDSM() {
 
 # --- Main ---
 rm -rf "${TMP_PATH}" "${CACHE_PATH}"
-mkdir -p "${TMP_PATH}" "${CACHE_PATH}" "configs"
+mkdir -p "${TMP_PATH}" "${CACHE_PATH}"
 
-# --- Get configs (platforms.yml required to filter unsupported architectures) ---
 if [ ! -f "configs/platforms.yml" ]; then
-  TAG="$(curl --insecure -m 10 -s https://api.github.com/repos/AuxXxilium/arc-configs/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')"
-  curl --insecure -s -L "https://github.com/AuxXxilium/arc-configs/releases/download/${TAG}/configs-${TAG}.zip" -o "configs.zip"
-  unzip -oq "configs.zip" -d "configs" 2>/dev/null
-  rm -f "configs.zip"
+  echo "Error: configs/platforms.yml not found" >&2
+  exit 1
 fi
 
 # --- Clean up and prepare data files ---
@@ -204,61 +210,48 @@ rm -f "${TMP_PATH}/data.yml" "${TMP_PATH}/webdata.txt"
 touch "${TMP_PATH}/data.yml"
 touch "${TMP_PATH}/webdata.txt"
 
-# --- Git identity (set once) ---
-git config --global user.email "info@auxxxilium.tech"
-git config --global user.name "AuxXxilium"
-
-# --- Build platforms list (from configs + any missing from upstream) ---
-PLATFORMS="$(readConfigEntriesArray "platforms" "configs/platforms.yml")"
-MISSING_PLATFORMS=("epyc7003ntb")
-for _missing in "${MISSING_PLATFORMS[@]}"; do
-  echo "${PLATFORMS}" | grep -qxF "${_missing}" || PLATFORMS="${PLATFORMS}"$'\n'"${_missing}"
-done
-
 # --- Get PATs ---
 python3 scripts/functions.py getpats -w "." -j "${TMP_PATH}/data.yml"
 
-# --- Merge Synology data with backup data.yml ---
-# Keep Synology values as primary; fill only missing entries from backup.
+# --- Merge missing entries from backup ---
 BACKUP_DATA_URL="${BACKUP_DATA_URL:-https://github.com/AuxXxilium/arc-dsm/raw/refs/heads/backup/data.yml}"
 if [ -n "${BACKUP_DATA_URL}" ]; then
   BACKUP_URL_DATA_PATH="${TMP_PATH}/backup-url-data.yml"
   if curl --insecure -sSfL "${BACKUP_DATA_URL}" -o "${BACKUP_URL_DATA_PATH}"; then
     mergeMissingDataFromSource "${BACKUP_URL_DATA_PATH}" "${BACKUP_DATA_URL}"
   else
-    echo "Note: could not download backup data.yml from ${BACKUP_DATA_URL}, skipping backup URL merge"
+    echo "Note: could not download backup data.yml, skipping merge"
   fi
 fi
 
-# --- Process each platform, model, and version ---
-for PLATFORM in ${PLATFORMS}; do
+# --- Process each platform/model/version: commit per model, push every 5 ---
+UNPUSHED=0
+for PLATFORM in $(readTopLevelEntries "${TMP_PATH}/data.yml"); do
   echo "Processing platform: ${PLATFORM}"
   for MODEL in $(readConfigEntriesArray "${PLATFORM}" "${TMP_PATH}/data.yml"); do
     echo "Processing model: ${MODEL}"
     for VERSION in $(readConfigEntriesArray "${PLATFORM}.\"${MODEL}\"" "${TMP_PATH}/data.yml"); do
-      echo "Processing version: ${VERSION}"
-      PAT_HASH=""
-      URL_VER="${VERSION}"
-      PAT_URL=$(readConfigKey "${PLATFORM}.\"${MODEL}\".\"${VERSION}\".url" "${TMP_PATH}/data.yml")
-      getDSM "${PLATFORM}" "${MODEL}" "${URL_VER}" "${PAT_URL}"
+      PAT_URL="$(readConfigKey "${PLATFORM}.\"${MODEL}\".\"${VERSION}\".url" "${TMP_PATH}/data.yml")"
+      getDSM "${PLATFORM}" "${MODEL}" "${VERSION}" "${PAT_URL}"
     done
-    git add "${HOME}/dsm/${MODEL}"
-    git add "${HOME}/files/${MODEL}"
-    git commit -m "${MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
-    git push
+    git add "dsm/${MODEL}" "files/${MODEL}"
+    git diff --cached --quiet || {
+      git commit -m "${MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)"
+      UNPUSHED=$((UNPUSHED + 1))
+    }
+    if [ "${UNPUSHED}" -ge 5 ]; then
+      git push
+      UNPUSHED=0
+    fi
   done
 done
 
-# --- Finalize ---
+# --- Finalize data files ---
 cp -f "${TMP_PATH}/webdata.txt" "${HOME}/webdata.txt"
 cp -f "${TMP_PATH}/data.yml" "${HOME}/data.yml"
 
-rm -rf "${CACHE_PATH}" "${TMP_PATH}" "configs"
+rm -rf "${CACHE_PATH}" "${TMP_PATH}"
 
-git config --global user.email "info@auxxxilium.tech"
-git config --global user.name "AuxXxilium"
-git fetch
-git add "${HOME}/webdata.txt"
-git add "${HOME}/data.yml"
-git commit -m "data: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
-git push || true
+git add webdata.txt data.yml
+git diff --cached --quiet || git commit -m "data: update $(date +%Y-%m-%d\ %H:%M:%S)"
+[ "${UNPUSHED}" -gt 0 ] && git push || true

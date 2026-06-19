@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2025 AuxXxilium <https://github.com/AuxXxilium>
-# 
+#
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
 #
@@ -16,7 +16,7 @@ on:
         options:
           - ubuntu-latest
           - self-hosted
-      cleanfiles: 
+      cleanfiles:
         description: 'clean files'
         default: false
         type: boolean
@@ -32,15 +32,26 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@main
+        with:
+          sparse-checkout: |
+            scripts
+            update.sh
+            data.yml
+            webdata.txt
+
+      - name: Disable sparse checkout
+        run: git sparse-checkout disable
 
       - name: Initialization environment
-        run : |
-          sudo git config --global user.email "info@auxxxilium.tech"
-          sudo git config --global user.name "AuxXxilium"
+        run: |
+          git config --global user.email "info@auxxxilium.tech"
+          git config --global user.name "AuxXxilium"
           sudo timedatectl set-timezone "Europe/Berlin"
-          
-          sudo apt update
-          sudo apt install -y \
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y \
             jq \
             build-essential \
             libtool \
@@ -60,20 +71,25 @@ jobs:
             zip \
             unzip \
             python3-full
-          sudo snap install yq
-          # Backup the original python3 executable.
-          sudo mv -f "$(realpath $(which python3))/EXTERNALLY-MANAGED" "$(realpath $(which python3))/EXTERNALLY-MANAGED.bak" 2>/dev/null || true
-          sudo pip3 install -U -r scripts/requirements.txt
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+          PYTHON_LIB="$(dirname "$(realpath "$(which python3)")")"
+          sudo mv -f "${PYTHON_LIB}/EXTERNALLY-MANAGED" "${PYTHON_LIB}/EXTERNALLY-MANAGED.bak" 2>/dev/null || true
+          sudo pip3 install -q -U -r scripts/requirements.txt
 
       - name: Clean Files
         if: inputs.cleanfiles == true
+        run: sudo rm -rf ./files ./dsm ./modules ./modules_files
+
+      - name: Download configs
         run: |
-          sudo rm -rf ./files
-          sudo rm -rf ./dsm
+          sudo rm -rf -- ./configs
+          mkdir -p ./configs
+          curl --insecure -fsSL "https://raw.githubusercontent.com/AuxXxilium/arc-configs/main/platforms.yml" \
+            -o ./configs/platforms.yml
 
       - name: Update
         run: |
-          sudo rm -rf ./tmp
-          sudo rm -rf ./configs
-          sudo rm -f ./configs.zip
-          sudo ./update.sh
+          git config user.email "info@auxxxilium.tech"
+          git config user.name "AuxXxilium"
+          ./update.sh

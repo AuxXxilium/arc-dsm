@@ -1,0 +1,106 @@
+#
+# Copyright (C) 2025 AuxXxilium <https://github.com/AuxXxilium>
+#
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+
+name: Rebuild Data
+
+on:
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: "runs-on"
+        type: choice
+        options:
+          - ubuntu-latest
+          - self-hosted
+
+jobs:
+  rebuild-data:
+    runs-on: ${{ inputs.runs }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@main
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Initialization environment
+        run: |
+          git config --global user.email "info@auxxxilium.tech"
+          git config --global user.name "AuxXxilium"
+          sudo timedatectl set-timezone "Europe/Berlin"
+          sudo apt-get install -y -qq yq
+
+      - name: Download configs
+        run: |
+          sudo rm -rf -- ./configs
+          mkdir -p ./configs
+          curl --insecure -fsSL "https://raw.githubusercontent.com/AuxXxilium/arc-configs/main/platforms.yml" \
+            -o ./configs/platforms.yml
+
+      - name: Rebuild data.yml and webdata.txt
+        run: |
+          set -e
+
+          # Build model->platform map from RSS (same source as functions.py)
+          declare -A MODEL_PLATFORM
+          SUPPORTED_PLATFORMS="$(yq eval '.platforms | keys | .[]' ./configs/platforms.yml)"
+          RSS="$(curl -fsSL "https://update7.synology.com/autoupdate/genRSS.php?include_beta=1")"
+          while IFS= read -r munique; do
+            IFS='_' read -ra parts <<< "${munique}"
+            [ "${#parts[@]}" -lt 3 ] && continue
+            [ "${parts[0]}" != "synology" ] && continue
+            platform="${parts[1],,}"
+            echo "${SUPPORTED_PLATFORMS}" | grep -qxF "${platform}" || continue
+            model="$(IFS='_'; echo "${parts[*]:2}" | tr '[:upper:]' '[:lower:]')"
+            MODEL_PLATFORM["${model}"]="${platform}"
+          done < <(echo "${RSS}" | grep -oP '(?<=<mUnique>)[^<]+')
+
+          # Rebuild from dsm/<MODEL>/<VERSION>/pat_url + pat_hash
+          TMP_YML="$(mktemp)"
+          WEBDATA="./webdata.txt"
+          echo "{}" > "${TMP_YML}"
+          > "${WEBDATA}"
+
+          for MODEL_DIR in ./dsm/*/; do
+            [ -d "${MODEL_DIR}" ] || continue
+            MODEL="$(basename "${MODEL_DIR}")"
+            PLATFORM="${MODEL_PLATFORM[${MODEL,,}]:-}"
+            if [ -z "${PLATFORM}" ]; then
+              echo "Warning: no platform for model ${MODEL}, skipping"
+              continue
+            fi
+            for VERSION_DIR in "${MODEL_DIR}"*/; do
+              [ -d "${VERSION_DIR}" ] || continue
+              VERSION="$(basename "${VERSION_DIR}")"
+              PAT_URL_FILE="${VERSION_DIR}pat_url"
+              PAT_HASH_FILE="${VERSION_DIR}pat_hash"
+              [ -f "${PAT_URL_FILE}" ] || continue
+              [ -f "${PAT_HASH_FILE}" ] || continue
+              PAT_URL="$(tr -d '[:space:]' < "${PAT_URL_FILE}")"
+              PAT_HASH="$(tr -d '[:space:]' < "${PAT_HASH_FILE}")"
+              [ -z "${PAT_URL}" ] && continue
+              [ -z "${PAT_HASH}" ] && continue
+              PRODUCTVER="${VERSION%%-*}"
+              yq eval \
+                ".\"${PLATFORM}\".\"${MODEL}\".\"${VERSION}\".url = \"${PAT_URL}\" | .\"${PLATFORM}\".\"${MODEL}\".\"${VERSION}\".hash = \"${PAT_HASH}\"" \
+                --inplace "${TMP_YML}"
+              printf '\n%s %s (%s)\nUrl: %s\nHash: %s\n' \
+                "${MODEL}" "${PRODUCTVER}" "${VERSION}" "${PAT_URL}" "${PAT_HASH}" >> "${WEBDATA}"
+            done
+          done
+
+          cp -f "${TMP_YML}" ./data.yml
+          rm -f "${TMP_YML}"
+          echo "Rebuilt data.yml — entries: $(grep -c 'url:' ./data.yml)"
+          echo "Rebuilt webdata.txt — entries: $(grep -c '^Hash:' ./webdata.txt)"
+
+      - name: Commit and push
+        run: |
+          git add ./data.yml ./webdata.txt
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "data: rebuild from dsm/ $(date +%Y-%m-%d\ %H:%M:%S)"
+          git push
