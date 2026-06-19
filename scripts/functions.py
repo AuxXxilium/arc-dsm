@@ -43,21 +43,47 @@ def getpats(workpath, jsonpath):
     session.trust_env = False
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-    # --- Step 1: RSS → model->platform map ---
+    # --- Step 1: RSS → model->platform map + Enterprise PATs ---
+    # model_platforms: lowercase_model -> list of platforms
+    # enterprise_pats: list of (platform, cased_model, version_str, url) for DSM_Enterprise
+    #   DSM_Enterprise uses a separate "1.x" product version but the dsm/ folder must use
+    #   the underlying DSM version (ReqMajorVer.ReqMinorVer.0-build-0) from the RSS item.
     model_platforms = {}
+    enterprise_pats = []
     try:
         r = session.get("https://update7.synology.com/autoupdate/genRSS.php?include_beta=1", timeout=15)
         root = ET.fromstring(r.content)
-        for munique in root.iter("mUnique"):
-            parts = munique.text.strip().split("_")
-            if len(parts) < 3 or parts[0] != "synology":
-                continue
-            platform = parts[1].lower()
-            if platform not in supported_platforms:
-                continue
-            model = "_".join(parts[2:]).lower()
-            if platform not in model_platforms.get(model, []):
-                model_platforms.setdefault(model, []).append(platform)
+        for item in root.iter("item"):
+            req_major = item.findtext("ReqMajorVer") or ""
+            req_minor = item.findtext("ReqMinorVer") or ""
+            for model in item.iter("model"):
+                munique = model.findtext("mUnique") or ""
+                mlink   = model.findtext("mLink") or ""
+                parts = munique.strip().split("_")
+                if len(parts) < 3 or parts[0] != "synology":
+                    continue
+                platform = parts[1].lower()
+                if platform not in supported_platforms:
+                    continue
+                model_original = "_".join(parts[2:])
+                model_key = model_original.lower()
+                if platform not in model_platforms.get(model_key, []):
+                    model_platforms.setdefault(model_key, []).append(platform)
+                # DSM_Enterprise: build version string from ReqMajorVer.ReqMinorVer + build in URL
+                if "/download/dsm_enterprise/" in mlink.lower() and req_major and req_minor:
+                    # URL: .../DSM_Enterprise/release/1.0/101188/DSM_Enterprise_PAS7700_101188.pat
+                    m = re.search(r'/release/[^/]+/(\d+)/', mlink)
+                    if m:
+                        build = m.group(1)
+                        version_str = f"{req_major}.{req_minor}.0-{build}-0"
+                        url = mlink.replace("global.synologydownload.com", "global.download.synology.com")
+                        # Extract casing from PAT filename in the URL
+                        fname = unquote(mlink.split("/")[-1]).replace(".pat", "")
+                        fparts = fname.split("_")
+                        cased = "_".join(fparts[1:-1])
+                        if cased.lower().startswith("enterprise_"):
+                            cased = cased[len("Enterprise_"):]
+                        enterprise_pats.append((platform, cased, version_str, url))
     except Exception as e:
         click.echo(f"Error fetching RSS: {e}", err=True)
         return
@@ -66,44 +92,62 @@ def getpats(workpath, jsonpath):
         click.echo("No models found in RSS feed", err=True)
         return
 
-    # --- Step 2: archive.synology.com → all DSM versions >= 7.2 (highest nano per base version) ---
-    best_nano = {}
-    try:
-        r = session.get("https://archive.synology.com/download/Os/DSM", timeout=15, verify=False)
-        r.encoding = "utf-8"
-        pat = re.compile(r'href=["\']?/download/Os/DSM/(\d+)\.(\d+)(?:\.(\d+))?-(\d+)(?:-(\d+))?(?:-NanoPacked)?["\']?')
+    # --- Step 2: collect all archive pages to scrape ---
+    # Each entry is (page_url, version_str) where version_str is the dsm/ folder name.
+    # Covers both DSM (>= 7.2) and DSM_Enterprise.
+    pages_to_scrape = []
+
+    def collect_pages(index_url, base_url, min_version=None):
+        try:
+            r = session.get(index_url, timeout=15, verify=False)
+            r.encoding = "utf-8"
+        except Exception as e:
+            click.echo(f"Error fetching index {index_url}: {e}", err=True)
+            return
+        pat = re.compile(r'href=["\']?/download/Os/[^/]+/(\d+)\.(\d+)(?:\.(\d+))?-(\d+)(?:-(\d+))?(?:-NanoPacked)?["\']?')
+        seen = set()
+        entries = []
         for m in pat.finditer(r.text):
             major, minor = int(m.group(1)), int(m.group(2))
-            if (major, minor) < (7, 2):
+            if min_version and (major, minor) < min_version:
                 continue
             patch = m.group(3) or "0"
             build = m.group(4)
-            nano  = int(m.group(5) or "0")
-            key = (major, minor, patch, build)
-            if key not in best_nano or nano > best_nano[key]:
-                best_nano[key] = nano
-    except Exception as e:
-        click.echo(f"Error fetching archive index: {e}", err=True)
+            nano  = m.group(5) or "0"
+            key = (major, minor, patch, build, nano)
+            if key not in seen:
+                seen.add(key)
+                entries.append(key)
+        entries.sort(key=lambda v: (v[0], v[1], v[2], int(v[3]), int(v[4])))
+        for (major, minor, patch, build, nano) in entries:
+            archive_path = f"{major}.{minor}"
+            if patch != "0":
+                archive_path += f".{patch}"
+            archive_path += f"-{build}"
+            if nano != "0":
+                archive_path += f"-{nano}"
+            version_str = f"{major}.{minor}.{patch}-{build}-{nano}"
+            pages_to_scrape.append((f"{base_url}/{archive_path}", version_str))
+
+    collect_pages(
+        "https://archive.synology.com/download/Os/DSM",
+        "https://archive.synology.com/download/Os/DSM",
+        min_version=(7, 2)
+    )
+
+    if not pages_to_scrape:
+        click.echo("No archive pages found", err=True)
         return
 
-    # --- Step 3: for each version, fetch PAT URLs and cross-join with model->platform ---
+    # --- Step 3: scrape each DSM page, take only release PATs, skip criticalupdate ---
     pats = {}
-    for (major, minor, patch, build), nano in sorted(best_nano.items(), key=lambda item: (item[0][0], item[0][1], item[0][2], int(item[0][3]))):
-        archive_path = f"{major}.{minor}"
-        if patch != "0":
-            archive_path += f".{patch}"
-        archive_path += f"-{build}"
-        if nano != 0:
-            archive_path += f"-{nano}"
-
+    for (page_url, version_str) in pages_to_scrape:
         try:
-            r = session.get(f"https://archive.synology.com/download/Os/DSM/{archive_path}", timeout=15, verify=False)
+            r = session.get(page_url, timeout=15, verify=False)
             r.encoding = "utf-8"
         except Exception:
             continue
 
-        # Only full release PATs, not criticalupdate/security patches
-        url_map = {}
         for m in re.finditer(r'href=["\']?(https://[^"\']*\.pat|/download/[^"\']*\.pat)["\']?', r.text):
             link = m.group(1)
             if not link.startswith("http"):
@@ -115,25 +159,39 @@ def getpats(workpath, jsonpath):
             parts = filename.split("_")
             if len(parts) < 3:
                 continue
-            model_name = "_".join(parts[1:-1]).lower()
-            if model_name.startswith("enterprise_"):
-                model_name = model_name[len("enterprise_"):]
-            url_map[model_name] = link
+            model_name = "_".join(parts[1:-1])
+            if model_name.lower().startswith("enterprise_"):
+                model_name = model_name[len("Enterprise_"):]
+            model_key = model_name.lower()
 
-        if not url_map:
-            continue
+            # RSS mUnique strips DS/RS/FS prefixes for many models (e.g. "3622xs+" not "ds3622xs+")
+            # so look up by full key first, then try stripping the prefix from the PAT filename name
+            if model_key in model_platforms:
+                lookup_key = model_key
+            else:
+                bare = re.sub(r'^(DS|RS|FS|SA|HD|DVA|PAS)', '', model_name, flags=re.IGNORECASE).lower()
+                lookup_key = bare if bare in model_platforms else None
 
-        version_str = f"{major}.{minor}.{patch}-{build}-{nano}"
-
-        for model_name, model_plats in model_platforms.items():
-            pat_url = url_map.get(model_name)
-            if not pat_url:
+            if not lookup_key:
                 continue
-            for platform in model_plats:
+
+            for platform in model_platforms[lookup_key]:
                 pats.setdefault(platform, {}).setdefault(model_name, {})[version_str] = {
-                    "url": pat_url,
+                    "url": link,
                     "hash": ""
                 }
+
+    # --- Inject DSM_Enterprise entries (version string derived from RSS ReqMajorVer.ReqMinorVer) ---
+    seen_enterprise = set()
+    for (platform, cased_name, version_str, url) in enterprise_pats:
+        key = (platform, cased_name, version_str)
+        if key in seen_enterprise:
+            continue
+        seen_enterprise.add(key)
+        pats.setdefault(platform, {}).setdefault(cased_name, {})[version_str] = {
+            "url": url,
+            "hash": ""
+        }
 
     # --- Write output YAML ---
     class QuotedStr(str):

@@ -33,23 +33,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
         with:
-          sparse-checkout: |
-            scripts
-            update.sh
-            data.yml
-            webdata.txt
-
-      - name: Disable sparse checkout
-        run: git sparse-checkout disable
+          fetch-depth: 1
 
       - name: Initialization environment
         run: |
-          git config --global user.email "info@auxxxilium.tech"
-          git config --global user.name "AuxXxilium"
+          sudo git config --global user.email "info@auxxxilium.tech"
+          sudo git config --global user.name "AuxXxilium"
           sudo timedatectl set-timezone "Europe/Berlin"
 
-      - name: Install dependencies
-        run: |
           sudo apt-get update -qq
           sudo apt-get install -y \
             jq \
@@ -79,7 +70,7 @@ jobs:
 
       - name: Clean Files
         if: inputs.cleanfiles == true
-        run: sudo rm -rf ./files ./dsm ./modules ./modules_files
+        run: sudo rm -rf ./files ./dsm
 
       - name: Download configs
         run: |
@@ -89,7 +80,4 @@ jobs:
             -o ./configs/platforms.yml
 
       - name: Update
-        run: |
-          git config user.email "info@auxxxilium.tech"
-          git config user.name "AuxXxilium"
-          ./update.sh
+        run: sudo ./update.sh

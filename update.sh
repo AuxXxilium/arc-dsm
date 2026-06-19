@@ -15,6 +15,8 @@ TMP_PATH="${HOME}/data"
 CACHE_PATH="${HOME}/cache"
 DSMPATH="${HOME}/dsm"
 FILESPATH="${HOME}/files"
+MODULESPATH="${CACHE_PATH}/modules"
+MODULESFILESPATH="${HOME}/modules"
 EXTRACTOR_PATH="${HOME}/extractor"
 EXTRACTOR_BIN="syno_extract_system_patch"
 
@@ -35,7 +37,7 @@ readConfigEntriesArray() {
   yq eval '.'${1}' | explode(.) | to_entries | map([.key])[] | .[]' "${2}"
 }
 readTopLevelEntries() {
-  yq eval -N 'keys | .[]' "${1}"
+  yq eval 'keys | .[]' "${1}"
 }
 isVersionAtLeast72() {
   local V="${1}"
@@ -99,27 +101,28 @@ getDSM() {
   UNTAR_PAT_PATH="${CACHE_PATH}/${MODEL}/${URL_VER}"
   DESTINATION="${DSMPATH}/${MODEL}/${URL_VER}"
   DESTINATIONFILES="${FILESPATH}/${MODEL}/${PRODUCTVER}"
+  DESTINATIONMODULES="${MODULESPATH}/${MODEL}/${PRODUCTVER}"
 
-  # Skip if already extracted
-  if [ -f "${DESTINATION}/zImage" ]; then
-    echo "Skipping ${MODEL} ${URL_VER} — already exists"
-    return
+  # Skip if already extracted with the same PAT URL
+  if [ -f "${DESTINATION}/zImage" ] && [ -f "${DESTINATION}/pat_url" ]; then
+    STORED_URL="$(cat "${DESTINATION}/pat_url")"
+    if [ "${STORED_URL}" = "${PAT_URL}" ]; then
+      echo "Skipping ${MODEL} ${URL_VER} — already up to date"
+      return
+    fi
   fi
 
-  mkdir -p "${DESTINATION}" "${DESTINATIONFILES}" "${CACHE_PATH}/dl"
+  mkdir -p "${DESTINATION}" "${DESTINATIONFILES}" "${DESTINATIONMODULES}" "${CACHE_PATH}/dl"
   echo "${MODEL} ${PRODUCTVER} (${URL_VER})"
   echo "${PAT_URL}"
 
-  if [ -f "${PAT_PATH}" ]; then
-    echo "Using cached ${PAT_FILE}"
-  else
-    echo "Downloading ${PAT_FILE}"
-    STATUS=$(curl -k -w "%{http_code}" -L "${PAT_URL}" -o "${PAT_PATH}" --progress-bar)
-    if [ $? -ne 0 ] || [ "${STATUS}" -ne 200 ]; then
-      rm -f "${PAT_PATH}"
-      echo "Error downloading"
-      return
-    fi
+  rm -f "${PAT_PATH}"
+  echo "Downloading ${PAT_FILE}"
+  STATUS=$(curl -k -w "%{http_code}" -L "${PAT_URL}" -o "${PAT_PATH}" --progress-bar)
+  if [ $? -ne 0 ] || [ "${STATUS}" -ne 200 ]; then
+    rm -f "${PAT_PATH}"
+    echo "Error downloading"
+    return
   fi
 
   PAT_HASH="$(md5sum "${PAT_PATH}" | awk '{print $1}')"
@@ -178,6 +181,34 @@ getDSM() {
   cp -f "${UNTAR_PAT_PATH}/zImage"          "${DESTINATION}"
   [ -f "${UNTAR_PAT_PATH}/VERSION"          ] && cp -f "${UNTAR_PAT_PATH}/VERSION"         "${DESTINATION}"
 
+  # Extract kernel modules from rd.gz or hda1.tgz
+  MODULES_COPIED=0
+  if [ -f "${UNTAR_PAT_PATH}/rd.gz" ]; then
+    rdpath="${UNTAR_PAT_PATH}/rd"
+    mkdir -p "${rdpath}"
+    (cd "${rdpath}"; xz -dc < "${UNTAR_PAT_PATH}/rd.gz" | cpio -idm) >/dev/null 2>&1 || true
+    if [ -d "${rdpath}/usr/lib/modules" ]; then
+      echo "Copying rd modules"
+      cp -a "${rdpath}/usr/lib/modules/." "${DESTINATIONMODULES}/"
+      MODULES_COPIED=1
+    fi
+  fi
+  if [ -f "${UNTAR_PAT_PATH}/hda1.tgz" ]; then
+    hda1path="${UNTAR_PAT_PATH}/hda1"
+    mkdir -p "${hda1path}"
+    (cd "${hda1path}"; xz -dc < "${UNTAR_PAT_PATH}/hda1.tgz" | cpio -idm) >/dev/null 2>&1 || true
+    if [ -d "${hda1path}/usr/lib/modules" ]; then
+      echo "Copying hda1 modules"
+      cp -a "${hda1path}/usr/lib/modules/." "${DESTINATIONMODULES}/"
+      MODULES_COPIED=1
+    fi
+  fi
+  if [ "${MODULES_COPIED}" -eq 1 ]; then
+    echo "${PAT_HASH}" >"${DESTINATIONMODULES}/.module_pat_hash"
+  else
+    echo "Note: no module trees found in PAT"
+  fi
+
   cd "${DESTINATION}"
   tar -cf "${DESTINATIONFILES}/${PAT_HASH}.tar" .
   rm -f "${PAT_PATH}"
@@ -198,17 +229,24 @@ getDSM() {
 
 # --- Main ---
 rm -rf "${TMP_PATH}" "${CACHE_PATH}"
-mkdir -p "${TMP_PATH}" "${CACHE_PATH}"
+mkdir -p "${TMP_PATH}" "${CACHE_PATH}" "configs"
 
+# --- Get configs ---
 if [ ! -f "configs/platforms.yml" ]; then
-  echo "Error: configs/platforms.yml not found" >&2
-  exit 1
+  TAG="$(curl --insecure -m 10 -s https://api.github.com/repos/AuxXxilium/arc-configs/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')"
+  curl --insecure -s -L "https://github.com/AuxXxilium/arc-configs/releases/download/${TAG}/configs-${TAG}.zip" -o "configs.zip"
+  unzip -oq "configs.zip" -d "configs" 2>/dev/null
+  rm -f "configs.zip"
 fi
 
 # --- Clean up and prepare data files ---
 rm -f "${TMP_PATH}/data.yml" "${TMP_PATH}/webdata.txt"
 touch "${TMP_PATH}/data.yml"
 touch "${TMP_PATH}/webdata.txt"
+
+# --- Git identity ---
+git config --global user.email "info@auxxxilium.tech"
+git config --global user.name "AuxXxilium"
 
 # --- Get PATs ---
 python3 scripts/functions.py getpats -w "." -j "${TMP_PATH}/data.yml"
@@ -224,8 +262,7 @@ if [ -n "${BACKUP_DATA_URL}" ]; then
   fi
 fi
 
-# --- Process each platform/model/version: commit per model, push every 5 ---
-UNPUSHED=0
+# --- Process each platform/model/version ---
 for PLATFORM in $(readTopLevelEntries "${TMP_PATH}/data.yml"); do
   echo "Processing platform: ${PLATFORM}"
   for MODEL in $(readConfigEntriesArray "${PLATFORM}" "${TMP_PATH}/data.yml"); do
@@ -233,16 +270,24 @@ for PLATFORM in $(readTopLevelEntries "${TMP_PATH}/data.yml"); do
     for VERSION in $(readConfigEntriesArray "${PLATFORM}.\"${MODEL}\"" "${TMP_PATH}/data.yml"); do
       PAT_URL="$(readConfigKey "${PLATFORM}.\"${MODEL}\".\"${VERSION}\".url" "${TMP_PATH}/data.yml")"
       getDSM "${PLATFORM}" "${MODEL}" "${VERSION}" "${PAT_URL}"
+      PRODUCTVER="${VERSION%%-*}"
+      MODULES_VER_PATH="${MODULESPATH}/${MODEL}/${PRODUCTVER}"
+      MODULES_OUT_PATH="${MODULESFILESPATH}/${MODEL}/${PRODUCTVER}"
+      if [ -d "${MODULES_VER_PATH}" ]; then
+        mkdir -p "${MODULES_OUT_PATH}"
+        PAT_HASH_FILE="${MODULES_VER_PATH}/.module_pat_hash"
+        if [ -f "${PAT_HASH_FILE}" ]; then
+          TAR_NAME="$(cat "${PAT_HASH_FILE}")"
+        else
+          TAR_NAME="${PRODUCTVER}"
+        fi
+        tar -C "${MODULES_VER_PATH}" -cf "${MODULES_OUT_PATH}/${TAR_NAME}.tar" .
+        rm -rf "${MODULES_VER_PATH}"
+      fi
+      git add "${HOME}/dsm/${MODEL}" "${HOME}/files/${MODEL}" "${HOME}/modules/${MODEL}"
+      git commit -m "${MODEL} ${VERSION}: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
+      git push || true
     done
-    git add "dsm/${MODEL}" "files/${MODEL}"
-    git diff --cached --quiet || {
-      git commit -m "${MODEL}: update $(date +%Y-%m-%d\ %H:%M:%S)"
-      UNPUSHED=$((UNPUSHED + 1))
-    }
-    if [ "${UNPUSHED}" -ge 5 ]; then
-      git push
-      UNPUSHED=0
-    fi
   done
 done
 
@@ -250,8 +295,8 @@ done
 cp -f "${TMP_PATH}/webdata.txt" "${HOME}/webdata.txt"
 cp -f "${TMP_PATH}/data.yml" "${HOME}/data.yml"
 
-rm -rf "${CACHE_PATH}" "${TMP_PATH}"
+rm -rf "${CACHE_PATH}" "${TMP_PATH}" "configs"
 
-git add webdata.txt data.yml
-git diff --cached --quiet || git commit -m "data: update $(date +%Y-%m-%d\ %H:%M:%S)"
-[ "${UNPUSHED}" -gt 0 ] && git push || true
+git add "${HOME}/webdata.txt" "${HOME}/data.yml"
+git commit -m "data: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
+git push || true
