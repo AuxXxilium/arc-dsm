@@ -215,15 +215,6 @@ getDSM() {
   rm -rf "${UNTAR_PAT_PATH}"
 
   echo "DSM Extraction complete: ${MODEL}_${URL_VER}"
-
-  writeConfigKey "${PLATFORM}.\"${MODEL}\".\"${URL_VER}\".url" "${PAT_URL}" "${TMP_PATH}/data.yml"
-  writeConfigKey "${PLATFORM}.\"${MODEL}\".\"${URL_VER}\".hash" "${PAT_HASH}" "${TMP_PATH}/data.yml"
-  {
-    echo ""
-    echo "${MODEL} ${PRODUCTVER} (${URL_VER})"
-    echo "Url: ${PAT_URL}"
-    echo "Hash: ${PAT_HASH}"
-  } >>"${TMP_PATH}/webdata.txt"
   cd "${HOME}"
 }
 
@@ -238,11 +229,6 @@ if [ ! -f "configs/platforms.yml" ]; then
   unzip -oq "configs.zip" -d "configs" 2>/dev/null
   rm -f "configs.zip"
 fi
-
-# --- Clean up and prepare data files ---
-rm -f "${TMP_PATH}/data.yml" "${TMP_PATH}/webdata.txt"
-touch "${TMP_PATH}/data.yml"
-touch "${TMP_PATH}/webdata.txt"
 
 # --- Git identity ---
 git config --global user.email "info@auxxxilium.tech"
@@ -291,12 +277,4 @@ for PLATFORM in $(readTopLevelEntries "${TMP_PATH}/data.yml"); do
   done
 done
 
-# --- Finalize data files ---
-cp -f "${TMP_PATH}/webdata.txt" "${HOME}/webdata.txt"
-cp -f "${TMP_PATH}/data.yml" "${HOME}/data.yml"
-
 rm -rf "${CACHE_PATH}" "${TMP_PATH}" "configs"
-
-git add "${HOME}/webdata.txt" "${HOME}/data.yml"
-git commit -m "data: update $(date +%Y-%m-%d\ %H:%M:%S)" || true
-git push || true

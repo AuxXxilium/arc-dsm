@@ -81,3 +81,9 @@ jobs:
 
       - name: Update
         run: sudo ./update.sh
+
+  rebuild-data:
+    needs: dsm-files
+    uses: ./.github/workflows/rebuild-data.yml
+    with:
+      runs: ${{ inputs.runs }}

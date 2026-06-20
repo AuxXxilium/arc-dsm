@@ -16,6 +16,12 @@ on:
         options:
           - ubuntu-latest
           - self-hosted
+  workflow_call:
+    inputs:
+      runs:
+        description: "runs-on"
+        type: string
+        required: true
 
 jobs:
   rebuild-data:
@@ -26,6 +32,10 @@ jobs:
         with:
           ref: main
           fetch-depth: 1
+          sparse-checkout: |
+            dsm
+            data.yml
+            webdata.txt
 
       - name: Initialization environment
         run: |
@@ -46,7 +56,9 @@ jobs:
         run: |
           set -e
 
-          # Build model->platform map from RSS (same source as functions.py)
+          # Build model->platform map from RSS (same logic as functions.py)
+          # RSS mUnique strips DS/RS/FS/SA/HD/DVA/PAS prefixes for many models,
+          # so the map key may be "620slim" rather than "ds620slim".
           declare -A MODEL_PLATFORM
           SUPPORTED_PLATFORMS="$(yq eval '.platforms | keys | .[]' ./configs/platforms.yml)"
           RSS="$(curl -fsSL "https://update7.synology.com/autoupdate/genRSS.php?include_beta=1")"
@@ -60,39 +72,80 @@ jobs:
             MODEL_PLATFORM["${model}"]="${platform}"
           done < <(echo "${RSS}" | grep -oP '(?<=<mUnique>)[^<]+')
 
+          # Lookup helper: match dsm/ folder name against MODEL_PLATFORM,
+          # falling back to prefix-stripped key (DS/RS/FS/SA/HD/DVA/PAS).
+          lookup_platform() {
+            local key="${1,,}"
+            if [ -n "${MODEL_PLATFORM[${key}]:-}" ]; then
+              echo "${MODEL_PLATFORM[${key}]}"
+              return
+            fi
+            local bare
+            bare="$(echo "${key}" | sed -E 's/^(ds|rs|fs|sa|hd|dva|pas)//')"
+            if [ -n "${MODEL_PLATFORM[${bare}]:-}" ]; then
+              echo "${MODEL_PLATFORM[${bare}]}"
+              return
+            fi
+            echo ""
+          }
+
           # Rebuild from dsm/<MODEL>/<VERSION>/pat_url + pat_hash
           TMP_YML="$(mktemp)"
           WEBDATA="./webdata.txt"
-          echo "{}" > "${TMP_YML}"
+          > "${TMP_YML}"
           > "${WEBDATA}"
 
+          # Build sorted list of "PLATFORM MODEL_DIR" pairs, then write grouped by platform
+          declare -a PLATFORM_MODEL_PAIRS
           for MODEL_DIR in ./dsm/*/; do
             [ -d "${MODEL_DIR}" ] || continue
             MODEL="$(basename "${MODEL_DIR}")"
-            PLATFORM="${MODEL_PLATFORM[${MODEL,,}]:-}"
+            PLATFORM="$(lookup_platform "${MODEL}")"
             if [ -z "${PLATFORM}" ]; then
               echo "Warning: no platform for model ${MODEL}, skipping"
               continue
             fi
-            for VERSION_DIR in "${MODEL_DIR}"*/; do
+            PLATFORM_MODEL_PAIRS+=("${PLATFORM} ${MODEL_DIR}")
+          done
+
+          CURRENT_PLATFORM=""
+
+          while IFS=' ' read -r PLATFORM MODEL_DIR; do
+            MODEL="$(basename "${MODEL_DIR}")"
+            declare -A SEEN_URLS
+            unset SEEN_URLS; declare -A SEEN_URLS
+            ENTRIES=""
+            while IFS= read -r VERSION_DIR; do
               [ -d "${VERSION_DIR}" ] || continue
               VERSION="$(basename "${VERSION_DIR}")"
-              PAT_URL_FILE="${VERSION_DIR}pat_url"
-              PAT_HASH_FILE="${VERSION_DIR}pat_hash"
+              PAT_URL_FILE="${VERSION_DIR}/pat_url"
+              PAT_HASH_FILE="${VERSION_DIR}/pat_hash"
               [ -f "${PAT_URL_FILE}" ] || continue
               [ -f "${PAT_HASH_FILE}" ] || continue
               PAT_URL="$(tr -d '[:space:]' < "${PAT_URL_FILE}")"
               PAT_HASH="$(tr -d '[:space:]' < "${PAT_HASH_FILE}")"
               [ -z "${PAT_URL}" ] && continue
               [ -z "${PAT_HASH}" ] && continue
+              if [ -n "${SEEN_URLS[${PAT_URL}]:-}" ]; then
+                echo "Skipping duplicate ${MODEL} ${VERSION} (same URL as ${SEEN_URLS[${PAT_URL}]})"
+                continue
+              fi
+              SEEN_URLS["${PAT_URL}"]="${VERSION}"
               PRODUCTVER="${VERSION%%-*}"
-              yq eval \
-                ".\"${PLATFORM}\".\"${MODEL}\".\"${VERSION}\".url = \"${PAT_URL}\" | .\"${PLATFORM}\".\"${MODEL}\".\"${VERSION}\".hash = \"${PAT_HASH}\"" \
-                --inplace "${TMP_YML}"
+              ENTRIES="${ENTRIES}    \"${VERSION}\":\n      url: \"${PAT_URL}\"\n      hash: \"${PAT_HASH}\"\n"
               printf '\n%s %s (%s)\nUrl: %s\nHash: %s\n' \
                 "${MODEL}" "${PRODUCTVER}" "${VERSION}" "${PAT_URL}" "${PAT_HASH}" >> "${WEBDATA}"
-            done
-          done
+            done < <(find "${MODEL_DIR}" -mindepth 1 -maxdepth 1 -type d | sort -t- -k4 -Vr)
+
+            [ -z "${ENTRIES}" ] && continue
+
+            if [ "${PLATFORM}" != "${CURRENT_PLATFORM}" ]; then
+              printf '%s:\n' "${PLATFORM}" >> "${TMP_YML}"
+              CURRENT_PLATFORM="${PLATFORM}"
+            fi
+            printf '  "%s":\n' "${MODEL}" >> "${TMP_YML}"
+            printf '%b' "${ENTRIES}" >> "${TMP_YML}"
+          done < <(printf '%s\n' "${PLATFORM_MODEL_PAIRS[@]}" | sort)
 
           cp -f "${TMP_YML}" ./data.yml
           rm -f "${TMP_YML}"
